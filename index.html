@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bookshop</title>
+        <link rel="stylesheet" href="./src/style.css">
+        <script src="./src/script.js"></script>
+        <script src="https://kit.fontawesome.com/d8db861d36.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="navbar">
+            <ul>
+                <li><a href="./index.html" class="active fa-solid fa-shop">Shop</a></li>
+                <li><a href="./books/booklist.html">Books</a></li>
+                <li><a href="./authors/authorList.html">Authors</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Bookshop</h1>
+            <input type="search">
+            <button>Create</button>
+            <p onclick="searchFile()">search</p>
+    
+            <input type="file" id="fileInput">
+        </div>
+
+    </body>
+</html>
+
+<!-- 
+    Book
+        id: int
+        name: str
+        pages: int 
+        release: date
+        authorId: int
+        genreId: int
+
+    Author
+        id: int
+        name: str
+        dateOfBirth: date
+
+    Genre
+        id: int
+        name: str
+
+    pages = booklist, createBook, editBook, details
+-->

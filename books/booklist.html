@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Books overview</title>
+        <link rel="stylesheet" href="../src/style.css">
+        <script type="text/javascript" src="../src/script.js"></script>
+        <script src="https://kit.fontawesome.com/d8db861d36.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="navbar">
+            <ul>
+                <li><a href="../index.html" class="fa-solid fa-shop">Shop</a></li>
+                <li><a class="active" href="booklist.html">Books</a></li>
+                <li><a href="../authors/authorList.html">Authors</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="header">
+                <h1 class="h1">Books</h1>
+                <input type="search" class="createAndSearch searchBar">
+                <a href="./createBook.html" class="createAndSearch createBtn fa-solid fa-plus"></a>
+            </div>
+            <table class="table">
+                <thead>
+                    <th>Cover</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>pages</th>
+                    <th>Release</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th></th>
+                </thead>
+                <tbody id="books_table">
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
