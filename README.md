@@ -1,12 +1,12 @@
 # Bookshop
 Book
     id: int
-    name: str
-    pages: int 
+    cover: string
+    name: string
+    pages: int
     release: date
     authorId: int
     genreId: int
-
 Author
     id: int
     name: str
