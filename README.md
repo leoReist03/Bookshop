@@ -7,6 +7,7 @@ Book
     release: date
     authorId: int
     genreId: int
+    
 Author
     id: int
     name: str
