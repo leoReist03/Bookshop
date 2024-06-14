@@ -1,7 +1,7 @@
 //instance variables
 var books;
 var authors;
-var gerne;
+var genres;
 
 getBooks();
 getAuthors();
@@ -24,14 +24,44 @@ if (document.title == "Books overview") {
 
 //get create page ready
 if (document.title == "Book create") {
-    getAuthors();
-    var authorSelectOptions = document.getElementById("bookAuthors").options;
-    authors.forEach(author => 
-        authorSelectOptions.add(new Option(author.name))
-    );
+    window.onload = () => {
+        var authorSelectOptions = document.getElementById("bookAuthor").options;
+        var genreSelectOptions = document.getElementById("bookGenre").options;
+        authors.forEach(author => 
+            authorSelectOptions.add(new Option(author.name))
+        );
+        genres.forEach(genre =>
+            genreSelectOptions.add(new Option(genre.name))
+        );
+    }
+} else if (document.title == "Author create") {
+
+} else if (document.title == "Genre create") {
+
 }
 
-//fill book array
+//get edit page ready
+if (document.title == "Book edit") {
+    window.onload = () =>  {
+        var book = getBook(document.URL.split('?')[1]);
+        var author = getAuthor(book.authorId);
+        
+        document.getElementById('bookName').value = book.name;
+        document.getElementById('bookDescription').value = book.description;
+        document.getElementById('bookPages').value = book.pages;
+        document.getElementById('bookRelease').value = book.release;
+        document.getElementById('bookAuthor').value = author.name;
+    }
+} else if (document.title == "Author edit") {
+
+} else if (document.title == "Genre edit") {
+
+}
+
+function setupEditBook() {
+}
+
+//getAll Methods
 async function getBooks() {
     var booksJson = '[{"id":"1","cover":"cover","name":"name","description":"description","pages":"300","release":"30.01.2020","authorId":"1","genreId":"1"},{"id":"2","cover":"cover","name":"name","description":"description","pages":"300","release":"30.01.2020","authorId":"2","genreId":"2"}]';
 
@@ -40,7 +70,6 @@ async function getBooks() {
     books = JSON.parse(localStorage.getItem("books"));
 }
 
-//fill author array
 async function getAuthors() {
     var authorsJson = '[{"id":"1","name":"PierceBrown","dateOfBirth":"28.01.1988"},{"id":"2","name":"BrandonSanderson","dateOfBirt":"19.12.1975"}]';
 
@@ -49,7 +78,6 @@ async function getAuthors() {
     authors = JSON.parse(localStorage.getItem("authors"));
 }
 
-//fill genre array
 async function getGenres() {
     var genresJson = '[{"id":"1","name":"ScienceFiction"},{"id":"2","name":"Fantasy"}]';
 
@@ -58,57 +86,7 @@ async function getGenres() {
     genres = JSON.parse(localStorage.getItem("genres"));
 }
 
-function readAllBooks() {
-    var booksTable = document.getElementById("books_table");
-    elements = '';
-    books.forEach(book => { 
-        elements += readBook(book);
-    });
-
-    booksTable.innerHTML = elements;
-}
-
-function readBook(obj){
-    var author = getAuthor(obj.authorId);
-    var genre = getGenre(obj.genreId)
-    var element = '<tr><td>'
-    + obj.cover + '</td><td>' 
-    + obj.name + '</td><td>' 
-    + obj.description + '</td><td>' 
-    + obj.pages + '</td><td>' 
-    + obj.release + '</td><td>' 
-    + author.name + '</td><td>'
-    + genre.name + '</td><td>'
-    + '<span id="editBtn" onclick="editBook(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
-    + '<span id="deleteBtn" onclick="deleteBook(' + obj.id + ')" class="deleteBtn fa-solid fa-delete-left"></span>'
-    + '</td></tr>';
-
-    return element;
-}
-
-function getBookValues() {
-    var id = books.length + 1;
-    var cover = document.getElementById('bookCover').value;
-    var name = document.getElementById('bookName').value;
-    var description = document.getElementById('bookDescription').value;
-    var pages = document.getElementById('bookPages').value;
-    var release = document.getElementById('bookRelease').value;
-    var authorId = document.getElementById('bookAuthor').value;
-
-    return obj = {id: id, cover: cover, name: name, description: description, pages: pages, release: release, authorId: authorId};
-}
-
-function validateBookValues(obj) {
-    var result = "";
-    var rgxName = /[^a-z1-9 ]/gmi;
-
-    if (obj.name == "" || rgxName.test(obj.name)) {
-        result += "Name must only contain letters and numbers. ";
-    }
-
-    return result;
-}
-
+//getSingle Methods
 function getBook(id) {
     var result;
     books.forEach(obj => {
@@ -142,6 +120,63 @@ function getGenre(id) {
     return result;
 }
 
+//readAll Methods
+function readAllBooks() {
+    var booksTable = document.getElementById("books_table");
+    elements = '';
+    books.forEach(book => { 
+        elements += readBook(book);
+    });
+
+    booksTable.innerHTML = elements;
+}
+
+//readSingle Methods
+function readBook(obj){
+    var author = getAuthor(obj.authorId);
+    var genre = getGenre(obj.genreId)
+    var element = '<tr><td>'
+    + obj.cover + '</td><td>' 
+    + obj.name + '</td><td>' 
+    + obj.description + '</td><td>' 
+    + obj.pages + '</td><td>' 
+    + obj.release + '</td><td>' 
+    + author.name + '</td><td>'
+    + genre.name + '</td><td>'
+    + '<span id="editBtn" onclick="editBook(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
+    + '<span id="deleteBtn" onclick="deleteBook(' + obj.id + ')" class="deleteBtn fa-solid fa-delete-left"></span>'
+    + '</td></tr>';
+
+    return element;
+}
+
+//get input values
+function getBookValues() {
+    console.log("on create " + document.getElementById("bookName"));
+    var id = books.length + 1;
+    var cover = document.getElementById('bookCover').value;
+    var name = document.getElementById('bookName').value;
+    var description = document.getElementById('bookDescription').value;
+    var pages = document.getElementById('bookPages').value;
+    var release = document.getElementById('bookRelease').value;
+    var authorId = document.getElementById('bookAuthor').value;
+
+    return obj = {id: id, cover: cover, name: name, description: description, pages: pages, release: release, authorId: authorId};
+}
+
+//validate inputs
+function validateBookValues(obj) {
+    var result = "";
+    var rgxName = /[^a-z1-9 ]/gmi;
+
+    if (obj.name == "" || rgxName.test(obj.name)) {
+        result += "Name must only contain letters and numbers. ";
+    }
+
+    return result;
+}
+
+//Create Methods
 function createBook() {
     var book = getBookValues();
 
@@ -155,26 +190,21 @@ function createBook() {
     window.location.href = "./booklist.html";
 }
 
+//Delete Methods
 function deleteBook(id) {
-    books = books.filter((obj) => obj.id !== id);
+    //TODO: Doesn't work
+    books.filter(function (book) {
+        return Number(book.id) !== Number(id);
+    });
+    readAllBooks();
 }
 
-//get book values from url
-if (document.title.search("edit")) {
-    var book = getBook(document.URL.split('?')[1]);
-    var author = getAuthor(book.authorId);
-    
-    document.getElementById('bookName').value = book.name;
-    document.getElementById('bookDescription').value = book.description;
-    document.getElementById('bookPages').value = book.pages;
-    document.getElementById('bookRelease').value = book.release;
-    document.getElementById('bookAuthor').value = author.name;
-}
-
+//Edit Methods
 function editBook(id) {
     window.location.href = "./editBook.html?" + id;
 }
 
+//Cancel Methods
 function cancel(){
     window.location.href = "../books/booklist.html";
 }
