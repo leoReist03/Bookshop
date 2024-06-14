@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Book overview</title>
+        <title>Authors overview</title>
         <link rel="stylesheet" href="../src/style.css">
-        <script src="../src/script.js"></script>
+        <script type="text/javascript" src="../src/script.js"></script>
         <script src="https://kit.fontawesome.com/d8db861d36.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -11,13 +11,24 @@
             <ul>
                 <li><a href="../index.html" class="fa-solid fa-shop">Shop</a></li>
                 <li><a href="../books/booklist.html">Books</a></li>
-                <li><a class="active" href="/authorList.html">Authors</a></li>
+                <li><a class="active" href="./authorlist.html">Authors</a></li>
             </ul>
         </div>
         <div class="content">
-            <h1>Authors</h1>
-            <input type="search">
-            <button>Create</button>
+            <div class="header">
+                <h1 class="h1">Authors</h1>
+                <input type="search" class="createAndSearch searchBar">
+                <a href="./createAuthor.html" class="createAndSearch createBtn fa-solid fa-plus"></a>
+            </div>
+            <table class="table">
+                <thead>
+                    <th>Name</th>
+                    <th>Birthday</th>
+                    <th></th>
+                </thead>
+                <tbody id="authors_table">
+                </tbody>
+            </table>
         </div>
     </body>
 </html>

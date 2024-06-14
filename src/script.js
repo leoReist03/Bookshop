@@ -11,7 +11,7 @@ if (window.sessionStorage.getItem("isNewSession") !== "0") {
     var booksJson = '[{"id":"1","cover":"cover","name":"name","description":"description","pages":"300","release":"2020-01-30","authorId":"1","genreId":"1"},{"id":"2","cover":"cover","name":"name","description":"description","pages":"300","release":"2020-01-30","authorId":"2","genreId":"2"}]';
     localStorage.setItem('books', booksJson);
     
-    var authorsJson = '[{"id":"1","name":"PierceBrown","dateOfBirth":"1988-01-28"},{"id":"2","name":"BrandonSanderson","dateOfBirt":"1975-12-19"}]';
+    var authorsJson = '[{"id":"1","name":"PierceBrown","dateOfBirth":"1988-01-28"},{"id":"2","name":"BrandonSanderson","dateOfBirth":"1975-12-19"}]';
     localStorage.setItem('authors', authorsJson);
 
     var genresJson = '[{"id":"1","name":"ScienceFiction"},{"id":"2","name":"Fantasy"}]';
@@ -23,31 +23,28 @@ if (window.sessionStorage.getItem("isNewSession") !== "0") {
 //set onload for list page
 if (document.title == "Books overview") {
     window.onload = function () {
-        readAllBooks();
+        readAll("book");
     }
 } else if (document.title == "Authors overview") {
     window.onload = function () {
-        readAllAuthors();
+        readAll("author");
     }
 } else if (document.title == "Genre overview") {
     window.onload = function () {
-        readAllGenres();
+        readAll("genre");
     }
 }
 
 //set onload for create page
 if (document.title == "Book create") {
     window.onload = () => setupCreateBook();
-} else if (document.title == "Author create") {
-
-} else if (document.title == "Genre create") {
-
 }
 
 //set onload for edit page
 if (document.title == "Book edit") {
-    window.onload = () =>  setupEditBook();
+    window.onload = () => setupEditBook();
 } else if (document.title == "Author edit") {
+    window.onload = () => setupEditAuthor();
 
 } else if (document.title == "Genre edit") {
 
@@ -100,6 +97,13 @@ function setupEditBook() {
     document.getElementById('bookGenre').value = book.genreId;
 }
 
+function setupEditAuthor() {
+    var author = getAuthor(document.URL.split('?')[1]);
+
+    document.getElementById('authorName').value = author.name;
+    document.getElementById('authorDateOfBirth').value = author.dateOfBirth;
+}
+
 //getAll Methods
 async function getBooks() {
     books = await JSON.parse(localStorage.getItem("books"));
@@ -147,16 +151,37 @@ function getGenre(id) {
     return result;
 }
 
-//readAll Methods
-function readAllBooks() {
-    var booksTable = document.getElementById("books_table");
-    elements = '';
-    books.forEach(book => { 
-        console.log(book);
-        elements += readBook(book);
-    });
-
-    booksTable.innerHTML = elements;
+//readAll method
+function readAll(type) {
+    switch (type) {
+        case "book":
+            var booksTable = document.getElementById("books_table");
+            elements = '';
+            books.forEach(obj => {
+                elements += readBook(obj);
+            });
+        
+            booksTable.innerHTML = elements;
+            break;
+        case "author":
+            var authorsTable = document.getElementById("authors_table");
+            elements = '';
+            authors.forEach(obj => {
+                elements += readAuthor(obj);
+            });
+        
+            authorsTable.innerHTML = elements;
+            break;
+        case "genre":
+            var genresTable = document.getElementById("genres_table");
+            elements = '';
+            authors.forEach(obj => {
+                elements += readGenre(obj);
+            });
+        
+            genresTable.innerHTML = elements;
+            break;
+    }
 }
 
 //readSingle Methods
@@ -179,28 +204,43 @@ function readBook(obj){
     return element;
 }
 
-//validate inputs
-function validateBookValues(obj) {
-    var result = "";
-    var rgxName = /[^a-z1-9 ]/gmi;
+function readAuthor(obj){
+    var element = '<tr><td>'
+    + obj.name + '</td><td>' 
+    + obj.dateOfBirth + '</td><td>'
+    + '<span id="editBtn" onclick="edit(' + obj.id + ",'author'" + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
+    + '<span id="deleteBtn" onclick="deleteObj(' + obj.id + ",'author'" + ')" class="deleteBtn fa-solid fa-delete-left"></span>'
+    + '</td></tr>';
 
-    if (obj.name == "" || rgxName.test(obj.name)) {
-        result += "Name must only contain letters and numbers. ";
-    }
-
-    return result;
+    return element;
 }
 
 //Create Methods
-function createBook() {
-    var book = getBookValues();
-    onCreateBook(book);
+function create(type) {
+    switch (type) {
+        case "book":
+            var book = getBookValues();
+            onCreateBook(book);
+            break;
+        case "author":
+            var author = getAuthorValues();
+            onCreateAuthor(author);
+            break;
+        case "genre":
+            break;
+    }
 }
 
-function onCreateBook(book) {
-    books.push(book);
+function onCreateBook(obj) {
+    books.push(obj);
     localStorage.setItem("books", JSON.stringify(books));
     window.location.href = "./booklist.html";
+}
+
+function onCreateAuthor(obj) {
+    authors.push(obj);
+    localStorage.setItem("authors", JSON.stringify(authors));
+    window.location.href = "./authorlist.html";
 }
 
 //get input values
@@ -219,16 +259,42 @@ function getBookValues() {
     return obj = {id: id, cover: cover, name: name, description: description, pages: pages, release: release, authorId: authorId, genreId: genreId};
 }
 
+function getAuthorValues() {
+    var id = authors.length + 2;
+    if (document.URL.search == "/[?]/gm") {
+    }
+    var name = document.getElementById('authorName').value;
+    var dateOfBirth = document.getElementById('authorDateOfBirth').value;
+
+    return obj = {id: id, name: name, dateOfBirth: dateOfBirth}
+}
+
 //Update Methods
-function updateBook() {
-    var book = getBookValues();
-    book.id = document.URL.split('?')[1];
-    
-    books = books.filter(i => i.id != book.id);
-
-    onCreateBook(book);
-
-    window.location.href = "./booklist.html";
+function update(type) {
+    switch (type) {
+        case "book":
+            var book = getBookValues();
+            book.id = document.URL.split('?')[1];
+            
+            books = books.filter(i => i.id != book.id);
+        
+            onCreateBook(book);
+        
+            window.location.href = "./booklist.html";
+            break;
+        case "author":
+            var author = getAuthorValues();
+            author.id = document.URL.split('?')[1];
+            
+            authors = authors.filter(i => i.id != author.id);
+        
+            onCreateAuthor(author);
+        
+            window.location.href = "./authorlist.html";
+            break;
+        case "genre":
+            break;
+    }
 }
 
 //Delete Methods
@@ -241,6 +307,10 @@ function deleteObj(id, type) {
             location.reload();
             break;
         case "author":
+            var newAuthors = authors.filter(author => author.id != id);
+        
+            localStorage.setItem("authors", JSON.stringify(newAuthors));
+            location.reload();
             break;
         case "genre":
             break;
