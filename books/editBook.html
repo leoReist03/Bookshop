@@ -32,10 +32,12 @@
                 <input type="date" id="bookRelease" class="formInput">
                 <label for="bookAuthor" class="formLabel">Author:</label>
                 <select type="number" id="bookAuthor" class="formInput"></select>
+                <label for="bookGenre" class="formLabel">Genre:</label>
+                <select type="number" id="bookGenre" class="formInput"></select>
     
                 <div class="editButtons">
-                    <span onclick="cancel()" id="cancelButton" class="btn cancelBtn">Cancel</span>
-                    <span onclick="update()" id="confirmBtn" class="btn confirmBtn">Update</span>
+                    <span onclick="cancel('book')" id="cancelButton" class="btn cancelBtn">Cancel</span>
+                    <span onclick="createBook()" id="confirmBtn" class="btn confirmBtn">Update</span>
                 </div>
             </form>
         </div>
