@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Author edit</title>
+        <title>Genre create</title>
         <link rel="stylesheet" href="../src/style.css">
         <script type="text/javascript" src="../src/script.js"></script>
         <script src="https://kit.fontawesome.com/d8db861d36.js" crossorigin="anonymous"></script>
@@ -11,24 +11,22 @@
             <ul>
                 <li><a href="../index.html" class="fa-solid fa-shop">Shop</a></li>
                 <li><a href="../books/booklist.html">Books</a></li>
-                <li><a class="active" href="./authorlist.html">Authors</a></li>
-                <li><a href="../genres/genrelist.html">Genres</a></li>
+                <li><a href="../authors/authorlist.html">Authors</a></li>
+                <li><a class="active" href="../genres/genrelist.html">Genres</a></li>
             </ul>
         </div>
         <div class="content">
-            <h1>Edit Author</h1>
             <div class="error" id="error">
                 <span id="errorSpan"></span>
             </div>
-            <form id="editAuthorForm" class="form">
-                <label for="authorName" class="formLabel">Name:</label>
-                <input type="text" id="authorName" class="formInput">
-                <label for="authorDateOfBirth" class="formLabel">Date of birth</label>
-                <input type="date" id="authorDateOfBirth" class="formInput">
+            <h1>Create Genre</h1>
+            <form id="createGenreForm" class="form">
+                <label for="genreName" class="formLabel">Name:</label>
+                <input type="text" id="genreName" class="formInput">
     
                 <div class="editButtons">
                     <span onclick="cancel()" id="cancelButton" class="btn cancelBtn">Cancel</span>
-                    <span onclick="update()" id="confirmBtn" class="btn confirmBtn">Update</span>
+                    <span onclick="create()" id="confirmBtn" class="btn confirmBtn">Create</span>
                 </div>
             </form>
         </div>

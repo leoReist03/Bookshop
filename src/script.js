@@ -12,7 +12,7 @@ getBooks();
 getAuthors();
 getGenres();
 
-
+//Fills the instance variables if its a new Session
 if (window.sessionStorage.getItem("isNewSession") !== "0") {
     var booksJson = '[{"id":"1","cover":"cover","name":"name","description":"description","pages":"300","release":"2020-01-30","authorId":"1","genreId":"1"},{"id":"2","cover":"cover","name":"name","description":"description","pages":"300","release":"2020-01-30","authorId":"2","genreId":"2"}]';
     localStorage.setItem('books', booksJson);
@@ -28,6 +28,7 @@ if (window.sessionStorage.getItem("isNewSession") !== "0") {
     window.sessionStorage.setItem("isNewSession", "0");
 }
 
+//Sets the page type
 if (document.title.includes("Book")) {
     localStorage.setItem('pageType', 'book');
 } else if (document.title.includes("Author")) {
@@ -37,18 +38,19 @@ if (document.title.includes("Book")) {
 }
 
 //set onload for list page
-if (document.title == "Books overview") {
+if (document.title == "Book overview") {
     window.onload = function () {
-        document.getElementById('paginationPage').innerHTML = Number(localStorage.getItem('pagination')) +1;
+        document.getElementById('paginationPage').innerHTML = pagination +1;
         readAll();
     }
 } else if (document.title == "Author overview") {
     window.onload = function () {
-        document.getElementById('paginationPage').innerHTML = Number(localStorage.getItem('pagination')) +1;
+        document.getElementById('paginationPage').innerHTML = pagination +1;
         readAll();
     }
 } else if (document.title == "Genre overview") {
     window.onload = function () {
+        document.getElementById('paginationPage').innerHTML = pagination +1;
         readAll();
     }
 }
@@ -62,17 +64,19 @@ if (document.title == "Book create") {
 if (document.title == "Book edit") {
     window.onload = () => setupEditBook();
 } else if (document.title == "Author edit") {
-    window.onload = () => setupEditAuthor();
+    window.onload = () => setupDetailsAuthor();
 
 } else if (document.title == "Genre edit") {
-
+    window.onload = () => setupDetailsGenre();
 }
 
 //set onload for details
 if (document.title == "Book details") {
     window.onload = () => setupDetailsBook();
 } else if (document.title == "Author details") {
+    window.onload = () => setupDetailsAuthor();
 } else if (document.title == "Genre details") {
+    window.onload = () => setupDetailsGenre();
 }
 
 //setup create page
@@ -88,7 +92,7 @@ function setupCreateBook() {
     );
 }
 
-//setup details page
+//setup details
 function setupDetailsBook() {
     var book = getBook(document.URL.split('?')[1]);
 
@@ -98,6 +102,19 @@ function setupDetailsBook() {
     document.getElementById('bookRelease').value = book.release;
     document.getElementById('bookAuthor').value = book.authorId;
     document.getElementById('bookGenre').value = book.genreId;
+}
+
+function setupDetailsAuthor() {
+    var author = getAuthor(document.URL.split('?')[1]);
+
+    document.getElementById('authorName').value = author.name;
+    document.getElementById('authorDateOfBirth').value = author.dateOfBirth;
+}
+
+function setupDetailsGenre() {
+    var genre = getGenre(document.URL.split('?')[1]);
+
+    document.getElementById('genreName').value = genre.name;
 }
 
 //setup edit page
@@ -112,13 +129,6 @@ function setupEditBook() {
     document.getElementById('bookRelease').value = book.release;
     document.getElementById('bookAuthor').value = book.authorId;
     document.getElementById('bookGenre').value = book.genreId;
-}
-
-function setupEditAuthor() {
-    var author = getAuthor(document.URL.split('?')[1]);
-
-    document.getElementById('authorName').value = author.name;
-    document.getElementById('authorDateOfBirth').value = author.dateOfBirth;
 }
 
 //getAll Methods
@@ -170,66 +180,66 @@ function getGenre(id) {
 
 //readAll method
 function readAll() {
+    var currentElements;
+    var currentTable;
     switch (localStorage.getItem('pageType')) {
         case "book":
-            var currentBooks = books.slice(pagination * paginationAmount, pagination * paginationAmount + paginationAmount);
-            var booksTable = document.getElementById("books_table");
-            elements = '';
-            currentBooks.forEach(obj => {
-                elements += readBook(obj);
-            });
-        
-            booksTable.innerHTML = elements;
+            currentElements = books.slice(pagination * paginationAmount, pagination * paginationAmount + paginationAmount);
+            currentTable = document.getElementById("books_table");
             break;
         case "author":
-            var currentAuthors = authors.slice(pagination * paginationAmount, pagination * paginationAmount + paginationAmount);
-            var authorsTable = document.getElementById("authors_table");
-            elements = '';
-            currentAuthors.forEach(obj => {
-                elements += readAuthor(obj);
-            });
-        
-            authorsTable.innerHTML = elements;
+            currentElements = authors.slice(pagination * paginationAmount, pagination * paginationAmount + paginationAmount);
+            currentTable = document.getElementById("authors_table");
             break;
         case "genre":
-            var genresTable = document.getElementById("genres_table");
-            elements = '';
-            authors.forEach(obj => {
-                elements += readGenre(obj);
-            });
-        
-            genresTable.innerHTML = elements;
+            currentElements = genres.slice(pagination * paginationAmount, pagination * paginationAmount + paginationAmount);
+            currentTable = document.getElementById("genres_table");
             break;
     }
+    elements = '';
+    currentElements.forEach(obj => {
+        elements += read(obj);
+    });
+
+    currentTable.innerHTML = elements;
+
 }
 
 //readSingle Methods
-function readBook(obj){
+function read(obj) {
     var author = getAuthor(obj.authorId);
     var genre = getGenre(obj.genreId);
-
-    var element = '<tr><td>'
-    + obj.cover + '</td><td onclick="details(' + obj.id + ')">'
-    + obj.name + '</td><td>' 
-    + obj.description + '</td><td>' 
-    + obj.pages + '</td><td>' 
-    + obj.release + '</td><td>' 
-    + author.name + '</td><td>'
-    + genre.name + '</td><td>'
-    + '<span id="editBtn" onclick="edit(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
-    + '<span id="deleteBtn" onclick="deleteObj(' + obj.id + ')" class="deleteBtn fa-solid fa-delete-left"></span>'
-    + '</td></tr>';
-
-    return element;
-}
-
-function readAuthor(obj){
-    var element = '<tr><td>'
-    + obj.name + '</td><td>' 
-    + obj.dateOfBirth + '</td><td>'
-    + '<span id="editBtn" onclick="edit(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
-    + '<span id="deleteBtn" onclick="deleteObj(' + obj.id + ')" class="deleteBtn fa-solid fa-delete-left"></span>'
-    + '</td></tr>';
+    var element;
+    switch (localStorage.getItem('pageType')) {
+        case "book":
+            var element = '<tr><td>'
+            + obj.cover + '</td><td onclick="details(' + obj.id + ')">'
+            + obj.name + '</td><td>' 
+            + obj.description + '</td><td>' 
+            + obj.pages + '</td><td>' 
+            + obj.release + '</td><td>' 
+            + author.name + '</td><td>'
+            + genre.name + '</td><td>'
+            + '<span id="editBtn" onclick="edit(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
+            + '<span id="deleteBtn" onclick="deleteObj(' + obj.id + ')" class="deleteBtn fa-solid fa-delete-left"></span>'
+            + '</td></tr>';
+            break;
+        case "author":
+            element = '<tr><td>'
+            + obj.name + '</td><td>' 
+            + obj.dateOfBirth + '</td><td>'
+            + '<span id="editBtn" onclick="edit(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
+            + '<span id="deleteBtn" onclick="deleteObj(' + obj.id + ')" class="deleteBtn fa-solid fa-delete-left"></span>'
+            + '</td></tr>';
+            break;
+        case "genre":
+            element = '<tr><td>'
+            + obj.name + '</td><td>' 
+            + '<span id="editBtn" onclick="edit(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
+            + '<span id="deleteBtn" onclick="deleteObj(' + obj.id + ')" class="deleteBtn fa-solid fa-delete-left"></span>'
+            + '</td></tr>';
+            break;
+    }
 
     return element;
 }
@@ -238,14 +248,13 @@ function readAuthor(obj){
 function create() {
     switch (localStorage.getItem('pageType')) {
         case "book":
-            var book = getBookValues();
-            onCreateBook(book);
+            onCreateBook(getBookValues());
             break;
         case "author":
-            var author = getAuthorValues();
-            onCreateAuthor(author);
+            onCreateAuthor(getAuthorValues());
             break;
         case "genre":
+            onCreateGenre(getGenreValues());
             break;
     }
 }
@@ -262,11 +271,15 @@ function onCreateAuthor(obj) {
     window.location.href = "./authorlist.html";
 }
 
+function onCreateGenre(obj) {
+    genres.push(obj);
+    localStorage.setItem("genres", JSON.stringify(genres));
+    window.location.href = "./genrelist.html";
+}
+
 //get input values
 function getBookValues() {
     var id = books.length + 2;
-    if (document.URL.search == "/[?]/gm") {
-    }
     var cover = document.getElementById('bookCover').value;
     var name = document.getElementById('bookName').value;
     var description = document.getElementById('bookDescription').value;
@@ -280,12 +293,17 @@ function getBookValues() {
 
 function getAuthorValues() {
     var id = authors.length + 2;
-    if (document.URL.search == "/[?]/gm") {
-    }
     var name = document.getElementById('authorName').value;
     var dateOfBirth = document.getElementById('authorDateOfBirth').value;
 
-    return obj = {id: id, name: name, dateOfBirth: dateOfBirth}
+    return obj = {id: id, name: name, dateOfBirth: dateOfBirth};
+}
+
+function getGenreValues() {
+    id = genres.length +2;
+    var name = document.getElementById('genreName').value;
+
+    return obj = {id: id, name: name};
 }
 
 //Update Methods
@@ -312,6 +330,14 @@ function update() {
             window.location.href = "./authorlist.html";
             break;
         case "genre":
+            var genre = getGenreValues();
+            genre.id = document.URL.split('?')[1];
+
+            genres = genres.filter(i => i.id != genre.id);
+
+            onCreateGenre(genre);
+
+            window.location.href = "./genrelist.html";
             break;
     }
 }
@@ -332,6 +358,10 @@ function deleteObj(id) {
             location.reload();
             break;
         case "genre":
+            var newGenres = genres.filter(genre => genre.id != id);
+
+            localStorage.setItem("genres", JSON.stringify(newGenres));
+            location.reload();
             break;
     }
 }

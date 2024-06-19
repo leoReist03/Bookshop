@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Genre overview</title>
+        <link rel="stylesheet" href="../src/style.css">
+        <script type="text/javascript" src="../src/script.js"></script>
+        <script src="https://kit.fontawesome.com/d8db861d36.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="navbar">
+            <ul>
+                <li><a href="../index.html" class="fa-solid fa-shop">Shop</a></li>
+                <li><a href="../books/booklist.html">Books</a></li>
+                <li><a href="../authors/authorlist.html">Authors</a></li>
+                <li><a class="active" href="../genres/genrelist.html">Genres</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="header">
+                <h1 class="h1">Genres</h1>
+                <input type="search" class="createAndSearch searchBar">
+                <a href="./createGenre.html" class="createAndSearch createBtn fa-solid fa-plus"></a>
+            </div>
+            <table class="table">
+                <thead>
+                    <th>Name</th>
+                    <th></th>
+                </thead>
+                <tbody id="genres_table">
+                </tbody>
+            </table>
+            <div class="pagination">
+                <span id="paginationLeft" onclick="paginationLeft()" class="paginationBtn fa-solid fa-arrow-left"></span>
+                <span id="paginationPage"></span>
+                <span id="paginationRight" onclick="paginationRight()" class="paginationBtn fa-solid fa-arrow-right"></span>
+            </div>
+        </div>
+    </body>
+</html>
