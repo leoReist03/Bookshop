@@ -47,11 +47,13 @@ if (document.title == "Book overview") {
 } else if (document.title == "Author overview") {
     window.onload = function () {
         document.getElementById('paginationPage').innerHTML = pagination +1;
+        checkIfPaginationDisabled();
         readAll();
     }
 } else if (document.title == "Genre overview") {
     window.onload = function () {
         document.getElementById('paginationPage').innerHTML = pagination +1;
+        checkIfPaginationDisabled();
         readAll();
     }
 }
@@ -431,13 +433,15 @@ function paginationRight() {
 
 function checkIfPaginationDisabled() {
     //check if paginationLeft is disabled
+    console.log(pagination);
+    console.log(genres);
     if (pagination > 0) {
         document.getElementById('paginationLeft').disabled = false;
     } else {
         document.getElementById('paginationLeft').disabled = true;
     }
     //check if paginationRight is disabled using ternary operator
-    if (pagination != Math.ceil((localStorage.getItem('pageType') == 'book' ? books.length : (localStorage.getItem('pageType') == 'author' ? authors.length : genre.length)) / paginationAmount - 1)) {
+    if (pagination != Math.ceil((localStorage.getItem('pageType') == 'book' ? books.length : (localStorage.getItem('pageType') == 'author' ? authors.length : genres.length)) / paginationAmount - 1)) {
         document.getElementById('paginationRight').disabled = false;
     } else {
         document.getElementById('paginationRight').disabled = true;

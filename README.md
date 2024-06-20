@@ -18,7 +18,9 @@ Genre
     name: str
 
 pages 
-  list
-  create
-  edit
-  details
+    index
+    per object
+        list
+        create
+        edit
+        details
