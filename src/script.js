@@ -440,8 +440,8 @@ function checkIfPaginationDisabled() {
     } else {
         document.getElementById('paginationLeft').disabled = true;
     }
-    //check if paginationRight is disabled
-    if (pagination != ((localStorage.getItem('pageType') == 'book' ? books.length : (localStorage.getItem('pageType') == 'author' ? authors.length : genre.length)) / paginationAmount) -1) {
+    //check if paginationRight is disabled using ternary operator
+    if (pagination != Math.round((localStorage.getItem('pageType') == 'book' ? books.length : (localStorage.getItem('pageType') == 'author' ? authors.length : genre.length)) / paginationAmount - 1)) {
         document.getElementById('paginationRight').disabled = false;
     } else {
         document.getElementById('paginationRight').disabled = true;
