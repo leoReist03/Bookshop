@@ -191,7 +191,13 @@ h1 {
     font-size: larger;
 }
 
-.paginationBtn:hover {
+.paginationBtn {
+    border: none;
+    background-color: white;
+    font-size: large;
+}
+
+.paginationBtn:hover:enabled {
     color: #037c50;
     cursor: pointer;
 }

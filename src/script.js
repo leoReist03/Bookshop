@@ -41,6 +41,7 @@ if (document.title.includes("Book")) {
 if (document.title == "Book overview") {
     window.onload = function () {
         document.getElementById('paginationPage').innerHTML = pagination +1;
+        checkIfPaginationDisabled();
         readAll();
     }
 } else if (document.title == "Author overview") {
@@ -184,14 +185,17 @@ function readAll() {
     var currentTable;
     switch (localStorage.getItem('pageType')) {
         case "book":
+            books = books.sort((a, b) => a.id - b.id);
             currentElements = books.slice(pagination * paginationAmount, pagination * paginationAmount + paginationAmount);
             currentTable = document.getElementById("books_table");
             break;
         case "author":
+            authors.sort((a,b) => a.id - b.id);
             currentElements = authors.slice(pagination * paginationAmount, pagination * paginationAmount + paginationAmount);
             currentTable = document.getElementById("authors_table");
             break;
         case "genre":
+            genres.sort((a,b) => a.id - b.id);
             currentElements = genres.slice(pagination * paginationAmount, pagination * paginationAmount + paginationAmount);
             currentTable = document.getElementById("genres_table");
             break;
@@ -418,31 +422,28 @@ function paginationLeft() {
     }
     pagination -= 1;
     document.getElementById('paginationPage').innerHTML = pagination + 1;
+    checkIfPaginationDisabled();
     readAll();
 }
 
 function paginationRight() {
-    switch (localStorage.getItem('pageType')) {
-        case "book":
-            if (pagination >= (books.length / paginationAmount) -1) {
-                console.log("pagination cannot go higher than this")
-                return;
-            }
-            break;
-        case "author":
-            if (pagination >= (authors.length / paginationAmount) -1) {
-                console.log("pagination cannot go higher than this")
-                return;
-            }
-            break;
-        case "genre":
-            if (pagination >= (genres.length / paginationAmount) -1) {
-                console.log("pagination cannot go higher than this")
-                return;
-            }
-            break;
-    }
     pagination += 1;
     document.getElementById('paginationPage').innerHTML = pagination + 1;
+    checkIfPaginationDisabled();
     readAll();
 }
+
+function checkIfPaginationDisabled() {
+    //check if paginationLeft is disabled
+    if (pagination > 0) {
+        document.getElementById('paginationLeft').disabled = false;
+    } else {
+        document.getElementById('paginationLeft').disabled = true;
+    }
+    //check if paginationRight is disabled
+    if (pagination != ((localStorage.getItem('pageType') == 'book' ? books.length : (localStorage.getItem('pageType') == 'author' ? authors.length : genre.length)) / paginationAmount) -1) {
+        document.getElementById('paginationRight').disabled = false;
+    } else {
+        document.getElementById('paginationRight').disabled = true;
+    }
+} 
