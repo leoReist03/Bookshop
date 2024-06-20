@@ -416,10 +416,6 @@ function cancel() {
 }
 
 function paginationLeft() {
-    if (pagination <= 0) {
-        console.log("pagination cannot go lower than 1");
-        return;
-    }
     pagination -= 1;
     document.getElementById('paginationPage').innerHTML = pagination + 1;
     checkIfPaginationDisabled();
@@ -441,7 +437,7 @@ function checkIfPaginationDisabled() {
         document.getElementById('paginationLeft').disabled = true;
     }
     //check if paginationRight is disabled using ternary operator
-    if (pagination != Math.round((localStorage.getItem('pageType') == 'book' ? books.length : (localStorage.getItem('pageType') == 'author' ? authors.length : genre.length)) / paginationAmount - 1)) {
+    if (pagination != Math.ceil((localStorage.getItem('pageType') == 'book' ? books.length : (localStorage.getItem('pageType') == 'author' ? authors.length : genre.length)) / paginationAmount - 1)) {
         document.getElementById('paginationRight').disabled = false;
     } else {
         document.getElementById('paginationRight').disabled = true;

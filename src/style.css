@@ -201,3 +201,7 @@ h1 {
     color: #037c50;
     cursor: pointer;
 }
+
+.landingPageP {
+    grid-column: 2;
+}
