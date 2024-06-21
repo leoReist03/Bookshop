@@ -134,7 +134,7 @@ function setupEditBook() {
     document.getElementById('bookGenre').value = book.genreId;
 }
 
-//getAll Methods
+//getAll functions
 async function getBooks() {
     books = await JSON.parse(localStorage.getItem("books"));
 }
@@ -147,7 +147,7 @@ async function getGenres() {
     genres = await JSON.parse(localStorage.getItem("genres"));
 }
 
-//getSingle Methods
+//getSingle functions
 function getBook(id) {
     var result;
     books.forEach(obj => {
@@ -181,7 +181,7 @@ function getGenre(id) {
     return result;
 }
 
-//readAll method
+//readAll function
 function readAll() {
     var currentElements;
     var currentTable;
@@ -211,7 +211,7 @@ function readAll() {
 
 }
 
-//readSingle Methods
+//readSingle function
 function read(obj) {
     var author = getAuthor(obj.authorId);
     var genre = getGenre(obj.genreId);
@@ -250,7 +250,7 @@ function read(obj) {
     return element;
 }
 
-//Create Methods
+//Create functions
 function create() {
     switch (localStorage.getItem('pageType')) {
         case "book":
@@ -312,7 +312,7 @@ function getGenreValues() {
     return obj = {id: id, name: name};
 }
 
-//Update Methods
+//Update function
 function update() {
     switch (localStorage.getItem('pageType')) {
         case "book":
@@ -348,31 +348,31 @@ function update() {
     }
 }
 
-//Delete Methods
+//Delete function
 function deleteObj(id) {
     switch (localStorage.getItem('pageType')) {
         case "book":
-            var newBooks = books.filter(book => book.id != id);
-        
-            localStorage.setItem("books", JSON.stringify(newBooks));
+            books.filter(book => book.id != id);
+
+            localStorage.setItem("books", JSON.stringify(books));
             location.reload();
             break;
         case "author":
-            var newAuthors = authors.filter(author => author.id != id);
+            authors.filter(author => author.id != id);
         
-            localStorage.setItem("authors", JSON.stringify(newAuthors));
+            localStorage.setItem("authors", JSON.stringify(authors));
             location.reload();
             break;
         case "genre":
-            var newGenres = genres.filter(genre => genre.id != id);
+            genres.filter(genre => genre.id != id);
 
-            localStorage.setItem("genres", JSON.stringify(newGenres));
+            localStorage.setItem("genres", JSON.stringify(genres));
             location.reload();
             break;
     }
 }
 
-//Edit Methods
+//Edit function
 function edit(id) {
     switch (localStorage.getItem('pageType')) {
         case "book":
@@ -387,7 +387,7 @@ function edit(id) {
     }
 }
 
-//Details Methods
+//Details function
 function details(id) {
     switch (localStorage.getItem('pageType')) {
         case "book":
@@ -402,7 +402,7 @@ function details(id) {
     }
 }
 
-//Cancel Methods
+//Cancel function
 function cancel() {
     switch (localStorage.getItem('pageType')) {
         case "book":

@@ -175,6 +175,10 @@ h1 {
     cursor: pointer;
 }
 
+.editBtn {
+    margin-right: 10px;
+}
+
 .editBtn:hover {
     color: chocolate;
     cursor: pointer;
