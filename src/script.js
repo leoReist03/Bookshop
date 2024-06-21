@@ -231,7 +231,7 @@ function read(obj) {
             + '</td></tr>';
             break;
         case "author":
-            element = '<tr><td>'
+            element = '<tr><td onclick="details(' + obj.id + ')">'
             + obj.name + '</td><td>' 
             + obj.dateOfBirth + '</td><td>'
             + '<span id="editBtn" onclick="edit(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
@@ -239,7 +239,7 @@ function read(obj) {
             + '</td></tr>';
             break;
         case "genre":
-            element = '<tr><td>'
+            element = '<tr><td onclick="details(' + obj.id + ')">'
             + obj.name + '</td><td>' 
             + '<span id="editBtn" onclick="edit(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
             + '<span id="deleteBtn" onclick="deleteObj(' + obj.id + ')" class="deleteBtn fa-solid fa-delete-left"></span>'
@@ -352,21 +352,21 @@ function update() {
 function deleteObj(id) {
     switch (localStorage.getItem('pageType')) {
         case "book":
-            books.filter(book => book.id != id);
+            var newBooks = books.filter(book => book.id != id);
 
-            localStorage.setItem("books", JSON.stringify(books));
+            localStorage.setItem("books", JSON.stringify(newBooks));
             location.reload();
             break;
         case "author":
-            authors.filter(author => author.id != id);
+            var newAuthors = authors.filter(author => author.id != id);
         
-            localStorage.setItem("authors", JSON.stringify(authors));
+            localStorage.setItem("authors", JSON.stringify(newAuthors));
             location.reload();
             break;
         case "genre":
-            genres.filter(genre => genre.id != id);
+            var newGenres = genres.filter(genre => genre.id != id);
 
-            localStorage.setItem("genres", JSON.stringify(genres));
+            localStorage.setItem("genres", JSON.stringify(newGenres));
             location.reload();
             break;
     }
