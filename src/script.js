@@ -433,8 +433,6 @@ function paginationRight() {
 
 function checkIfPaginationDisabled() {
     //check if paginationLeft is disabled
-    console.log(pagination);
-    console.log(genres);
     if (pagination > 0) {
         document.getElementById('paginationLeft').disabled = false;
     } else {
