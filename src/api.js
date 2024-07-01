@@ -1,7 +1,18 @@
 var popupOverlay;
+var books;
+
+const paginationAmount = 10;
+if (pagination == null) {
+    var pagination = 0;
+}
 
 window.onload = () => {
-    getBookListReady();
+    fetchBooksAsync().then(function(result) {
+        books = result;
+        checkIfPaginationDisabled();
+        document.getElementById('paginationPage').innerHTML = (pagination + 1) + ' / ' + (books.length / paginationAmount);
+        readAll();
+    });
     popupOverlay = document.getElementById('popupOverlay');
     popupOverlay.addEventListener('click', function(event) {
         if (event.target.id == 'popupOverlay') {
@@ -10,11 +21,11 @@ window.onload = () => {
     });
 }
 
-function getBookListReady() {
-    fetchBooksAsync().then(function(books) {
-        for (let i = 10; i > 0; i--) {
-            addBook(books[i]);
-        }
+function readAll() {
+    document.getElementById('books').innerHTML = '';
+    var currentBooks = books.slice(pagination * paginationAmount, pagination * paginationAmount + paginationAmount);
+    currentBooks.forEach(book => {
+        addBook(book);
     });
 }
 
@@ -106,3 +117,41 @@ function closePopup() {
     popupOverlay.style.display = 'none';
 }
 
+function paginate(type) {
+    switch (type) {
+        case 'first':
+            pagination = 0;
+            break;
+        case 'left':
+            pagination -= 1;
+            break;
+        case 'right':
+            pagination += 1;
+            break;
+        case 'last':
+            pagination = books.length / paginationAmount - 1;
+            break;
+    }
+    checkIfPaginationDisabled();
+    document.getElementById('paginationPage').innerHTML = (pagination + 1) + ' / ' + (books.length / paginationAmount);
+    readAll();
+}
+
+function checkIfPaginationDisabled() {
+    //check if paginationLeft is disabled
+    if (pagination > 0) {
+        document.getElementById('paginationLeft').disabled = false;
+        document.getElementById('paginationFirst').disabled = false;
+    } else {
+        document.getElementById('paginationLeft').disabled = true;
+        document.getElementById('paginationFirst').disabled = true;
+    }
+    //check if paginationRight is disabled using ternary operator
+    if (pagination != books.length / paginationAmount - 1) {
+        document.getElementById('paginationRight').disabled = false;
+        document.getElementById('paginationLast').disabled = false;
+    } else {
+        document.getElementById('paginationRight').disabled = true;
+        document.getElementById('paginationLast').disabled = true;
+    }
+} 
