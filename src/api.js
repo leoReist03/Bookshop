@@ -1,25 +1,29 @@
 var popupOverlay;
 var books;
-
-const paginationAmount = 10;
-if (pagination == null) {
-    var pagination = 0;
-}
+var paginationAmount = getPaginationAmount();
+var pagination = 0;
 
 window.onload = () => {
-    fetchBooksAsync().then(function(result) {
+    fetchBooksAsync().then(result => {
         books = result;
         checkIfPaginationDisabled();
-        document.getElementById('paginationPage').innerHTML = (pagination + 1) + ' / ' + (books.length / paginationAmount);
+        setPaginationPage();
         readAll();
     });
     popupOverlay = document.getElementById('popupOverlay');
-    popupOverlay.addEventListener('click', function(event) {
+    popupOverlay.addEventListener('click', event => {
         if (event.target.id == 'popupOverlay') {
             closePopup();
         }
     });
 }
+
+window.addEventListener("resize", () => {
+    paginationAmount = getPaginationAmount();
+    checkIfPaginationDisabled();
+    setPaginationPage();
+    readAll();
+});
 
 function readAll() {
     document.getElementById('books').innerHTML = '';
@@ -67,6 +71,7 @@ async function fetchBookByIsbnAsync(isbn) {
     }
 }
 
+//function to add a book to the page
 function addBook(book) {
     //create div
     var element = document.createElement("div");
@@ -129,29 +134,46 @@ function paginate(type) {
             pagination += 1;
             break;
         case 'last':
-            pagination = books.length / paginationAmount - 1;
+            pagination = Math.ceil(books.length / paginationAmount - 1);
             break;
     }
     checkIfPaginationDisabled();
-    document.getElementById('paginationPage').innerHTML = (pagination + 1) + ' / ' + (books.length / paginationAmount);
+    setPaginationPage();
     readAll();
 }
 
 function checkIfPaginationDisabled() {
-    //check if paginationLeft is disabled
-    if (pagination > 0) {
-        document.getElementById('paginationLeft').disabled = false;
-        document.getElementById('paginationFirst').disabled = false;
-    } else {
+    if (pagination / paginationAmount -1 < 0) {
         document.getElementById('paginationLeft').disabled = true;
         document.getElementById('paginationFirst').disabled = true;
-    }
-    //check if paginationRight is disabled using ternary operator
-    if (pagination != books.length / paginationAmount - 1) {
-        document.getElementById('paginationRight').disabled = false;
-        document.getElementById('paginationLast').disabled = false;
-    } else {
         document.getElementById('paginationRight').disabled = true;
         document.getElementById('paginationLast').disabled = true;
+    } else {
+        if (pagination > 0) {
+            document.getElementById('paginationLeft').disabled = false;
+            document.getElementById('paginationFirst').disabled = false;
+        } else {
+            document.getElementById('paginationLeft').disabled = true;
+            document.getElementById('paginationFirst').disabled = true;
+        }
+        if (pagination != books.length / paginationAmount - 1) {
+            document.getElementById('paginationRight').disabled = false;
+            document.getElementById('paginationLast').disabled = false;
+        } else {
+            document.getElementById('paginationRight').disabled = true;
+            document.getElementById('paginationLast').disabled = true;
+        }
     }
-} 
+}
+
+function getPaginationAmount() {
+    if (window.innerWidth > 1500) {
+        return 14;
+    } else {
+        return 10;
+    }
+}
+
+function setPaginationPage() {
+    document.getElementById('paginationPage').innerHTML = (pagination + 1) + ' / ' + Math.ceil(books.length / paginationAmount);
+}

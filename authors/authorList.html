@@ -31,9 +31,11 @@
                 </tbody>
             </table>
             <div class="pagination">
-                <button type="button" id="paginationLeft" class="paginationBtn fa-solid fa-arrow-left" onclick="paginationLeft()" disabled></button>
+                <button type="button" id="paginationFirst" class="paginationBtn fa-solid fa-angles-left" onclick="paginate('first')" disabled></button>
+                <button type="button" id="paginationLeft" class="paginationBtn fa-solid fa-arrow-left" onclick="paginate('left')" disabled></button>
                 <span id="paginationPage"></span>
-                <button type="button" id="paginationRight" class="paginationBtn fa-solid fa-arrow-right" onclick="paginationRight()" disabled></button>
+                <button type="button" id="paginationRight" class="paginationBtn fa-solid fa-arrow-right" onclick="paginate('right')" disabled></button>
+                <button type="button" id="paginationLast" class="paginationBtn fa-solid fa-angles-right" onclick="paginate('last')" disabled></button>
             </div>
         </div>
     </body>

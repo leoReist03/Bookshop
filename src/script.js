@@ -4,13 +4,11 @@ var authors;
 var genres;
 
 const paginationAmount = 2;
-if (pagination == null) {
-    var pagination = 0;
-}
+var pagination = 0;
 
-getBooks();
-getAuthors();
-getGenres();
+getBooksAsync();
+getAuthorsAsync();
+getGenresAsync();
 
 //Fills the instance variables if its a new Session
 if (window.sessionStorage.getItem("isNewSession") !== "0") {
@@ -38,21 +36,9 @@ if (document.title.includes("Book")) {
 }
 
 //set onload for list page
-if (document.title == "Book overview") {
-    window.onload = function () {
-        document.getElementById('paginationPage').innerHTML = pagination +1;
-        checkIfPaginationDisabled();
-        readAll();
-    }
-} else if (document.title == "Author overview") {
-    window.onload = function () {
-        document.getElementById('paginationPage').innerHTML = pagination +1;
-        checkIfPaginationDisabled();
-        readAll();
-    }
-} else if (document.title == "Genre overview") {
-    window.onload = function () {
-        document.getElementById('paginationPage').innerHTML = pagination +1;
+if (document.title.includes("overview")) {
+    window.onload = () => {
+        setPaginationPage();
         checkIfPaginationDisabled();
         readAll();
     }
@@ -87,12 +73,8 @@ function setupCreateBook() {
     var authorSelect = document.getElementById("bookAuthor");
     var genreSelect = document.getElementById("bookGenre");
     
-    authors.forEach(author => 
-        authorSelect.options.add(new Option(author.name, author.id))
-    );
-    genres.forEach(genre =>
-        genreSelect.options.add(new Option(genre.name, genre.id))
-    );
+    authors.forEach(author => authorSelect.options.add(new Option(author.name, author.id)));
+    genres.forEach(genre => genreSelect.options.add(new Option(genre.name, genre.id)));
 }
 
 //setup details
@@ -108,6 +90,7 @@ function setupDetailsBook() {
 }
 
 function setupDetailsAuthor() {
+    console.log(localStorage.getItem('pageType'));
     var author = getAuthor(document.URL.split('?')[1]);
 
     document.getElementById('authorName').value = author.name;
@@ -135,50 +118,29 @@ function setupEditBook() {
 }
 
 //getAll functions
-async function getBooks() {
+async function getBooksAsync() {
     books = await JSON.parse(localStorage.getItem("books"));
 }
 
-async function getAuthors() {
+async function getAuthorsAsync() {
     authors = await JSON.parse(localStorage.getItem("authors"));
 }
 
-async function getGenres() {
+async function getGenresAsync() {
     genres = await JSON.parse(localStorage.getItem("genres"));
 }
 
 //getSingle functions
 function getBook(id) {
-    var result;
-    books.forEach(obj => {
-        if (obj.id == id) {
-            result =  obj;
-        }
-    });
-
-    return result;
+    return books.find((obj) => obj.id == id);
 }
 
 function getAuthor(id) {
-    var result;
-    authors.forEach(obj => {
-        if (obj.id == id) {
-            result = obj;
-        }
-    });
-
-    return result;
+    return authors.find((obj) => obj.id == id);
 }
 
 function getGenre(id) {
-    var result;
-    genres.forEach(obj => {
-        if (obj.id == id) {
-            result = obj;
-        }
-    });
-
-    return result;
+    return genres.find((obj) => obj.id == id);
 }
 
 //readAll function
@@ -203,27 +165,23 @@ function readAll() {
             break;
     }
     elements = '';
-    currentElements.forEach(obj => {
-        elements += read(obj);
-    });
-
+    currentElements.forEach(obj => {elements += read(obj);});
     currentTable.innerHTML = elements;
-
 }
 
 //readSingle function
 function read(obj) {
-    var author = getAuthor(obj.authorId);
-    var genre = getGenre(obj.genreId);
     var element;
     switch (localStorage.getItem('pageType')) {
         case "book":
+            var author = getAuthor(obj.authorId);
+            var genre = getGenre(obj.genreId);
             var element = '<tr><td>'
             + obj.cover + '</td><td onclick="details(' + obj.id + ')">'
-            + obj.name + '</td><td>' 
-            + obj.description + '</td><td>' 
-            + obj.pages + '</td><td>' 
-            + obj.release + '</td><td>' 
+            + obj.name + '</td><td>'
+            + obj.description + '</td><td>'
+            + obj.pages + '</td><td>'
+            + obj.release + '</td><td>'
             + author.name + '</td><td>'
             + genre.name + '</td><td>'
             + '<span id="editBtn" onclick="edit(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
@@ -391,13 +349,13 @@ function edit(id) {
 function details(id) {
     switch (localStorage.getItem('pageType')) {
         case "book":
-            window.location.href = "./detailsBook.html?" + id; 
+            window.location.href = "./detailsBook.html?" + id;
             break;
         case "author":
-            window.location.href = "./detailsAuthor.html?" + id; 
+            window.location.href = "./detailsAuthor.html?" + id;
             break;
         case "genre":
-            window.location.href = "./detailsGenre.html?" + id; 
+            window.location.href = "./detailsGenre.html?" + id;
             break;
     }
 }
@@ -417,31 +375,52 @@ function cancel() {
     }
 }
 
-function paginationLeft() {
-    pagination -= 1;
-    document.getElementById('paginationPage').innerHTML = pagination + 1;
-    checkIfPaginationDisabled();
-    readAll();
-}
-
-function paginationRight() {
-    pagination += 1;
-    document.getElementById('paginationPage').innerHTML = pagination + 1;
+function paginate(type) {
+    switch (type) {
+        case 'first':
+            pagination = 0;
+            break;
+        case 'left':
+            pagination -= 1;
+            break;
+        case 'right':
+            pagination += 1;
+            break;
+        case 'last':
+            pagination = Math.ceil((localStorage.getItem('pageType') == 'book' ? books.length : localStorage.getItem('pageType') == 'author' ? authors.length : genres.length) / paginationAmount - 1);
+            break;
+    }
+    setPaginationPage();
     checkIfPaginationDisabled();
     readAll();
 }
 
 function checkIfPaginationDisabled() {
-    //check if paginationLeft is disabled
-    if (pagination > 0) {
-        document.getElementById('paginationLeft').disabled = false;
-    } else {
+    if ((Math.ceil((localStorage.getItem('pageType') == 'book' ? books.length : (localStorage.getItem('pageType') == 'author' ? authors.length : genres.length)) / paginationAmount) - 1) < 0) {
         document.getElementById('paginationLeft').disabled = true;
-    }
-    //check if paginationRight is disabled using ternary operator
-    if (pagination != Math.ceil((localStorage.getItem('pageType') == 'book' ? books.length : (localStorage.getItem('pageType') == 'author' ? authors.length : genres.length)) / paginationAmount - 1)) {
-        document.getElementById('paginationRight').disabled = false;
-    } else {
+        document.getElementById('paginationFirst').disabled = true;
         document.getElementById('paginationRight').disabled = true;
+        document.getElementById('paginationLast').disabled = true;
+    } else {
+        //check if paginationLeft is disabled
+        if (pagination > 0) {
+            document.getElementById('paginationLeft').disabled = false;
+            document.getElementById('paginationFirst').disabled = false;
+        } else {
+            document.getElementById('paginationLeft').disabled = true;
+            document.getElementById('paginationFirst').disabled = true;
+        }
+        //check if paginationRight is disabled using ternary operator
+        if (pagination != Math.ceil((localStorage.getItem('pageType') == 'book' ? books.length : (localStorage.getItem('pageType') == 'author' ? authors.length : genres.length)) / paginationAmount - 1)) {
+            document.getElementById('paginationRight').disabled = false;
+            document.getElementById('paginationLast').disabled = false;
+        } else {
+            document.getElementById('paginationRight').disabled = true;
+            document.getElementById('paginationLast').disabled = true;
+        }
     }
-} 
+}
+
+function setPaginationPage() {
+    document.getElementById('paginationPage').innerHTML = (pagination + 1) + ' / ' + Math.ceil((localStorage.getItem('pageType') == 'book' ? books.length : (localStorage.getItem('pageType') == 'author' ? authors.length : genres.length)) / paginationAmount);
+}

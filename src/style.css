@@ -270,3 +270,7 @@ h1 {
     display: grid;
     grid-template-columns: 30% 70%;
 }
+
+.bookProperty {
+    margin: 10px 0;
+}
