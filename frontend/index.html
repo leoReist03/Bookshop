@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bookshop</title>
+        <link rel="stylesheet" href="./src/style.css">
+        <script src="https://kit.fontawesome.com/d8db861d36.js" crossorigin="anonymous"></script>
+        <script src="./src/api.js"></script>
+    </head>
+    <body>
+        <div class="navbar">
+            <ul>
+                <li><a href="./index.html" class="active fa-solid fa-shop">Shop</a></li>
+                <li><a href="./books/booklist.html">Books</a></li>
+                <li><a href="./authors/authorlist.html">Authors</a></li>
+                <li><a href="./genres/genrelist.html">Genres</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Bookshop</h1>
+            <p class="landingPageP">On this page you can browse books through books</p>
+            <div id="books"></div>
+            <div class="pagination">
+                <button type="button" id="paginationFirst" class="paginationBtn fa-solid fa-angles-left" onclick="paginate('first')" disabled></button>
+                <button type="button" id="paginationLeft" class="paginationBtn fa-solid fa-arrow-left" onclick="paginate('left')" disabled></button>
+                <span id="paginationPage"></span>
+                <button type="button" id="paginationRight" class="paginationBtn fa-solid fa-arrow-right" onclick="paginate('right')" disabled></button>
+                <button type="button" id="paginationLast" class="paginationBtn fa-solid fa-angles-right" onclick="paginate('last')" disabled></button>
+            </div>
+            <div class="popupOverlay" id="popupOverlay">
+                <div id="popup">
+                    <div class="popupContent">
+                        <img alt="cover" id="bookImage">
+                        <form id="detailsBookForm" class="form">
+                            <label for="bookTitle" class="formLabel bookProperty">Name:</label>
+                            <p id="bookTitle" class="bookProperty"></p>
+                            <label for="bookDescription" class="formLabel bookProperty">Description:</label>
+                            <p id="bookDescription" class="bookProperty"></p>
+                            <label for="bookAuthor" class="formLabel bookProperty">Author:</label>
+                            <p id="bookAuthor" class="bookProperty"></p>
+                            <label for="bookPublisher" class="formLabel bookProperty">Publisher:</label>
+                            <p id ="bookPublisher" class="bookProperty"></p>
+                            <label for="amazonBookUrl" class="formLabel bookProperty">Amazon:</label>
+                            <a href="" id="amazonBookUrl" class="bookProperty"></a>
+                    </div>
+                    <span class="btn cancelBtn close" onclick="closePopup()">Close</span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
