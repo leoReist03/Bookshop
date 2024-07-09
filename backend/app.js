@@ -1,10 +1,9 @@
 const express = require('express');
-const fs = require('fs');
-
 const app = express();
 
+//Root route
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html');
+    res.send('<h1>This is index</h1>');
 });
 
 //Include route files
