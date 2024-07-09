@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 //Root route
 app.get('/', (req, res) => {
@@ -10,6 +11,7 @@ app.get('/', (req, res) => {
 const booksRoute = require('./routes/books');
 
 //Use routes
+app.use(cors());
 app.use('/books', booksRoute);
 
 const port = 3000;
