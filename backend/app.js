@@ -14,8 +14,10 @@ const booksRoute = require('./routes/books');
 app.use(cors());
 app.use('/books', booksRoute);
 
+//Set the port
 const port = 3000;
 
+//Start server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

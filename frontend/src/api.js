@@ -2,10 +2,12 @@ var popupOverlay;
 var books;
 var paginationAmount = getPaginationAmount();
 var pagination = 0;
+var paginationMax;
 
 window.onload = () => {
     fetchBooksAsync().then(result => {
         books = result;
+        paginationMax = Math.ceil(books.length / paginationAmount);
         checkIfPaginationDisabled();
         setPaginationPage();
         readAll();
@@ -134,7 +136,7 @@ function paginate(type) {
             pagination += 1;
             break;
         case 'last':
-            pagination = Math.ceil(books.length / paginationAmount - 1);
+            pagination = paginationMax - 1;
             break;
     }
     checkIfPaginationDisabled();
@@ -143,7 +145,7 @@ function paginate(type) {
 }
 
 function checkIfPaginationDisabled() {
-    if (pagination / paginationAmount -1 < 0) {
+    if (paginationMax -1 < 0) {
         document.getElementById('paginationLeft').disabled = true;
         document.getElementById('paginationFirst').disabled = true;
         document.getElementById('paginationRight').disabled = true;
@@ -156,7 +158,7 @@ function checkIfPaginationDisabled() {
             document.getElementById('paginationLeft').disabled = true;
             document.getElementById('paginationFirst').disabled = true;
         }
-        if (pagination != books.length / paginationAmount - 1) {
+        if (pagination != paginationMax - 1) {
             document.getElementById('paginationRight').disabled = false;
             document.getElementById('paginationLast').disabled = false;
         } else {
@@ -175,5 +177,5 @@ function getPaginationAmount() {
 }
 
 function setPaginationPage() {
-    document.getElementById('paginationPage').innerHTML = (pagination + 1) + ' / ' + Math.ceil(books.length / paginationAmount);
+    document.getElementById('paginationPage').innerHTML = (pagination + 1) + ' / ' + paginationMax;
 }
