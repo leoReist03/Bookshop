@@ -9,10 +9,14 @@ app.get('/', (req, res) => {
 
 //Include route files
 const booksRoute = require('./routes/books');
+const genresRoute = require('./routes/genres');
+const authorsRoute = require('./routes/authors');
 
 //Use routes
 app.use(cors());
 app.use('/books', booksRoute);
+app.use('/genres', genresRoute);
+app.use('/authors', authorsRoute);
 
 //Set the port
 const port = 3000;

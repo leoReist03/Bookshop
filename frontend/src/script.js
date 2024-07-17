@@ -6,40 +6,102 @@ const paginationAmount = 5;
 var paginationMax;
 var pagination = 0;
 
-getAuthorsAsync();
-getGenresAsync();
+const SERVER_URL = "http://localhost:3000/";
+const SERVER_URL_BOOKS = SERVER_URL + "books/";
+const SERVER_URL_GENRES = SERVER_URL + "genres/";
+const SERVER_URL_AUTHORS = SERVER_URL + "authors/";
 
 async function getBooks() {
-    var url = "http://localhost:3000/books/";
     var result;
-    await sendRequest(url).then(booksJSON => {
-        result = JSON.parse(booksJSON);
+    await sendRequest(SERVER_URL_BOOKS).then(res => {
+        result = JSON.parse(res);
     });
     
     return result;
 }
 
 async function getBook(id) {
-    var url = `http://localhost:3000/books/${id}`;
     var result;
-    await sendRequest(url).then(booksJSON => {
-        result = JSON.parse(booksJSON);
+    await sendRequest(SERVER_URL_BOOKS + id).then(res => {
+        result = JSON.parse(res);
     });
     return result;
 }
 
 async function onCreateBook(obj) {
-    var url = `http://localhost:3000/books/create/${obj.cover == "" ? "cover" : obj.cover}/${obj.name}/${obj.description}/${obj.pages}/${obj.release}/${obj.authorId}/${obj.genreId}`;
+    var url = SERVER_URL_BOOKS + `create/${obj.cover == "" ? "cover" : obj.cover}/${obj.name}/${obj.description}/${obj.pages}/${obj.release}/${obj.authorId}/${obj.genreId}`;
     await sendRequest(url).then( window.location.href = "./booklist.html" );
 }
 
 async function updateBook(obj) {
-    var url = `http://localhost:3000/books/update/${localStorage.getItem('editBookId')}/${obj.cover == "" ? "cover" : obj.cover}/${obj.name}/${obj.description}/${obj.pages}/${obj.release}/${obj.authorId}/${obj.genreId}`;
+    var url = SERVER_URL_BOOKS + `update/${localStorage.getItem('editId')}/${obj.cover == "" ? "cover" : obj.cover}/${obj.name}/${obj.description}/${obj.pages}/${obj.release}/${obj.authorId}/${obj.genreId}`;
     await sendRequest(url).then( window.location.href = "./booklist.html" );
 }
 
 async function deleteBook(id) {
-    var url = `http://localhost:3000/books/delete/${id}`;
+    var url = SERVER_URL_BOOKS + `delete/${id}`;
+    await sendRequest(url).then( window.location.reload());
+}
+
+async function getAuthors() {
+    var result;
+    await sendRequest(SERVER_URL_AUTHORS).then(res => {
+        result = JSON.parse(res);
+    });
+    return result;
+}
+
+async function getAuthor(id) {
+    var result;
+    await sendRequest(SERVER_URL_AUTHORS + id).then(res => {
+        result = JSON.parse(res);
+    });
+    return result;
+}
+
+async function onCreateAuthor(obj) {
+    var url = SERVER_URL_AUTHORS + `create/${obj.name}/${obj.dateOfBirth}`;
+    await sendRequest(url).then( window.location.href = './genrelist.html');
+}
+
+async function updateAuthor(obj) {
+    var url = SERVER_URL_AUTHORS + `update/${obj.name}/${obj.dateOfBirth}`;
+    await sendRequest(url).then( window.location.href = './genrelist.html');
+}
+
+async function deleteAuthor(id) {
+    var url = SERVER_URL_AUTHORS + `delete/${id}`;
+    await sendRequest(url).then( window.location.reload());
+}
+
+async function getGenres() {
+    var result;
+    await sendRequest(SERVER_URL_GENRES).then(res => {
+        result = JSON.parse(res);
+    });
+    return result;
+}
+
+async function getGenre(id) {
+    var result;
+    await sendRequest(SERVER_URL_GENRES + id).then(res => {
+        result = JSON.parse(res);
+    });
+    return result;
+}
+
+async function onCreateGenre(obj) {
+    var url = SERVER_URL_GENRES + `create/${obj.name}`;
+    await sendRequest(url).then( window.location.href = './genrelist.html');
+}
+
+async function updateGenre(obj) {
+    var url = SERVER_URL_GENRES + `update/${localStorage.getItem('editId')}/${obj.name}`;
+    await sendRequest(url).then( window.location.href('./genrelist.html'));
+}
+
+async function deleteGenre(id) {
+    var url = SERVER_URL_GENRES + `delete/${id}`;
     await sendRequest(url).then( window.location.reload());
 }
 
@@ -84,11 +146,6 @@ function readAll() {
 
 //Fills the instance variables if its a new Session
 if (window.sessionStorage.getItem("isNewSession") !== "0") {
-    var authorsJson = '[{"id":"1","name":"PierceBrown","dateOfBirth":"1988-01-28"},{"id":"2","name":"BrandonSanderson","dateOfBirth":"1975-12-19"}]';
-    localStorage.setItem('authors', authorsJson);
-
-    var genresJson = '[{"id":"1","name":"ScienceFiction"},{"id":"2","name":"Fantasy"}]';
-    localStorage.setItem('genres', genresJson);
     
     localStorage.setItem('pagination', 0);
     
@@ -109,17 +166,32 @@ if (document.title.includes("overview")) {
     window.onload = () => {
         switch(localStorage.getItem('pageType')) {
             case 'book':
-                getBooks().then(result => {localStorage.setItem('list', JSON.stringify(result));});
+                getBooks().then(result => {
+                    localStorage.setItem('list', JSON.stringify(result));
+                    paginationMax = JSON.parse(result.length);
+                    setPaginationPage();
+                    checkIfPaginationDisabled();
+                    readAll();
+                });
                 break;
             case 'author':
-                getAuthors().then(result => {localStorage.setItem('list', JSON.stringify(result));});
+                getAuthors().then(result => {
+                    localStorage.setItem('list', JSON.stringify(result));
+                    paginationMax = JSON.parse(result.length);
+                    setPaginationPage();
+                    checkIfPaginationDisabled();
+                    readAll();
+                });
             case 'genre':
-                getGenres().then(result => {localStorage.setItem('list', JSON.stringify(result));});
+                getGenres().then(result => { 
+                    localStorage.setItem('list', JSON.stringify(result));
+                    console.log(JSON.parse(result.length));
+                    paginationMax = JSON.parse(result.length);
+                    setPaginationPage();
+                    checkIfPaginationDisabled();
+                    readAll();
+                });
         }
-        paginationMax = JSON.parse(localStorage.getItem('list')).length;
-        setPaginationPage();
-        checkIfPaginationDisabled();
-        readAll();
     }
 }
 
@@ -197,26 +269,13 @@ function setupEditBook() {
 }
 
 //getAll functions
-async function getBooksAsync() {
-    books = await JSON.parse(localStorage.getItem("books"));
-}
-
 async function getAuthorsAsync() {
     authors = await JSON.parse(localStorage.getItem("authors"));
 }
 
-async function getGenresAsync() {
-    genres = await JSON.parse(localStorage.getItem("genres"));
-}
-
 //getSingle functions
-
 function getAuthor(id) {
     return authors.find((obj) => obj.id == id);
-}
-
-function getGenre(id) {
-    return genres.find((obj) => obj.id == id);
 }
 
 //readSingle function
@@ -226,7 +285,7 @@ function read(obj, count) {
         case "book":
             var author = getAuthor(obj.authorId);
             var genre = getGenre(obj.genreId);
-            var element = `<tr>
+            element = `<tr>
                 <td scope="row">${count}</td>
                 <td>${obj.cover}</td>
                 <td onclick="details('${obj._id}')">${obj.name}</td>
@@ -239,19 +298,25 @@ function read(obj, count) {
             </tr>`
             break;
         case "author":
-            element = '<tr><td onclick="details(' + obj._id + ')">'
-            + obj.name + '</td><td>' 
-            + obj.dateOfBirth + '</td><td>'
-            + '<span id="editBtn" onclick="edit(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
-            + '<span id="deleteBtn" onclick="deleteObj(' + obj.id + ')" class="deleteBtn fa-solid fa-delete-left"></span>'
-            + '</td></tr>';
+            element = `<tr>
+                <td scope="row">${count}</td>
+                <td onclick="details('${obj._id}')">${obj.name}</td>
+                <td>${obj.dateOfBirth}</td>
+                <td>
+                    <span id="editBtn" onclick="edit('${obj._id})" class="editBtn fa-solid fa-pen-to-square"></span>
+                    <span id="deleteBtn" onclick="deleteObj('${obj._id}')" class="deleteBtn fa-solid fa-delete-left"></span>
+                </td>
+            </tr>`
             break;
         case "genre":
-            element = '<tr><td onclick="details(' + obj.id + ')">'
-            + obj.name + '</td><td>' 
-            + '<span id="editBtn" onclick="edit(' + obj.id + ')" class="editBtn fa-solid fa-pen-to-square editBtn"></span>'
-            + '<span id="deleteBtn" onclick="deleteObj(' + obj.id + ')" class="deleteBtn fa-solid fa-delete-left"></span>'
-            + '</td></tr>';
+            element = `<tr>
+                <td scope="row">${count}</td>
+                <td onclick="details('${obj._id}')">${obj.name}</td>
+                <td>
+                    <span id="editBtn" onclick="edit('${obj._id}')" class="editBtn fa-solid fa-pen-to-square"></span>
+                    <span id="deleteBtn" onclick="deleteObj('${obj._id}') class="deleteBtn fa-solid fa-delete-left"></span>
+                </td>
+            </tr>`
             break;
     }
 
@@ -272,17 +337,6 @@ function create() {
             break;
     }
 }
-function onCreateAuthor(obj) {
-    authors.push(obj);
-    localStorage.setItem("authors", JSON.stringify(authors));
-    window.location.href = "./authorlist.html";
-}
-
-function onCreateGenre(obj) {
-    genres.push(obj);
-    localStorage.setItem("genres", JSON.stringify(genres));
-    window.location.href = "./genrelist.html";
-}
 
 //get input values
 function getBookValues() {
@@ -298,18 +352,16 @@ function getBookValues() {
 }
 
 function getAuthorValues() {
-    var id = authors.length + 2;
     var name = document.getElementById('authorName').value;
     var dateOfBirth = document.getElementById('authorDateOfBirth').value;
 
-    return obj = {id: id, name: name, dateOfBirth: dateOfBirth};
+    return obj = {name: name, dateOfBirth: dateOfBirth};
 }
 
 function getGenreValues() {
-    id = genres.length +2;
     var name = document.getElementById('genreName').value;
 
-    return obj = {id: id, name: name};
+    return obj = {name: name};
 }
 
 //Update function
@@ -319,24 +371,10 @@ function update() {
             updateBook(getBookValues());
             break;
         case "author":
-            var author = getAuthorValues();
-            author.id = document.URL.split('?')[1];
-            
-            authors = authors.filter(i => i.id != author.id);
-        
-            onCreateAuthor(author);
-        
-            window.location.href = "./authorlist.html";
+            updateAuthor(getAuthorValues());
             break;
         case "genre":
-            var genre = getGenreValues();
-            genre.id = document.URL.split('?')[1];
-
-            genres = genres.filter(i => i.id != genre.id);
-
-            onCreateGenre(genre);
-
-            window.location.href = "./genrelist.html";
+            updateGenre(getGenreValues());
             break;
     }
 }
@@ -347,14 +385,10 @@ function deleteObj(id) {
         case "book":
             deleteBook(id);
         case "author":
-            var newAuthors = authors.filter(author => author.id != id);
-        
-            localStorage.setItem("authors", JSON.stringify(newAuthors));
+            deleteAuthor(id);
             break;
         case "genre":
-            var newGenres = genres.filter(genre => genre.id != id);
-
-            localStorage.setItem("genres", JSON.stringify(newGenres));
+            deleteGenre(id);
             break;
     }
 }
@@ -363,15 +397,16 @@ function deleteObj(id) {
 function edit(id) {
     switch (localStorage.getItem('pageType')) {
         case "book":
-            localStorage.setItem('editBookId', id);
+            localStorage.setItem('editId', id);
             window.location.href = "./editBook.html";
 
             break;
         case "author":
-            window.location.href = "./editAuthor.html?" + id;
+            window.location.href = "./editAuthor.html";
             break;
         case "genre":
-            window.location.href = "./editGenre.html?" + id;
+            localStorage.setItem('editIt', id);
+            window.location.href = "./editGenre.html";
             break;
     }
 }
@@ -383,10 +418,10 @@ function details(id) {
             window.location.href = "./detailsBook.html";
             break;
         case "author":
-            window.location.href = "./detailsAuthor.html?" + id;
+            window.location.href = "./detailsAuthor.html";
             break;
         case "genre":
-            window.location.href = "./detailsGenre.html?" + id;
+            window.location.href = "./detailsGenre.html";
             break;
     }
 }

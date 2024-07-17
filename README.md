@@ -31,7 +31,6 @@ in ./Bookshop/backend
 books sample:
 [
     {
-        "id":"1",
         "cover":"cover",
         "name":"name",
         "description":"description",
@@ -41,7 +40,6 @@ books sample:
         "genreId":"1"
     },
     {
-        "id":"2",
         "cover":"cover",
         "name":"name",
         "description":"description",
@@ -49,5 +47,27 @@ books sample:
         "release":"2020-01-30",
         "authorId":"2",
         "genreId":"2"
+    }
+]
+
+authors sample:
+[
+    {
+        "name":"PierceBrown",
+        "dateOfBirth":"1988-01-28"
+    },
+    {
+        "name":"BrandonSanderson",
+        "dateOfBirth":"1975-12-19"
+    }
+]
+
+genres sample:
+[
+    {
+        "name":"ScienceFiction"
+    },
+    {
+        "name":"Fantasy"
     }
 ]

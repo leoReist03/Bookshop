@@ -1,21 +1,16 @@
 const mongo = require('mongodb');
 const client = require('./dbAccessController');
-const collection = client.db("Bookshop").collection("Books");
+const collection = client.db("Bookshop").collection("Authors");
 
 const ObjectID = mongo.ObjectId;
 
-async function create(cover, name, description, pages, release, authorId, genreId) {
+async function create(name, dateOfBirth) {
     try {
         await client.connect();
 
         return await collection.insertOne({
-            cover: cover,
             name: name,
-            description: description,
-            pages: pages,
-            release: release,
-            authorId: authorId,
-            genreId: genreId
+            dateOfBirth: dateOfBirth
         });
     } finally {
         await client.close();
@@ -42,20 +37,15 @@ async function find(id) {
     }
 }
 
-async function update(id, cover, name, description, pages, release, authorId, genreId) {
+async function update(id, name, dateOfBirth) {
     try {
         await client.connect();
 
         return await collection.updateOne({'_id': new ObjectID(id.toString())},
         {
             $set: {
-                cover: cover,
                 name: name,
-                description: description,
-                pages: pages,
-                release: release,
-                authorId: authorId,
-                genreId: genreId
+                dateOfBirth: dateOfBirth
             }
         });
     } finally {
@@ -72,17 +62,5 @@ async function deleteObj(id) {
         await client.close();
     }
 }
-
-/*
-try {
-    //....
-} finally {
-    await client.close();
-}
-
-This sometimes throws: MongoTopologyClosedError: Topology is closed
-
-Problem: client.close() runs before the code in the try has run.
-*/
 
 module.exports = { create, read, find, update, deleteObj };

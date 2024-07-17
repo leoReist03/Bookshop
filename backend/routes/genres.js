@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/booksController');
+const controller = require('../controllers/genresController');
 
 //Root route
 router.get('/', (req, res) => {
@@ -19,15 +19,15 @@ router.get('/:id', (req, res) => {
 });
 
 //Create route
-router.get('/create/:cover/:name/:description/:pages/:release/:authorId/:genreId', (req, res) => {
-    controller.create(req.params.cover, req.params.name, req.params.description, req.params.pages, req.params.release, req.params.authorId, req.params.genreId)
+router.get('/create/:name', (req, res) => {
+    controller.create(req.params)
               .then(result => {
                 res.send(result);
               });
 });
 
 //Delete route
-router.get('/delete/:id/', (req, res) => {
+router.get('/delete/:id', (req, res) => {
     controller.deleteObj(req.params.id)
               .then(result => {
                 res.send(result);
@@ -35,8 +35,8 @@ router.get('/delete/:id/', (req, res) => {
 });
 
 //Update route
-router.get('/update/:id/:cover/:name/:description/:pages/:release/:authorId/:genreId', (req, res) => {
-    controller.update(req.params.id, req.params.cover, req.params.name, req.params.description, req.params.pages, req.params.release, req.params.authorId, req.params.genreId)
+router.get('/update/:id/:name/:dateOfBirth', (req, res) => {
+    controller.update(req.params.id, req.params.name, req.params.dateOfBirth)
               .then(result => {
                 res.send(result);
               });

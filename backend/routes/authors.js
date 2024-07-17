@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/booksController');
+const controller = require('../controllers/authorsController');
 
 //Root route
 router.get('/', (req, res) => {
@@ -19,8 +19,8 @@ router.get('/:id', (req, res) => {
 });
 
 //Create route
-router.get('/create/:cover/:name/:description/:pages/:release/:authorId/:genreId', (req, res) => {
-    controller.create(req.params.cover, req.params.name, req.params.description, req.params.pages, req.params.release, req.params.authorId, req.params.genreId)
+router.get('/create/:name/:dateOfBirth', (req, res) => {
+    controller.create(req.params.name, req.params.dateOfBirth)
               .then(result => {
                 res.send(result);
               });
