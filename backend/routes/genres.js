@@ -20,7 +20,7 @@ router.get('/:id', (req, res) => {
 
 //Create route
 router.get('/create/:name', (req, res) => {
-    controller.create(req.params)
+    controller.create(req.params.name)
               .then(result => {
                 res.send(result);
               });
@@ -35,7 +35,7 @@ router.get('/delete/:id', (req, res) => {
 });
 
 //Update route
-router.get('/update/:id/:name/:dateOfBirth', (req, res) => {
+router.get('/update/:id/:name/', (req, res) => {
     controller.update(req.params.id, req.params.name, req.params.dateOfBirth)
               .then(result => {
                 res.send(result);

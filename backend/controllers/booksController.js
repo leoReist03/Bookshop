@@ -6,7 +6,7 @@ const ObjectID = mongo.ObjectId;
 
 async function create(cover, name, description, pages, release, authorId, genreId) {
     try {
-        await client.connect();
+        await connect();
 
         return await collection.insertOne({
             cover: cover,
@@ -18,33 +18,33 @@ async function create(cover, name, description, pages, release, authorId, genreI
             genreId: genreId
         });
     } finally {
-        await client.close();
+        await close();
     }
 }
 
 async function read() {
     try {
-        await client.connect();
+        await connect();
 
         return await collection.find().toArray();
     } finally {
-        await client.close();
+        await close();
     }
 }
 
 async function find(id) {
     try {
-        await client.connect();
+        await connect();
 
         return await collection.find({ '_id': new ObjectID(id.toString()) }).toArray();
     } finally {
-        await client.close();
+        await close();
     }
 }
 
 async function update(id, cover, name, description, pages, release, authorId, genreId) {
     try {
-        await client.connect();
+        await connect();
 
         return await collection.updateOne({'_id': new ObjectID(id.toString())},
         {
@@ -59,30 +59,30 @@ async function update(id, cover, name, description, pages, release, authorId, ge
             }
         });
     } finally {
-        await client.close();
+        await close();
     }
 }
 
 async function deleteObj(id) {
     try {
-        await client.connect();
+        await connect();
 
         await collection.deleteOne({ '_id': new ObjectID(id.toString()) });
     } finally {
-        await client.close();
+        await close();
     }
 }
 
-/*
-try {
-    //....
-} finally {
-    await client.close();
+async function connect() {
+    if (client.topology == undefined) {
+        await client.connect();
+    }
 }
 
-This sometimes throws: MongoTopologyClosedError: Topology is closed
-
-Problem: client.close() runs before the code in the try has run.
-*/
+async function close() {
+    if (client.topology != undefined) {
+        await client.close();
+    }
+}
 
 module.exports = { create, read, find, update, deleteObj };
