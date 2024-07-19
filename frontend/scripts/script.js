@@ -24,11 +24,21 @@ async function getBook(id) {
     await sendRequest(SERVER_URL_BOOKS + `find/${id}`).then(res => {
         result = JSON.parse(res);
     });
+
     return result[0];
 }
 
-async function createBook(obj) {
-    var url = SERVER_URL_BOOKS + `create/${obj.cover == "" ? "cover" : obj.cover}/${obj.name}/${obj.description}/${obj.pages}/${obj.release}/${obj.authorId}/${obj.genreId}`;
+async function createBook() {
+    var result;
+    await sendRequest(SERVER_URL_BOOKS + `create`).then(res => {
+        result = JSON.parse(res);
+    });
+
+    return result;
+}
+
+async function onCreateBook(obj) {
+    var url = SERVER_URL_BOOKS + `onCreate/${obj.cover == "" ? "cover" : obj.cover}/${obj.name}/${obj.description}/${obj.pages}/${obj.release}/${obj.authorId}/${obj.genreId}`;
     await sendRequest(url).then( window.location.href = "./booklist.html" );
 }
 
@@ -48,6 +58,7 @@ async function getAuthors() {
     await sendRequest(SERVER_URL_AUTHORS).then(res => {
         result = JSON.parse(res);
     });
+
     return result;
 }
 
@@ -56,11 +67,12 @@ async function getAuthor(id) {
     await sendRequest(SERVER_URL_AUTHORS + `find/${id}`).then(res => {
         result = JSON.parse(res);
     });
+
     return result[0];
 }
 
 async function onCreateAuthor(obj) {
-    var url = SERVER_URL_AUTHORS + `create/${obj.name}/${obj.dateOfBirth}`;
+    var url = SERVER_URL_AUTHORS + `onCreate/${obj.name}/${obj.dateOfBirth}`;
     await sendRequest(url).then( window.location.href = './authorlist.html');
 }
 
@@ -80,6 +92,7 @@ async function getGenres() {
     await sendRequest(SERVER_URL_GENRES).then(res => {
         result = JSON.parse(res);
     });
+
     return result;
 }
 
@@ -88,11 +101,12 @@ async function getGenre(id) {
     await sendRequest(SERVER_URL_GENRES + `find/${id}`).then(res => {
         result = JSON.parse(res);
     });
+    
     return result[0];
 }
 
 async function onCreateGenre(obj) {
-    var url = SERVER_URL_GENRES + `create/${obj.name}`;
+    var url = SERVER_URL_GENRES + `onCreate/${obj.name}`;
     await sendRequest(url).then( window.location.href = './genrelist.html' );
 }
 
@@ -217,16 +231,14 @@ if (document.title == "Book details") {
 
 //setup create page
 function setupCreateBook() {
-    //Fill author select
-    var authorSelect = document.getElementById("bookAuthor");
-    getAuthors().then(authors => {
-        authors.forEach(author => authorSelect.options.add(new Option(author.name, author._id)));
-    });
+    createBook().then(result => {
+        //Fill author select
+        var authorSelect = document.getElementById("bookAuthor");
+        result.authors.forEach(author => authorSelect.options.add(new Option(author.name, author._id)));
 
-    //Fill genre select
-    var genreSelect = document.getElementById("bookGenre");
-    getGenres().then(genres => {
-        genres.forEach(genre => genreSelect.options.add(new Option(genre.name, genre._id)));
+        //Fill genre select
+        var genreSelect = document.getElementById("bookGenre");
+        result.genres.forEach(genre => genreSelect.options.add(new Option(genre.name, genre._id)));
     });
 }
 
@@ -342,7 +354,7 @@ function getGenreValues() {
 function create() {
     switch (localStorage.getItem('pageType')) {
         case "book":
-            createBook(getBookValues());
+            onCreateBook(getBookValues());
             break;
         case "author":
             onCreateAuthor(getAuthorValues());

@@ -19,8 +19,16 @@ router.get('/find/:id', (req, res) => {
 });
 
 //Create route
-router.get('/create/:cover/:name/:description/:pages/:release/:authorId/:genreId', (req, res) => {
-    controller.create(req.params.cover, req.params.name, req.params.description, req.params.pages, req.params.release, req.params.authorId, req.params.genreId)
+router.get('/create', (req, res) => {
+  controller.create()
+            .then(result => {
+              res.send(result);
+            });
+});
+
+//OnCreate route
+router.get('/onCreate/:cover/:name/:description/:pages/:release/:authorId/:genreId', (req, res) => {
+    controller.onCreate(req.params.cover, req.params.name, req.params.description, req.params.pages, req.params.release, req.params.authorId, req.params.genreId)
               .then(result => {
                 res.send(result);
               });

@@ -19,7 +19,7 @@ router.get('/find/:id', (req, res) => {
 });
 
 //Create route
-router.get('/create/:name', (req, res) => {
+router.get('/onCreate/:name', (req, res) => {
     controller.create(req.params.name)
               .then(result => {
                 res.send(result);

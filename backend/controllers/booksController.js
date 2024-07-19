@@ -4,7 +4,20 @@ const collection = client.db("Bookshop").collection("Books");
 
 const ObjectID = mongo.ObjectId;
 
-async function create(cover, name, description, pages, release, authorId, genreId) {
+async function create() {
+    try {
+        await connect();
+        
+        var authors = await client.db("Bookshop").collection("Authors").find().toArray();
+        var genres = await client.db("Bookshop").collection("Genres").find().toArray();
+
+        return {authors: authors, genres: genres};
+    } finally {
+        await close();
+    }
+}
+
+async function onCreate(cover, name, description, pages, release, authorId, genreId) {
     try {
         await connect();
 
@@ -101,4 +114,4 @@ async function close() {
     }
 }
 
-module.exports = { create, read, find, update, deleteObj };
+module.exports = { create, onCreate, read, find, update, deleteObj };
