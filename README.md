@@ -2,6 +2,8 @@
 to start project: nodemon app.js
 in ./Bookshop/backend
 
+the server runs on localhost port 3000
+
 books sample:
 [
     {

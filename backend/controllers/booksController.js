@@ -26,7 +26,23 @@ async function read() {
     try {
         await connect();
 
-        return await collection.find().toArray();
+        var authors = await client.db("Bookshop").collection("Authors").find().toArray();
+        var genres = await client.db("Bookshop").collection("Genres").find().toArray();
+
+        return await collection.find().toArray().then(books => {
+            return books.map((book) => {
+                return book = {
+                    _id: book._id,
+                    cover: book.cover,
+                    name: book.name,
+                    description: book.description,
+                    pages: book.pages,
+                    release: book.release,
+                    author: authors.find(author => author._id == book.authorId).name,
+                    genre: genres.find(genre => genre._id == book.genreId).name
+                };
+            });
+        });
     } finally {
         await close();
     }
@@ -35,7 +51,7 @@ async function read() {
 async function find(id) {
     try {
         await connect();
-
+        
         return await collection.find({ '_id': new ObjectID(id.toString()) }).toArray();
     } finally {
         await close();

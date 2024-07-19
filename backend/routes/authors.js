@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 });
 
 //Find one route
-router.get('/:id', (req, res) => {
+router.get('/find/:id', (req, res) => {
     controller.find(req.params.id)
               .then(result => {
                 res.send(result);
