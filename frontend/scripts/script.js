@@ -21,11 +21,12 @@ async function getBooks() {
 
 async function getBook(id) {
     var result;
-    await sendRequest(SERVER_URL_BOOKS + `find/${id}`).then(res => {
+    var url = SERVER_URL_BOOKS + `find/${id}`;
+    await sendRequest(url).then(res => {
         result = JSON.parse(res);
     });
 
-    return result[0];
+    return result;
 }
 
 async function createBook() {
@@ -40,6 +41,16 @@ async function createBook() {
 async function onCreateBook(obj) {
     var url = SERVER_URL_BOOKS + `onCreate/${obj.cover == "" ? "cover" : obj.cover}/${obj.name}/${obj.description}/${obj.pages}/${obj.release}/${obj.authorId}/${obj.genreId}`;
     await sendRequest(url).then( window.location.href = "./booklist.html" );
+}
+
+async function editBook(id) {
+    var result;
+    var url = SERVER_URL_BOOKS + `edit/${id}`;
+    await sendRequest(url).then(res => {
+        result = JSON.parse(res);
+    });
+
+    return result;
 }
 
 async function updateBook(obj) {
@@ -64,11 +75,12 @@ async function getAuthors() {
 
 async function getAuthor(id) {
     var result;
-    await sendRequest(SERVER_URL_AUTHORS + `find/${id}`).then(res => {
+    var url = SERVER_URL_AUTHORS + `find/${id}`;
+    await sendRequest(url).then(res => {
         result = JSON.parse(res);
     });
 
-    return result[0];
+    return result;
 }
 
 async function onCreateAuthor(obj) {
@@ -83,7 +95,7 @@ async function updateAuthor(obj) {
 
 async function deleteAuthor(id) {
     var url = SERVER_URL_AUTHORS + `delete/${id}`;
-    await sendRequest(url).then( window.location.reload());
+    await sendRequest(url).then( window.location.reload() );
 }
 
 //Genre api functions
@@ -98,11 +110,12 @@ async function getGenres() {
 
 async function getGenre(id) {
     var result;
-    await sendRequest(SERVER_URL_GENRES + `find/${id}`).then(res => {
+    var url = SERVER_URL_GENRES + `find/${id}`;
+    await sendRequest(url).then(res => {
         result = JSON.parse(res);
     });
     
-    return result[0];
+    return result;
 }
 
 async function onCreateGenre(obj) {
@@ -249,8 +262,8 @@ function setupDetailsBook() {
         document.getElementById('bookDescription').value = book.description;
         document.getElementById('bookPages').value = book.pages;
         document.getElementById('bookRelease').value = book.release;
-        document.getElementById('bookAuthor').value = book.authorId;
-        document.getElementById('bookGenre').value = book.genreId;
+        document.getElementById('bookAuthor').value = book.author;
+        document.getElementById('bookGenre').value = book.genre;
     });
 }
 
@@ -269,7 +282,7 @@ function setupDetailsGenre() {
 
 //setup edit page
 function setupEditBook() {
-    getBook(localStorage.getItem('editId')).then(book => {
+    editBook(localStorage.getItem('editId')).then(book => {
         setupCreateBook();
     
         document.getElementById('bookName').value = book.name;
@@ -393,24 +406,22 @@ function deleteObj(id) {
 }
 
 function edit(id) {
+    localStorage.setItem('editId', id);
     switch (localStorage.getItem('pageType')) {
         case "book":
-            localStorage.setItem('editId', id);
             window.location.href = "./editBook.html";
-
             break;
         case "author":
-            localStorage.setItem('editId', id);
             window.location.href = "./editAuthor.html";
             break;
         case "genre":
-            localStorage.setItem('editId', id);
             window.location.href = "./editGenre.html";
             break;
     }
 }
 
 function details(id) {
+    localStorage.setItem('editId', id);
     switch (localStorage.getItem('pageType')) {
         case "book":
             window.location.href = "./detailsBook.html";

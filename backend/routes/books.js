@@ -42,6 +42,14 @@ router.get('/delete/:id/', (req, res) => {
               });
 });
 
+//Edit route
+router.get('/edit/:id', (req, res) => {
+  controller.edit(req.params.id)
+            .then(result => {
+              res.send(result);
+            });
+});
+
 //Update route
 router.get('/update/:id/:cover/:name/:description/:pages/:release/:authorId/:genreId', (req, res) => {
     controller.update(req.params.id, req.params.cover, req.params.name, req.params.description, req.params.pages, req.params.release, req.params.authorId, req.params.genreId)

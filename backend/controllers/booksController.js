@@ -65,10 +65,38 @@ async function find(id) {
     try {
         await connect();
         
-        return await collection.find({ '_id': new ObjectID(id.toString()) }).toArray();
+        var authors = await client.db("Bookshop").collection("Authors").find().toArray();
+        var genres = await client.db("Bookshop").collection("Genres").find().toArray();
+        
+        return await collection.find({ '_id': new ObjectID(id.toString()) }).toArray().then(books => {
+            book = books[0];
+            return book = {
+                _id: book._id,
+                cover: book.cover,
+                name: book.name,
+                description: book.description,
+                pages: book.pages,
+                release: book.release,
+                author: authors.find(author => author._id == book.authorId).name,
+                genre: genres.find(genre => genre._id == book.genreId).name
+            }
+        });
     } finally {
         await close();
     }
+}
+
+async function edit(id) {
+    try {
+        await connect();
+        
+        return await collection.find({ '_id': new ObjectID(id.toString()) }).toArray().then(books => {
+            return books[0];
+        });
+    } finally {
+        await close();
+    }
+
 }
 
 async function update(id, cover, name, description, pages, release, authorId, genreId) {
@@ -96,7 +124,7 @@ async function deleteObj(id) {
     try {
         await connect();
 
-        await collection.deleteOne({ '_id': new ObjectID(id.toString()) });
+        return await collection.deleteOne({ '_id': new ObjectID(id.toString()) });
     } finally {
         await close();
     }
@@ -114,4 +142,4 @@ async function close() {
     }
 }
 
-module.exports = { create, onCreate, read, find, update, deleteObj };
+module.exports = { create, onCreate, read, find, edit, update, deleteObj };

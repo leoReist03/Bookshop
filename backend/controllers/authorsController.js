@@ -30,7 +30,9 @@ async function read() {
 async function find(id) {
     try {
         await connect();
-        return await collection.find({ '_id': new ObjectID(id.toString()) }).toArray();
+        return await collection.find({ '_id': new ObjectID(id.toString()) }).toArray().then(authors => {
+            return authors[0];
+        });
     } finally {
         await close();
     }

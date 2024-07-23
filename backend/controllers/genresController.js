@@ -30,7 +30,9 @@ async function find(id) {
     try {
         await connect();
         
-        return await collection.find({ '_id': new ObjectId(id.toString()) }).toArray();
+        return await collection.find({ '_id': new ObjectId(id.toString()) }).toArray().then(genres => {
+            return genres[0];
+        });
     } finally {
         await close();
     }
