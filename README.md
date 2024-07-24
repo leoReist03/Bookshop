@@ -4,6 +4,11 @@ in ./Bookshop/backend
 
 the server runs on localhost port 3000
 
+TODO:
+Frontent framework einbinden
+Loging
+Login
+
 books sample:
 [
     {
