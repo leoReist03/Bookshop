@@ -85,6 +85,10 @@ function addBook(book) {
     img.setAttribute("src", book.bookImage);
     img.addEventListener('click', function(){openPopup(book.bookIsbn)});
 
+
+    book.bookTitle
+    book.bookImage
+
     //create the text field for the name
     var span = document.createElement("span");
     span.classList.add("bookName");

@@ -4,10 +4,6 @@ var paginationMax;
 var pagination = 0;
 
 //Url variables
-const SERVER_URL = "http://localhost:3000/";
-const SERVER_URL_BOOKS = SERVER_URL + "books/";
-const SERVER_URL_GENRES = SERVER_URL + "genres/";
-const SERVER_URL_AUTHORS = SERVER_URL + "authors/";
 
 //Book api functions
 async function getBooks() {

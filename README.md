@@ -1,11 +1,13 @@
 # Bookshop
-to start project: nodemon app.js
+to start backend: nodemon app.js
 in ./Bookshop/backend
+the frontend-server rund on localhost port 3000
 
-the server runs on localhost port 3000
+to start frontend: pnpm dev
+in ./Bookshop/frontend
+the backend-server runs on localhost port 8000
 
 TODO:
-Frontent framework einbinden
 Loging
 Login
 
