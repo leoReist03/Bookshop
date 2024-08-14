@@ -9,8 +9,8 @@
 .cover:hover {
     transform: scale(1.2);
     cursor: pointer;
-    -webkit-mask: linear-gradient(-45deg, #eee 40%, rgb(238, 238, 238, 0) 50%, #eee 60%) right/300% 100%;
-    animation: clip-fade 1s 10 linear;
+    -webkit-mask: linear-gradient(-45deg, #eee 40%, rgb(238, 238, 238, 0) 50%, #eee 60%) right/400% 100%;
+    animation: clip-fade 1.5s 10 linear;
 }
 
 @keyframes clip-fade {
