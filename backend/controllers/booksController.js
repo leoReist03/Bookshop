@@ -130,6 +130,19 @@ async function deleteObj(id) {
     }
 }
 
+async function pages() {
+    try {
+        await connect();
+
+        const count = [];
+        count.push(await collection.estimatedDocumentCount());
+
+        return count;
+    } finally {
+        await close();
+    }
+}
+
 async function connect() {
     if (client.topology == undefined) {
         await client.connect();
@@ -142,4 +155,4 @@ async function close() {
     }
 }
 
-module.exports = { create, onCreate, read, find, edit, update, deleteObj };
+module.exports = { create, onCreate, read, find, edit, update, deleteObj, pages };

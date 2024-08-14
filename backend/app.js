@@ -19,7 +19,7 @@ app.use('/genres', genresRoute);
 app.use('/authors', authorsRoute);
 
 //Set the port
-const port = 3000;
+const port = 8000;
 
 //Start server
 app.listen(port, () => {
