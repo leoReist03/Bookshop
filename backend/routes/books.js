@@ -58,4 +58,11 @@ router.get('/update/:id/:cover/:name/:description/:pages/:release/:authorId/:gen
               });
 });
 
+router.get('/pages', (req, res) => {
+  controller.pages()
+            .then(result => {
+              res.send(result);
+            });
+});
+
 module.exports = router;

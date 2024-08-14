@@ -1,0 +1,21 @@
+.header {
+    font-weight: bold;
+}
+
+.cover {
+    transition: .2s;
+}
+
+.cover:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+    -webkit-mask: linear-gradient(-45deg, #eee 40%, rgb(238, 238, 238, 0) 50%, #eee 60%) right/300% 100%;
+    animation: clip-fade 1s 10 linear;
+}
+
+@keyframes clip-fade {
+    100% {
+        -webkit-mask-position-x: left;
+                mask-position-x: left;
+    }
+}

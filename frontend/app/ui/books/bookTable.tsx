@@ -1,13 +1,21 @@
-import { getBooks } from "../lib/data";
 import BookTableRow from "./bookTableRow";
 import { Book } from '@/app/lib/models'
+import { fetchBooks } from "../../lib/data";
 
-export default async function BooksTable() {
-    const books = await getBooks();
+export default async function BooksTable({
+    query,
+    currentPage,
+}: {
+    query: string;
+    currentPage: number;
+}) {
     var count = 0;
+
+    const books = await fetchBooks(query, currentPage);
+
     return (
             <table className="divide-y divide-gray-200 bg-cyan w-full rounded-lg">
-                <thead className="text-start text-cyan-dark uppercase">
+                <thead className="text-start text-icewhite uppercase">
                     <tr className="text-left">
                         <th className='pl-2'>#</th>
                         <th className='pl-2'>Cover</th>
