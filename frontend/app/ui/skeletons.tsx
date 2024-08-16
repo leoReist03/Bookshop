@@ -32,3 +32,9 @@ export function RecommendationSkeleton() {
         </div>
     )
 }
+
+export function AuthorListSkeleton() {
+    return (
+        <div></div>
+    )
+}

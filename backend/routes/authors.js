@@ -19,8 +19,8 @@ router.get('/find/:id', (req, res) => {
 });
 
 //Create route
-router.get('/onCreate/:name/:dateOfBirth', (req, res) => {
-    controller.create(req.params.name, req.params.dateOfBirth)
+router.get('/onCreate/:name/:dateOfBirth/:picture/:about', (req, res) => {
+    controller.create(req.params.name, req.params.dateOfBirth, req.params.picture, req.params.about)
               .then(result => {
                 res.send(result);
               });
@@ -35,11 +35,18 @@ router.get('/delete/:id/', (req, res) => {
 });
 
 //Update route
-router.get('/update/:id/:cover/:name/:description/:pages/:release/:authorId/:genreId', (req, res) => {
-    controller.update(req.params.id, req.params.cover, req.params.name, req.params.description, req.params.pages, req.params.release, req.params.authorId, req.params.genreId)
+router.get('/update/:id/:name/:picture/:about', (req, res) => {
+    controller.update(req.params.id, req.params.name, req.params.picture, req.params.about)
               .then(result => {
                 res.send(result);
               });
+});
+
+router.get('/pages', (req, res) => {
+  controller.pages()
+            .then(result => {
+              res.send(result);
+            });
 });
 
 module.exports = router;

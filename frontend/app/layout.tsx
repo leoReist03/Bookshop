@@ -19,8 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-white`}>
         <Navbar />
-        <div className="grid grid-cols-5">
-          <div className="col-start-2 col-span-3">
+        <div className="grid grid-cols-9">
+          <div className="col-start-2 col-span-7">
             {children}
           </div>
         </div>

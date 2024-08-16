@@ -8,6 +8,11 @@ in ./Bookshop/frontend
 the backend-server runs on localhost port 8000
 
 TODO:
+liste mit 10 büchern nach genre
+toggle list or grid
+bei author details liste mit all seinen büchern
+bücherliste filtern lassen
+in authorliste nach zeitspanne von geburtstag filtern lassen
 Loging
 Login
 

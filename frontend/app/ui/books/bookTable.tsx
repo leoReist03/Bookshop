@@ -14,14 +14,14 @@ export default async function BooksTable({
     const books = await fetchBooks(query, currentPage);
 
     return (
-            <table className="divide-y divide-gray-200 bg-cyan w-full rounded-lg">
-                <thead className="text-start text-icewhite uppercase">
+            <table className="divide-y divide-gray-200 bg-cyan w-full rounded-lg text-base mt-6">
+                <thead className="text-start text-icewhite uppercase text-lg">
                     <tr className="text-left">
-                        <th className='pl-2'>#</th>
-                        <th className='pl-2'>Cover</th>
-                        <th className='pl-2'>Name</th>
-                        <th className='pl-2'>Author</th>
-                        <th className='pl-2'>Genre</th>
+                        <th>#</th>
+                        <th>Cover</th>
+                        <th>Name</th>
+                        <th>Author</th>
+                        <th>Genre</th>
                     </tr>
                 </thead>
                 <tbody className="text-left text-cyan-dark">

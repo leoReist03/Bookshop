@@ -19,11 +19,10 @@ const config: Config = {
           DEFAULT: '#bfbfbf',
         },
         'creme': '#f7f5ee',
-        'icewhite': {
-          light: '#cee1e4',
-          DEFAULT: '#edf4f5',
-        },
+        'icewhite': '#edf4f5',
         'cyan': {
+          light: '#cee1e4',
+          less: '#bdd7db',
           DEFAULT: '#6ba6ae',
           dark: '#3f6d73',
         },

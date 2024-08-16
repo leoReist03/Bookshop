@@ -8,3 +8,11 @@ export type Book = {
     author: string;
     genre: string;
 }
+
+export type Author = {
+    id: string;
+    name: string;
+    dateOfBirth: string;
+    picture?: string;
+    about: string;
+}

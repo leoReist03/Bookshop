@@ -4,13 +4,15 @@ const collection = client.db("Bookshop").collection("Authors");
 
 const ObjectID = mongo.ObjectId;
 
-async function create(name, dateOfBirth) {
+async function create(name, dateOfBirth, picture, about) {
     try {
         await connect();
 
         return await collection.insertOne({
             name: name,
-            dateOfBirth: dateOfBirth
+            dateOfBirth: dateOfBirth,
+            picture: picture,
+            about: about
         });
     } finally {
         await close();
@@ -21,7 +23,17 @@ async function read() {
     try {
         await connect();
 
-        return await collection.find().toArray();
+        return await collection.find().toArray().then(authors => {
+            return authors.map((author) => {
+                return author = {
+                    id: author._id,
+                    name: author.name,
+                    about: author.about,
+                    dateOfBirth: author.dateOfBirth,
+                    picture: author.picture
+                }
+            })
+        });
     } finally {
         await close();
     }
@@ -30,15 +42,24 @@ async function read() {
 async function find(id) {
     try {
         await connect();
+        
         return await collection.find({ '_id': new ObjectID(id.toString()) }).toArray().then(authors => {
-            return authors[0];
+            return authors.map((author) => {
+                return author = {
+                    id: author._id,
+                    name: author.name,
+                    about: author.about,
+                    dateOfBirth: author.dateOfBirth,
+                    picture: author.picture
+                };
+            });
         });
     } finally {
         await close();
     }
 }
 
-async function update(id, name, dateOfBirth) {
+async function update(id, name, dateOfBirth, picture, about) {
     try {
         await connect();
 
@@ -46,7 +67,9 @@ async function update(id, name, dateOfBirth) {
         {
             $set: {
                 name: name,
-                dateOfBirth: dateOfBirth
+                dateOfBirth: dateOfBirth,
+                picture: picture,
+                about: about
             }
         });
     } finally {
@@ -64,6 +87,19 @@ async function deleteObj(id) {
     }
 }
 
+async function pages() {
+    try {
+        await connect();
+
+        const count = []
+        count.push(await collection.estimatedDocumentCount());
+
+        return count;
+    } finally {
+        await close();
+    }
+}
+
 async function connect() {
     if (client.topology == undefined) {
         await client.connect();
@@ -76,4 +112,4 @@ async function close() {
     }
 }
 
-module.exports = { create, read, find, update, deleteObj };
+module.exports = { create, read, find, update, deleteObj, pages };
