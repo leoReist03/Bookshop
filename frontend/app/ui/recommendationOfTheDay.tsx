@@ -16,7 +16,7 @@ export default function RecommendationOfTheDay() {
                 <div className="w-full">
                     <p className="font-bold">Todays Recommended Book</p>
                 </div>
-                <div className="flex p-3 bg-icewhite-light rounded-lg mt-2">
+                <div className="flex p-3 bg-cyan-light rounded-lg mt-2">
                     <div className={`h-min pr-2`}>
                         <Image 
                             src={recommendedBook.cover}

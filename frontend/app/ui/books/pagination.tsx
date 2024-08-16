@@ -22,7 +22,7 @@ export default function Pagiantion({ totalPages }: { totalPages: number }) {
 
     return (
         <>
-            <div className="rounded-b-lg w-full bg-cyan mg-h-fit text-cyan grid grid-cols-5 p-1 text-cyan-dark">
+            <div className="rounded-b-lg w-full bg-cyan mg-h-fit text-cyan grid grid-cols-5 p-2 text-cyan-dark text-lg">
                 <div className="col-start-2 mx-auto">
                     <PaginationArrow
                         direction="left"
@@ -76,11 +76,11 @@ function PaginationNumber({
     isActive: boolean;
 }) {
     const className = clsx(
-        'flex w-10 items-center justify-center text-sm',
+        'flex w-10 items-center justify-center bg-cyan-dark text-white',
         {
         'rounded-l-md': position === 'first' || position === 'single',
         'rounded-r-md': position === 'last' || position === 'single',
-        'z-10 border-blue-600 text-white': isActive,
+        'z-10 border-blue-600': isActive,
         'hover:bg-gray-100': !isActive && position !== 'middle',
         'text-gray-300': position === 'middle',
         },
@@ -105,7 +105,7 @@ function PaginationArrow({
     isDisabled?: boolean;
 }) {
     const className = clsx(
-        'flex w-10 items-center justify-center',
+        'flex w-10 items-center justify-center align-middle',
         {
             'pointer-events-none text-gray-300': isDisabled,
             'hover:bg-gray-100': !isDisabled,
@@ -116,9 +116,9 @@ function PaginationArrow({
 
     const icon =
     direction === 'left' ? (
-        <ArrowLeftIcon className="w-4" />
+        <ArrowLeftIcon className="w-4 h-8" />
     ) : (
-        <ArrowRightIcon className="w-4" />
+        <ArrowRightIcon className="w-4 h-8" />
     );
 
     return isDisabled ? (

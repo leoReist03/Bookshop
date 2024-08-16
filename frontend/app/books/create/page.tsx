@@ -1,7 +1,7 @@
+import Pageheader from "@/app/ui/pageheader";
+
 export default function Page() {
     return (
-        <div>
-            
-        </div>
-    );
+        <Pageheader text="Create Book" />
+    )
 }

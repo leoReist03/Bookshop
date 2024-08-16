@@ -35,14 +35,14 @@ async function onCreate(cover, name, description, pages, release, authorId, genr
     }
 }
 
-async function read() {
+async function read(itemsOnPage, pageNr) {
     try {
         await connect();
 
         var authors = await client.db("Bookshop").collection("Authors").find().toArray();
         var genres = await client.db("Bookshop").collection("Genres").find().toArray();
 
-        return await collection.find().toArray().then(books => {
+        return await collection.find({}).toArray().then(books => {
             return books.map((book) => {
                 return book = {
                     _id: book._id,

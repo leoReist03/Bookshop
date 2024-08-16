@@ -1,17 +1,8 @@
-import PageDivider from "./pagedivider";
-
-export default function PageHeader({
-    value
-}: {
-    value: string
-}
-
-) {
+export default function Pageheader({ text }: { text: string }) {
     return (
-        <div className="w-full text-center mb-5">
-            <p className="font-bold text-cyan mb-2">{value}</p>
-
-            <PageDivider />
+        <div className='mt-5 text-left'>
+            <p className='text-cyan-dark font-bold text-2xl'>{text}</p>
         </div>
     );
+
 }
