@@ -24,13 +24,15 @@ pnpm dev
 - Bookmark
 
 ## The problem with pictures:
-i need to send them via the url to the backend in order to save them
-except i use a filepath but then i still need a way of saving them in the project. 
-manually is a bad way.
+Im the current state i would need to send pictures via the url to the backend in order to save them.
+Except i use a filepath but then i still need a way of saving them in the project. 
+Manually is a bad way to do that.
 
 ### possible solution
-i change the structure of my project and handle database access from the frontend.
-The backend would be obsolete
+I change the structure of my project and handle database access from the frontend.
+The backend would be obsolete.
+https://www.beekeeperstudio.io/blog/how-to-store-images-in-a-database
+Or i would install a different system to save pictures and only safe the path into the database.
 
 #### mongodb or sql 
 if i were to change the structure of my project, i would rather use sql over mongodb 
