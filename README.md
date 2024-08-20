@@ -31,8 +31,8 @@ Manually is a bad way to do that.
 ### possible solution
 I change the structure of my project and handle database access from the frontend.
 The backend would be obsolete.
-https://www.beekeeperstudio.io/blog/how-to-store-images-in-a-database
 Or i would install a different system to save pictures and only safe the path into the database.
+https://www.beekeeperstudio.io/blog/how-to-store-images-in-a-database
 
 #### mongodb or sql 
 if i were to change the structure of my project, i would rather use sql over mongodb 
