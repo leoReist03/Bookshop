@@ -43,7 +43,7 @@ export default function Form() {
                                 name="name"
                                 type="text"
                                 placeholder="Name..."
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2"
+                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-cyan-dark"
                             />
                             <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
@@ -58,9 +58,9 @@ export default function Form() {
                                 name="about"
                                 placeholder="About..."
                                 rows={5}
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 h-fit text-left align-middle"
+                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 h-fit text-left align-middle placeholder:text-cyan-dark"
                             />
-                            <IdentificationIcon className="pointer-events-none absolute left-3 top-4 h-[18px] w-[18px] -translate-y-1/2" />
+                            <IdentificationIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
                     </div>
                     <div className="m-2">

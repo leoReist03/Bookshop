@@ -17,11 +17,13 @@ const CreateAuthor = FormShema.omit({ id: true });
 const UpdateAuthor = FormShema.omit({ id: true });
 
 export async function createAuthor(formData: FormData) {
+    const pic = formData.get('picture') as File;
+
     const { name, about, dateOfBirth, picture } = CreateAuthor.parse({
         name: formData.get('name'),
         about: formData.get('about'),
         dateOfBirth: formData.get('dateOfBirth'),
-        picture: formData.get('picture') ? formData.get('picture') : '/defaultAuthorPicture.jpg',
+        picture: pic.name == 'undefined' ? '/defaultAuthorPicture.jpg' : "/" + pic.name,
     });
 
     await fetch(`${BACKEND_URL_AUTHORS}/onCreate/${name}/${dateOfBirth}/${picture}/${about}`);
@@ -31,18 +33,23 @@ export async function createAuthor(formData: FormData) {
 }
 
 export async function updateAuthor(id: string, formData: FormData) {
+    const pic = formData.get('picture') as File;
+
     const { name, about, dateOfBirth, picture } = UpdateAuthor.parse({
         name: formData.get('name'),
         about: formData.get('about'),
         dateOfBirth: formData.get('dateOfBirth'),
-        picture: formData.get('picture'),
+        picture: pic.name == 'undefined' ? '/defaultAuthorPicture.jpg' : "/" + pic.name,
     });
+
+    await fetch(`${BACKEND_URL_AUTHORS}/update/${id}/${name}/${dateOfBirth}/${picture}/${about}`);
 
     revalidatePath('/authors');
     redirect('/authors');
 }
 
-export async function deleteAuthor(id: string, formData: FormData) {
+export async function deleteAuthor(id: string) {
+    await fetch(`${BACKEND_URL_AUTHORS}/delete/${id}`);
 
     revalidatePath('/authors');
 }

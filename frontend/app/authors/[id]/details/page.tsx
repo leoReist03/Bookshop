@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { id: string }}) {
                 <div className="relative my-2 rounded-md w-full flex flex-nowrap">
                     <div className="grow">
                         <Image 
-                            src={`/authors${author.picture}`}
+                            src={`/authors/${author.picture}`}
                             alt={`picture of ${author.name}`}
                             width={160}
                             height={120}

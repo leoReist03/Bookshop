@@ -1,3 +1,4 @@
+import { deleteAuthor } from "@/app/lib/actions";
 import { ExclamationCircleIcon, PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
@@ -38,12 +39,14 @@ export function UpdateAuthor({ id }: { id: string }) {
 }
 
 export function DeleteAuthor({ id }: { id: string }) {
+    const deleteAuthorWithId = deleteAuthor.bind(null, id);
+
     return (
-        <>
+        <form action={deleteAuthorWithId}>
             <button className="rounded-md border p-2 hover:bg-gray-100 h-fit">
                 <span className="sr-only">Delete</span>
                 <TrashIcon className="w-5" />
             </button>
-        </>
+        </form>
     )
 }
