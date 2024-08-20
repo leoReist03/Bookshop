@@ -26,7 +26,7 @@ export default function Form({
                             </p>
                             <div className="relative mt-2 rounded-md">
                                 <Image 
-                                    src={`/authors${author.picture}`}
+                                    src={`/authors/${author.picture}`}
                                     alt={`picture of ${author.name}`}
                                     width={140}
                                     height={120}
@@ -72,7 +72,7 @@ export default function Form({
                                 defaultValue={author.about}
                                 className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 h-fit align-middle"
                             />
-                            <IdentificationIcon className="pointer-events-none absolute left-3 top-4 h-[18px] w-[18px] -translate-y-1/2" />
+                            <IdentificationIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
                     </div>
                     <div className="m-2">
