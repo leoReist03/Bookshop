@@ -41,8 +41,9 @@ especially one-to-many relations would be easier to do
 furthermore is the syntax of sql better and i fell like mongo db is not reliable enough
 
 ## Data samples
+### Books
 ```json
-Books: [
+[
     {
         "_id": "669a7c9bc299e72c41543d67",
         "cover":"redRising.jpg",
@@ -84,8 +85,11 @@ The result of over ten years of planning, writing, and world-building, 'The Way 
         "genreId":"669fb6b4bd0ac343d9321c1a"
     }
 ]
+```
 
-Authors: [
+### Authors
+```json
+[
     {
         "name":"PierceBrown",
         "dateOfBirth":"1988-01-28",
@@ -99,8 +103,11 @@ Authors: [
         "picture": "brandonSanderson.jpg",
     }
 ]
+```
 
-Genres: [
+# Genres
+```json
+ [
     {
         "name":"ScienceFiction"
     },
