@@ -1,4 +1,7 @@
 # Bookshop
+This is a learning project by Leo Reist.
+The goal is to create a good website with a nodejs and express backend and a next.js frontend.
+While learning node, express, nextjs and their best practices.
 
 ## to start backend
 ```bash
@@ -12,29 +15,30 @@ cd ./Bookshop/frontend
 pnpm dev
 ```
 
-## TODO:
-- Liste mit 10 büchern nach genre
+## Todolist:
+- Handle upload of images maybe cloudinary
+- List of 10 books by genre
 - Toggle list or grid
-- Darkmode toggle
-- Bücherliste filtern lassen
-- Authorliste nach zeitspanne von geburtstag filtern lassen
+- Filterable booklist
+- Filter Authorliste by timespan of date of birth
 - Loging
 - Login
 - Bookmark
-- Sprachauswahl
+- Language picker
+- Darkmode toggle
 
 ## The problem with pictures:
 Im the current state i would need to send pictures via the url to the backend in order to save them.
 Except i use a filepath but then i still need a way of saving them in the project. 
 Manually is a bad way to do that.
 
-### possible solution
+### Possible solution
 I change the structure of my project and handle database access from the frontend.
 The backend would be obsolete.
 Or i would install a different system to save pictures and only safe the path into the database.
 https://www.beekeeperstudio.io/blog/how-to-store-images-in-a-database
 
-#### mongodb or sql 
+### Mongodb or Sql 
 if i were to change the structure of my project, i would rather use sql over mongodb 
 i am more used to the relational db system and it is easier for me to understand
 especially one-to-many relations would be easier to do
