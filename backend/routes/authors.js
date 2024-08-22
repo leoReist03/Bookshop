@@ -35,7 +35,7 @@ router.get('/delete/:id/', (req, res) => {
 });
 
 //Update route
-router.get('/update/:id/:name/:picture/:about', (req, res) => {
+router.get('/update/:id/:name/:dateOfBirth/:picture/:about', (req, res) => {
     controller.update(req.params.id, req.params.name, req.params.picture, req.params.about)
               .then(result => {
                 res.send(result);
