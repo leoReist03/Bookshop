@@ -22,7 +22,7 @@ export default function Pagiantion({ totalPages }: { totalPages: number }) {
 
     return (
         <>
-            <div className="rounded-b-lg w-full bg-cyan mg-h-fit text-cyan grid grid-cols-5 p-2 text-cyan-dark text-lg">
+            <div className="w-full mg-h-fit text-cyan grid grid-cols-5 p-2 text-cyan-dark text-lg">
                 <div className="col-start-2 mx-auto">
                     <PaginationArrow
                         direction="left"

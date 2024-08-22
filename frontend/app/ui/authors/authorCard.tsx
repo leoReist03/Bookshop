@@ -15,7 +15,7 @@ export default function AuthorCard({
                 href={`/authors/${author.id}/details`}
             >
                 <Image 
-                    src={`/authors${author.picture}`}
+                    src={`/authors/${author.picture}`}
                     alt={`picture of ${author.name}`}
                     width={100}
                     height={100}

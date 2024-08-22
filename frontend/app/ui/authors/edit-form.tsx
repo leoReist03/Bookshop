@@ -26,7 +26,7 @@ export default function Form({
                             </p>
                             <div className="relative mt-2 rounded-md">
                                 <Image 
-                                    src={`/authors${author.picture}`}
+                                    src={`/authors/${author.picture}`}
                                     alt={`picture of ${author.name}`}
                                     width={140}
                                     height={120}

@@ -1,4 +1,3 @@
-import BookTable from "../ui/books/bookTable";
 import { Suspense } from "react";
 import { TableSkeleton } from "../ui/skeletons";
 import Search from "../ui/search";
@@ -6,6 +5,7 @@ import { CreateBook } from "../ui/books/buttons";
 import Pagination from "../ui/books/pagination";
 import { fetchBooksPages } from "../lib/data";
 import Pageheader from "../ui/pageheader";
+import BookList from "../ui/books/bookList";
 
 export default async function Page({
     searchParams,
@@ -28,7 +28,9 @@ export default async function Page({
                         <Search placeholder="Search Books..." />
                         <CreateBook />
                     </div>
-                    <BookTable query={query} currentPage={currentPage} />
+                    <div className="w-full text-center bg-icewhite-less rounded-lg mb-5">
+                        <BookList query={query} currentPage={currentPage} />
+                    </div>
                     <div>
                         <Pagination totalPages={totalPages} />
                     </div>

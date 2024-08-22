@@ -16,12 +16,12 @@ pnpm dev
 - Liste mit 10 büchern nach genre
 - Toggle list or grid
 - Darkmode toggle
-- Bei Authorliste
 - Bücherliste filtern lassen
 - Authorliste nach zeitspanne von geburtstag filtern lassen
 - Loging
 - Login
 - Bookmark
+- Sprachauswahl
 
 ## The problem with pictures:
 Im the current state i would need to send pictures via the url to the backend in order to save them.
