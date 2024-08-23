@@ -45,7 +45,7 @@ async function read(itemsOnPage, pageNr) {
         return await collection.find({}).toArray().then(books => {
             return books.map((book) => {
                 return book = {
-                    _id: book._id,
+                    id: book._id,
                     cover: book.cover,
                     name: book.name,
                     description: book.description,
@@ -71,7 +71,7 @@ async function find(id) {
         return await collection.find({ '_id': new ObjectID(id.toString()) }).toArray().then(books => {
             book = books[0];
             return book = {
-                _id: book._id,
+                id: book._id,
                 cover: book.cover,
                 name: book.name,
                 description: book.description,

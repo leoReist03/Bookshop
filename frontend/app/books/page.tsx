@@ -3,7 +3,7 @@ import { TableSkeleton } from "../ui/skeletons";
 import Search from "../ui/search";
 import { CreateBook } from "../ui/books/buttons";
 import Pagination from "../ui/books/pagination";
-import { fetchBooksPages } from "../lib/data";
+import { fetchBooksPages } from "../lib/data/books";
 import Pageheader from "../ui/pageheader";
 import BookList from "../ui/books/bookList";
 

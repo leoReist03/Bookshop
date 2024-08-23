@@ -1,6 +1,6 @@
 import BookCard from "./bookCard";
 import { Book } from '@/app/lib/models'
-import { fetchBooks } from "../../lib/data";
+import { fetchBooks } from "../../lib/data/books";
 
 export default async function BookList({
     query,

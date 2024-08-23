@@ -8,7 +8,7 @@ export default function Logo() {
             className="bg-cyan hover:bg-cyan-dark flex w-max p-2 rounded-full cursor-pointer ml-2 mr-6 transition-colors"
             >
             <Image 
-                src='./howlericon.svg'
+                src='/howlericon.svg'
                 width={50}
                 height={50}
                 alt="hower icon"

@@ -3,7 +3,7 @@
 import z from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { BACKEND_URL_AUTHORS } from './constants';
+import { BACKEND_URL_AUTHORS } from '../constants';
 
 const FormShema = z.object({
     id: z.string(),

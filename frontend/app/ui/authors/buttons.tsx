@@ -1,4 +1,4 @@
-import { deleteAuthor } from "@/app/lib/actions";
+import { deleteAuthor } from "@/app/lib/actions/authors";
 import { ExclamationCircleIcon, PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 

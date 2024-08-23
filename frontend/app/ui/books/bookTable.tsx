@@ -1,6 +1,6 @@
 import BookTableRow from "./bookTableRow";
 import { Book } from '@/app/lib/models'
-import { fetchBooks } from "../../lib/data";
+import { fetchBooks } from "../../lib/data/books";
 
 export default async function BooksTable({
     query,

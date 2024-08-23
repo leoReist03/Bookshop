@@ -1,4 +1,4 @@
-import { fetchAuthorsPages } from '../lib/data';
+import { fetchAuthorsPages } from '../lib/data/authors';
 import { Suspense } from 'react';
 import { AuthorListSkeleton } from '../ui/skeletons';
 import AuthorList from '../ui/authors/authorList';
