@@ -1,12 +1,22 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const mysql = require('mysql2');
+require('dotenv').config();
+const constants = require('../constants');
 
-// The uri to use online db
-const uri = "mongodb+srv://leoreist:2aL1Jn07yeX5@cluster0.cry8wto.mongodb.net/Bookshop?retryWrites=true&w=majority&appName=Cluster0";
+const pool = mysql.createPool({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USERNAME,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE_NAME
+}).promise();
 
-// The uri to use local db
-// const uri = 'mongodb://127.0.0.1:27017';
+var uri;
+if (constants.MONGODB_LOCAL) {
+  uri = process.env.MOGNO_DB_LOCAL;
+} else {
+  uri = process.env.MONGO_DB_ATLAS;
+}
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -15,4 +25,4 @@ const client = new MongoClient(uri, {
   }
 });
 
-module.exports = client;
+module.exports = { client, pool };

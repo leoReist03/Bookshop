@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/authorsController');
+const constants = require('../constants');
+var controller;
+
+if (constants.DATABASE_SYSTEM == 'mysql') {
+  controller = require('../controllers/mysql/authorsController');
+} else {
+  controller = require('../controllers/mongodb/authorsController');
+}
 
 //Root route
 router.get('/', (req, res) => {
