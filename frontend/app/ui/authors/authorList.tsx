@@ -1,4 +1,4 @@
-import { fetchAuthors } from "@/app/lib/data";
+import { fetchAuthors } from "@/app/lib/data/authors";
 import AuthorCard from "./authorCard";
 import { Author } from "@/app/lib/models";
 

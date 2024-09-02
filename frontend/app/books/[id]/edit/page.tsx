@@ -1,21 +1,21 @@
+import { fetchBookById } from "@/app/lib/data/books";
 import Pageheader from "@/app/ui/pageheader";
-import Form from "@/app/ui/authors/edit-form";
-import { fetchAuthorById } from "@/app/lib/data/authors";
 import { notFound } from "next/navigation";
+import Form from "@/app/ui/books/edit-form";
 
 export default async function Page({ params }: { params: { id: string } }) {
     const id = params.id;
-    const author = await fetchAuthorById(id);
+    const book = await fetchBookById(id);
 
-    if (!author) {
+    if(!book) {
         notFound();
     }
 
     return (
         <main>
             <div className="w-full text-center bg-icewhite p-3 rounded-lg mb-5">
-                <Pageheader text='Edit Author' />
-                <Form author={author} />
+                <Pageheader text='Edit Book' />
+                <Form book={book} />
             </div>
         </main>
     );

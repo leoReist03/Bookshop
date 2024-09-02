@@ -25,7 +25,7 @@ pnpm dev
 - Login
 - Bookmark
 - Language picker
-- Darkmode toggle
+- (Darkmode toggle)https://medium.com/@--andrewnelson/add-a-dark-mode-toggle-to-your-nextjs-react-app-375b230a4c27#c817
 
 ## The problem with pictures:
 Im the current state i would need to send pictures via the url to the backend in order to save them.

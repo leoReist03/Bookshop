@@ -44,15 +44,14 @@ async function find(id) {
         await connect();
         
         return await collection.find({ '_id': new ObjectID(id.toString()) }).toArray().then(authors => {
-            return authors.map((author) => {
-                return author = {
-                    id: author._id,
-                    name: author.name,
-                    about: author.about,
-                    dateOfBirth: author.dateOfBirth,
-                    picture: author.picture
-                };
-            });
+            author = authors[0];
+            return author = {
+                id: author._id,
+                name: author.name,
+                about: author.about,
+                dateOfBirth: author.dateOfBirth,
+                picture: author.picture
+            }
         });
     } finally {
         await close();

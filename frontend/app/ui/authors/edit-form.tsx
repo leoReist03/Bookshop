@@ -1,4 +1,4 @@
-import { updateAuthor } from "@/app/lib/actions";
+import { updateAuthor } from "@/app/lib/actions/authors";
 import { Author } from "@/app/lib/models";
 import { UserIcon, IdentificationIcon, CakeIcon, CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -10,11 +10,8 @@ export default function Form({
 }: {
     author: Author;
 }) {
-    if (!author.picture) {
-        author.picture = '/defaultAuthorPicture.jpg'
-    }
-
     const updateAuthorWithId = updateAuthor.bind(null, author.id);
+    
     return (
         <form action={updateAuthorWithId} className="mt-6 text-cyan-dark">
             <div className="flex flex-row">
