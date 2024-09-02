@@ -5,10 +5,10 @@ export default async function BookCard({ book }: { book: Book }) {
     return (
         <div className="p-2 ">
             <Image
-                src={`/books/${book.cover}`}
+                src={`/books/${book.Cover}`}
                 width={150}
                 height={150}
-                alt={`cover for ${book.name}`}
+                alt={`cover for ${book.Name}`}
                 className=""
             />
         </div>

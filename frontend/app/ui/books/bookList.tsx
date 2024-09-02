@@ -15,7 +15,7 @@ export default async function BookList({
         <div className="w-full text-base mt-6 flex flex-wrap bg-cyan-light p-2">
             {
             books.map((book: Book) => {
-                return (<BookCard key={book.name} book={book} />)
+                return (<BookCard key={book.Name} book={book} />)
             })}
         </div>
     );

@@ -25,14 +25,24 @@ async function find(id) {
 async function update(id, cover, name, description, pages, release, authorId, genreId) {
     const result = await pool.query(`
         update Books
-        SET cover = ?, name = ?, description = ?`)
+        SET cover = ?, name = ?, description = ?, pages = ?, release = ?, authorId = ?, genreId = ?
+        WHERE Id = ?
+        `, [cover], [name], [description], [pages], [release], [authorId], [genreId], [id]);
+    return result;
 }
 
-async function deleteObj() {
-
+async function deleteObj(id) {
+    const result = await pool.query(`
+        delete from Books
+        where Id = ?
+        `, [id]);
+    return result;
 }
 
 async function pages() {
+    const result = await pool.query(`
+        SELECT COUNT(*) AS count FROM Books`);
+    return [result[0][0].count];
     
 }
 

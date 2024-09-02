@@ -121,5 +121,24 @@ The result of over ten years of planning, writing, and world-building, 'The Way 
 ]
 ```
 
+## Packages for backend
 
-mySqlPassword123!
+### express
+This is a framework i use to create the server and handle the api requests from the frontend.
+https://www.npmjs.com/package/express
+
+### cors
+This package enables cors for http requests.
+https://www.npmjs.com/package/cors
+
+### dotenv
+With this package i can use environment vaiables. This helps me to hide passwords and database connections inside the code. They also dont get uploaded to git.
+https://www.npmjs.com/package/dotenv
+
+### uuid
+This package generates the uuids for the database entries.
+https://www.npmjs.com/package/uuid
+
+### mysql2
+This package handles the connection to the mysql database. It is a better version of the mysql package.
+https://www.npmjs.com/package/mysql2

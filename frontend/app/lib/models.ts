@@ -1,18 +1,18 @@
 export type Book = {
-    id: string;
-    cover: string;
-    name: string;
-    description: string;
-    pages: number;
-    release: string;
-    author: string;
-    genre: string;
+    Id: string;
+    Cover: string;
+    Name: string;
+    Description: string;
+    Pages: number;
+    Release: string;
+    Author: string;
+    Genre: string;
 }
 
 export type Author = {
-    id: string;
-    name: string;
-    dateOfBirth: string;
-    picture?: string;
-    about: string;
+    Id: string;
+    Name: string;
+    DateOfBirth: string;
+    Picture?: string;
+    About: string;
 }
