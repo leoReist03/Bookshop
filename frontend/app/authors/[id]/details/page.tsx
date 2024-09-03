@@ -1,4 +1,4 @@
-import { fetchAuthorById } from "@/app/lib/data";
+import { fetchAuthorById } from "@/app/lib/data/authors";
 import Pageheader from "@/app/ui/pageheader";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,29 +10,29 @@ export default async function Page({ params }: { params: { id: string }}) {
 
     return (
         <div className="w-full text-center bg-icewhite text-cyan-dark p-3 rounded-lg mb-5">
-            <Pageheader text={author.name} />
+            <Pageheader text={author.Name} />
             <div className="flex flex-wrap">
                 <div className="relative my-2 rounded-md w-full flex flex-nowrap">
                     <div className="grow">
                         <Image 
-                            src={`/authors/${author.picture}`}
-                            alt={`picture of ${author.name}`}
+                            src={`/authors/${author.Picture}`}
+                            alt={`picture of ${author.Name}`}
                             width={160}
                             height={120}
                             className="rounded-md border hover:brightness-95"
                         />
                     </div>
                     <div className="flex justify-end gap-1">
-                        <UpdateAuthor id={author.id} />
-                        <DeleteAuthor id={author.id} />
+                        <UpdateAuthor id={author.Id} />
+                        <DeleteAuthor id={author.Id} />
                     </div>
                 </div>
                 <div className="text-left w-3/4 my-4">
-                    <p><span className="font-bold">About: </span>{author.about}</p>
+                    <p><span className="font-bold">About: </span>{author.About}</p>
                     <br />
-                    <p><span className="font-bold">Date of birth: </span>{author.dateOfBirth}</p>
+                    <p><span className="font-bold">Date of birth: </span>{author.DateOfBirth}</p>
                     <br />
-                    <p><span className="font-bold">Books published by {author.name}: </span></p>
+                    <p><span className="font-bold">Books published by {author.Name}: </span></p>
                 </div>
             </div>
             <div className=" flex justify-end">

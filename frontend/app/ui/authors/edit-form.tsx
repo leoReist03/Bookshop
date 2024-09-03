@@ -1,4 +1,4 @@
-import { updateAuthor } from "@/app/lib/actions";
+import { updateAuthor } from "@/app/lib/actions/authors";
 import { Author } from "@/app/lib/models";
 import { UserIcon, IdentificationIcon, CakeIcon, CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -10,11 +10,8 @@ export default function Form({
 }: {
     author: Author;
 }) {
-    if (!author.picture) {
-        author.picture = '/defaultAuthorPicture.jpg'
-    }
-
-    const updateAuthorWithId = updateAuthor.bind(null, author.id);
+    const updateAuthorWithId = updateAuthor.bind(null, author.Id);
+    
     return (
         <form action={updateAuthorWithId} className="mt-6 text-cyan-dark">
             <div className="flex flex-row">
@@ -26,8 +23,8 @@ export default function Form({
                             </p>
                             <div className="relative mt-2 rounded-md">
                                 <Image 
-                                    src={`/authors/${author.picture}`}
-                                    alt={`picture of ${author.name}`}
+                                    src={`/authors/${author.Picture}`}
+                                    alt={`picture of ${author.Name}`}
                                     width={140}
                                     height={120}
                                     className="rounded-md border mx-auto hover:brightness-95"
@@ -53,7 +50,7 @@ export default function Form({
                                 name="name"
                                 type="text"
                                 placeholder="Name..."
-                                defaultValue={author.name}
+                                defaultValue={author.Name}
                                 className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2"
                             />
                             <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
@@ -69,7 +66,7 @@ export default function Form({
                                 name="about"
                                 placeholder="About..."
                                 rows={5}
-                                defaultValue={author.about}
+                                defaultValue={author.About}
                                 className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 h-fit align-middle"
                             />
                             <IdentificationIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
@@ -85,7 +82,7 @@ export default function Form({
                                 name="dateOfBirth"
                                 type="date"
                                 placeholder="Date of Birth..."
-                                defaultValue={author.dateOfBirth}
+                                defaultValue={author.DateOfBirth}
                                 className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-2"
                             />
                             <CakeIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2"/>

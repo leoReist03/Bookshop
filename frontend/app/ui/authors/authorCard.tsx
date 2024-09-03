@@ -12,11 +12,11 @@ export default function AuthorCard({
     return (
         <div className="bg-cyan-light p-4 border-solid flex">
             <Link
-                href={`/authors/${author.id}/details`}
+                href={`/authors/${author.Id}/details`}
             >
                 <Image 
-                    src={`/authors/${author.picture}`}
-                    alt={`picture of ${author.name}`}
+                    src={`/authors/${author.Picture}`}
+                    alt={`picture of ${author.Name}`}
                     width={100}
                     height={100}
                     className="rounded-md border hover:brightness-95 hover:cursor-pointer"
@@ -24,16 +24,16 @@ export default function AuthorCard({
             </Link>
             <div className="ml-5 text-cyan-dark w-3/4 flex flex-col text-left">
                 <Link
-                    href={`/authors/${author.id}/details`}
+                    href={`/authors/${author.Id}/details`}
                     className="w-fit"
                 >
-                <span className="float-left mt-4 font-bold hover:cursor-pointer hover:text-cyan w-fit">{author.name}</span>
+                <span className="float-left mt-4 font-bold hover:cursor-pointer hover:text-cyan w-fit">{author.Name}</span>
                 </Link>
-                <span className="float-left mt-4 left">{author.dateOfBirth}</span>
+                <span className="float-left mt-4 left">{author.DateOfBirth}</span>
             </div>
             <div className="flex ">
-                <UpdateAuthor id={author.id} />
-                <DeleteAuthor id={author.id} />
+                <UpdateAuthor id={author.Id} />
+                <DeleteAuthor id={author.Id} />
             </div>
         </div>
     )
