@@ -33,6 +33,15 @@ router.get('/find/:id', (req, res) => {
               });
 });
 
+//Pages route
+router.get('/pages', (req, res) => {
+  controller.pages()
+            .then(result => {
+              res.send(result);
+            });
+});
+
+//Create route
 router.post('/create', validateAuthor, (req, res) => {
   controller.create(req)
     .then(result => {
@@ -56,13 +65,7 @@ router.post('/delete', (req, res) => {
   });
 });
 
-router.get('/pages', (req, res) => {
-  controller.pages()
-            .then(result => {
-              res.send(result);
-            });
-});
-
+//Send response to the frontend
 function sendResponse(res, result) {
   if(result.status == 201) {
     res.status(result.status).json({

@@ -1,16 +1,29 @@
 import { Book } from "@/app/lib/models";
 import Image from "next/image";
+import Link from "next/link";
+import styles from '@/app/ui/cssModules/book-card.module.css';
 
 export default async function BookCard({ book }: { book: Book }) {
     return (
-        <div className="p-2 ">
-            <Image
-                src={`/books/${book.Cover}`}
-                width={150}
-                height={150}
-                alt={`cover for ${book.Name}`}
-                className=""
-            />
-        </div>
+        <Link
+            href={`/books/${book.Id}/details`}
+            className={`${styles.cardContainer} w-fit h-fit m-2 text-white hover:cursor-pointer`}
+        >
+            <div className={styles.card}>
+                <div className={`${styles.frontContent} bg-gradient-to-r from-cyan to-cyan-dark`}>
+                    <Image
+                        src={`/books/${book.Cover}`}
+                        width={200}
+                        height={75}
+                        alt={`cover for ${book.Name}`}
+                    />
+                </div>
+                <div className={`${styles.content} p-5`}>
+                    <p className="font-bold">{book.Name}</p>
+                    <p>{book.Author}</p>
+                    <p>{book.Genre}</p>
+                </div>
+            </div>
+        </Link>
     );
 }

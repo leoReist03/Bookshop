@@ -19,12 +19,11 @@ type UpdateAuthorInput = z.infer<typeof AuthorSchema>;
 export async function createAuthor(formData: FormData) {
     const rawData = Object.fromEntries(formData.entries());
     const pic = formData.get('picture') as File;
-    const dateOfBirth = formData.get('dateOfBirth');
 
     try {
         const validatedData = AuthorSchema.parse({
             ...rawData,
-            picture: pic.name === 'undefined' ? 'defaultAuthorPicture.jpg' : `/${pic.name}`,
+            picture: pic.name === 'undefined' ? 'defaultAuthorPicture.jpg' : pic.name,
         });
 
         const response = await fetch(`${BACKEND_URL_AUTHORS}/create`, {
@@ -34,7 +33,6 @@ export async function createAuthor(formData: FormData) {
             },
             body: JSON.stringify(validatedData),
         });
-        console.log(response);
 
         if (!response.ok) {
             throw new Error('Failed to create Author');
@@ -102,10 +100,10 @@ export async function deleteAuthor(id: string) {
         if (!response.ok) {
             throw new Error('Failed to delete Author');
         }
-    
-        revalidatePath('/authors');
     } catch (error) {
         console.error('Database Error', error);
         throw new Error('Failed to delete Author');
+    } finally {
+        revalidatePath('/authors');
     }
 }

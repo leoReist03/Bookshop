@@ -2,7 +2,6 @@ const pool = require('../dbAccessController').pool;
 const { validationResult } = require('express-validator');
 const { v4: uuidv4 } = require('uuid');
 
-
 async function read(query) {
     const [rows] = await pool.query(`
         SELECT * FROM Authors
@@ -28,7 +27,7 @@ async function pages() {
 async function create(req) {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
-        return { status: 400, message: 'Failed to create Author', error: errors.array() };
+        return { status: 400, message: 'Failed to create Author because of validation errors:', error: errors.array() };
     }
 
     const { name, about, dateOfBirth, picture = 'defaultAuthorPicture.jpg' } = req.body;

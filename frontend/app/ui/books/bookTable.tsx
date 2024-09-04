@@ -1,6 +1,6 @@
 import BookTableRow from "./bookTableRow";
 import { Book } from '@/app/lib/models'
-import { fetchBooks } from "../../lib/data";
+import { fetchBooks } from "../../lib/data/books";
 
 export default async function BooksTable({
     query,
@@ -28,7 +28,7 @@ export default async function BooksTable({
                     {
                     books.map((book: Book) => {
                         count++
-                        return (<BookTableRow key={book.name} book={book} count={count} />)
+                        return (<BookTableRow key={book.Name} book={book} count={count} />)
                     })}
                 </tbody>
             </table>
