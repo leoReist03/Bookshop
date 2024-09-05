@@ -64,6 +64,7 @@ If you encounter any problems and errors when running the project you can follow
 - [ ] Create an appealing Landing page
 - [ ] Logging
 - [ ] Login
+- [ ] Add e series property to Books
 - [ ] Add a Bookmarking system
 - [ ] Add a Rating sytem
 - [ ] Add a shopping cart
