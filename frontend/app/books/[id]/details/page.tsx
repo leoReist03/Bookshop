@@ -3,13 +3,14 @@ import Pageheader from "@/app/ui/pageheader";
 import Image from "next/image";
 import Link from "next/link";
 import { DeleteBook, UpdateBook } from "@/app/ui/books/buttons";
-import { fetchAuthorById, fetchAuthorsPages } from "@/app/lib/data/authors";
+import { fetchAuthorById } from "@/app/lib/data/authors";
+import { fetchGenreById } from "@/app/lib/data/genres";
 
 export default async function Page({ params }: { params: { id: string }}) {
     const id = params.id;
     const book = await fetchBookById(id);
-    console.log(book);
     const author = await fetchAuthorById(book.Author);
+    const genre = await fetchGenreById(book.Genre);
 
     return (
         <div className="w-full text-center bg-icewhite text-cyan-dark p-3 rounded-lg mb-5">
@@ -33,8 +34,8 @@ export default async function Page({ params }: { params: { id: string }}) {
                 <div className="text-left w-3/4 my-4">
                     <p><span className="font-bold">Author: </span>{author.Name}</p>
                     <br />
-                    {/* <p><span className="font-bold">Genre: </span>{genre.Name}</p>
-                    <br /> */}
+                    <p><span className="font-bold">Genre: </span>{genre.Name}</p>
+                    <br />
                     <p><span className="font-bold">Release: </span>{book.ReleaseDate}</p>
                     <br />
                     <p><span className="font-bold">Pages: </span> {book.Pages}</p>

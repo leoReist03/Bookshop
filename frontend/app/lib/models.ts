@@ -16,3 +16,8 @@ export type Author = {
     About: string;
     Picture: string;
 }
+
+export type Genre = {
+    Id: string;
+    Name: string;
+}

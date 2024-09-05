@@ -6,7 +6,6 @@ async function read(query) {
     const [rows] = await pool.query(`
         SELECT * FROM Authors
         WHERE Name LIKE ?`, `%${[query]}%`);
-        console.log(rows);
     return rows;
 }
 

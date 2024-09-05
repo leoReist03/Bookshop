@@ -46,22 +46,22 @@ If you encounter any problems and errors when running the project you can follow
 - Delete the package-lock 
 
 ## Todolist:
-- [ ] Create DevOps for project and plan sprints and features
-- [ ] Create an appealing Landing page
-- [ ] Create Book crud pages and their respective functions in the frontend
-- [x] Create Author crud pages and their respective functions in the frontend
-- [ ] Create Genre crud pages and their respective functions in the frontend
 - [x] Handle http get calls in the backend
 - [x] Handle http post calls in the backend
 - [x] Change database system to Sql
-- [ ] Display validation errors in the forms
-- [ ] Handle upload of images with cloudinary
+- [X] Create Book crud pages and their respective functions in the frontend
+- [x] Create Author crud pages and their respective functions in the frontend
+- [ ] Create DevOps for project and plan sprints and features
+- [ ] Create Genre crud pages and their respective functions in the frontend
 - [ ] Add database migrations
+- [ ] Handle upload of images with cloudinary
+- [ ] Display validation errors in the forms
 - [ ] Make book-author and book-genre many-to-many
 - [ ] List of 10 books by genre
 - [ ] Toggle list or grid
 - [ ] Filterable booklist
 - [ ] Filter Authorlist by timespan of birthdate
+- [ ] Create an appealing Landing page
 - [ ] Logging
 - [ ] Login
 - [ ] Add a Bookmarking system

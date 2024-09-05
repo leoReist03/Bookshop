@@ -1,16 +1,10 @@
-import { BACKEND_URL_AUTHORS } from '../constants';
 import { Author } from '@/app/lib/models';
 
 const ITEMS_PER_PAGE = 5;
 
 export async function fetchAuthors(query: string, currentPage: number) {
     try {
-        var response;
-        if (query != '') {
-            response = await fetch(BACKEND_URL_AUTHORS + '?query=' + query)
-        } else {
-            response = await fetch(BACKEND_URL_AUTHORS);
-        }
+        const response = await fetch(process.env.BACKEND_URL_AUTHORS + (query !== '' ? '?query=' + query : ''));
 
         if (!response.ok) {
             throw new Error(`HTTP error ${response.status}`);
@@ -23,17 +17,17 @@ export async function fetchAuthors(query: string, currentPage: number) {
             return authors;
         } catch (err) {
             console.error('Error parsing JSON:', err);
-            throw new Error('Failed to parse authors data');
+            throw new Error('Failed to parse Authors data');
         }
     } catch (error) {
-        console.error('Error fetching authors:', error);
-        throw new Error('Failed to fetch authors');
+        console.error('Error fetching Authors:', error);
+        throw new Error('Failed to fetch Authors');
     }
 }
 
 export async function fetchAuthorById(id: string) {
     try {
-        const author = await fetch(BACKEND_URL_AUTHORS + 'find/' + id)
+        const author = await fetch(process.env.BACKEND_URL_AUTHORS + 'find/' + id)
               .then((res) => res.json())
               .then((data: Author) => {
                 return data
@@ -42,13 +36,14 @@ export async function fetchAuthorById(id: string) {
               return author;
     } catch (error) {
         console.error('Database Error', error);
-        throw new Error('Failed to fetch author');
+        throw new Error('Failed to fetch Author');
     }
 }
 
 export async function fetchAuthorsPages(query: string) {
     try {
-        const authorCount = await fetch(BACKEND_URL_AUTHORS + 'pages')
+        console.log(`${process.env.BACKEND_URL_AUTHORS}pages`);
+        const authorCount = await fetch(`${process.env.BACKEND_URL_AUTHORS}pages`)
             .then((res) => res.json())
             .then((data: number[]) => {
                 return data
@@ -58,6 +53,6 @@ export async function fetchAuthorsPages(query: string) {
         return totalPages;
     } catch (error) {
         console.error('Database Error', error);
-        throw new Error('Failed to fetch total number of authors');
+        throw new Error('Failed to fetch total number of Authors');
     }
 }

@@ -1,7 +1,6 @@
 'use server';
 
 import z from 'zod';
-import { BACKEND_URL_BOOKS } from '../constants';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -29,7 +28,7 @@ export async function createBook(formData: FormData) {
             cover: img.name === 'undefined' ? 'defaultBookCover.jpg' : img.name,
         });
 
-        const response = await fetch(`${BACKEND_URL_BOOKS}/create`, {
+        const response = await fetch(`${process.env.BACKEND_URL_BOOKS}/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -64,7 +63,7 @@ export async function updateBook(id: string, formData: FormData) {
             id: id
         });
 
-        const response = await fetch(`${BACKEND_URL_BOOKS}/update`, {
+        const response = await fetch(`${process.env.BACKEND_URL_BOOKS}/update`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -90,7 +89,7 @@ export async function updateBook(id: string, formData: FormData) {
 
 export async function deleteBook(id: string) {
     try {
-        const response = await fetch(`${BACKEND_URL_BOOKS}/delete`, {
+        const response = await fetch(`${process.env.BACKEND_URL_BOOKS}/delete`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

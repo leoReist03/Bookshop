@@ -4,28 +4,24 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-const AuthorSchema = z.object({
+const GenreShema = z.object({
     id: z.string().optional(),
     name: z.string().min(1, "Name is required"),
-    about: z.string().min(1, "About is required"),
-    dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
-    picture: z.string().default('defaultAuthorPicture.jpg'),
 });
 
-type CreateAuthorInput = z.infer<typeof AuthorSchema>;
-type UpdateAuthorInput = z.infer<typeof AuthorSchema>;
+type CreateGenreInput = z.infer<typeof GenreShema>;
+type UpdateGenreInput = z.infer<typeof GenreShema>;
 
 export async function createAuthor(formData: FormData) {
     const rawData = Object.fromEntries(formData.entries());
     const pic = formData.get('picture') as File;
 
     try {
-        const validatedData = AuthorSchema.parse({
+        const validatedData = GenreShema.parse({
             ...rawData,
-            picture: pic.name === 'undefined' ? 'defaultAuthorPicture.jpg' : pic.name,
         });
 
-        const response = await fetch(`${process.env.BACKEND_URL_AUTHORS}/create`, {
+        const response = await fetch(`${process.env.BACKEND_URL_GENRES}/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,7 +30,7 @@ export async function createAuthor(formData: FormData) {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to create Author');
+            throw new Error('Failed to create Genre');
         }
     } catch (error) {
         if (error instanceof z.ZodError) {
@@ -42,27 +38,24 @@ export async function createAuthor(formData: FormData) {
             return { success: false, errors: error.errors };
         }
         console.error('Database Error', error);
-        throw new Error('Failed to create Author');
+        throw new Error('Failed to create Genre');
     } finally {
-        revalidatePath('/authors');
-        redirect('/authors');
+        revalidatePath('/genres');
+        redirect('/genres');
     }
 }
 
-export async function updateAuthor(id: string, formData: FormData) {
+export async function updateGenre(id: string, formData: FormData) {
     const rawData = Object.fromEntries(formData.entries());
     const pic = formData.get('picture') as File;
 
     try {
-        const validatedData = AuthorSchema.parse({
+        const validatedData = GenreShema.parse({
             ...rawData,
-            picture: pic.name === 'undefined' ? 'defaultAuthorPicture.jpg' : `/${pic.name}`,
             id: id,
         });
 
-        console.log(JSON.stringify(validatedData));
-
-        const response = await fetch(`${process.env.BACKEND_URL_AUTHORS}/update`, {
+        const response = await fetch(`${process.env.BACKEND_URL_GENRES}/update`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -71,24 +64,24 @@ export async function updateAuthor(id: string, formData: FormData) {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to update Author');
+            throw new Error('Failed to update Genre');
         }
 
-        revalidatePath('/authors');
-        redirect('/authors');
+        revalidatePath('/genres');
+        redirect('/genres');
     } catch (error) {
         if (error instanceof z.ZodError) {
             console.error('Validation Error', error.errors);
             return { success: false, errors: error.errors };
         }
         console.error('Database Error', error);
-        throw new Error('Failed to update Author');
+        throw new Error('Failed to update Genre');
     }
 }
 
-export async function deleteAuthor(id: string) {
+export async function deleteGenre(id: string) {
     try {
-        const response = await fetch(`${process.env.BACKEND_URL_AUTHORS}/delete`, {
+        const response = await fetch(`${process.env.BACKEND_URL_GENRES}/delete`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -97,12 +90,12 @@ export async function deleteAuthor(id: string) {
         });
     
         if (!response.ok) {
-            throw new Error('Failed to delete Author');
+            throw new Error('Failed to delete Genre');
         }
     } catch (error) {
         console.error('Database Error', error);
-        throw new Error('Failed to delete Author');
+        throw new Error('Failed to delete Genre');
     } finally {
-        revalidatePath('/authors');
+        revalidatePath('/genres');
     }
 }

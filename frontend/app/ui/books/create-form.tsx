@@ -4,9 +4,11 @@ import Image from "next/image";
 import { fetchAuthors } from "@/app/lib/data/authors";
 import Link from "next/link";
 import { Button } from "@/app/ui/button";
+import { fetchGenres } from "@/app/lib/data/genres";
 
 export default async function Form() {
     const authors = await fetchAuthors('', 0);
+    const genres = await fetchGenres('', 0);
 
     return (
         <form action={createBook} className="mt-6 text-cyan-dark">
@@ -111,6 +113,29 @@ export default async function Form() {
                                             value={author.Id}
                                             key={author.Name}>
                                                 {author.Name}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
+                        </div>
+                    </div>
+                    <div className="m-2">
+                        <label htmlFor="author" className="mb-2 block text-base font-medium text-left w-fit outline-2">
+                            Genres:
+                        </label>
+                        <div className="relative mt-2 rounded-md bg-white h-10 border border-gray-200 content-center w-3/4 pl-9 pr-4">
+                            <select
+                                id="genre"
+                                name="genre"
+                                className="w-full">
+                                <option value="none" selected disabled hidden>Select a Genre</option>
+                                {genres.map((genre) => {
+                                    return (
+                                        <option 
+                                            value={genre.Id}
+                                            key={genre.Name}>
+                                                {genre.Name}
                                         </option>
                                     );
                                 })}

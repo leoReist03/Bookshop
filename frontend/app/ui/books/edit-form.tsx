@@ -5,6 +5,7 @@ import Image from "next/image";
 import { fetchAuthors } from "@/app/lib/data/authors";
 import Link from "next/link";
 import { Button } from "@/app/ui/button";
+import { fetchGenres } from "@/app/lib/data/genres";
 
 export default async function Form({
     book
@@ -12,6 +13,7 @@ export default async function Form({
     book: Book;
 }) {
     const authors = await fetchAuthors('', 0);
+    const genres = await fetchGenres('', 0);
 
     const updateBookWithId = updateBook.bind(null, book.Id);
 
@@ -133,6 +135,40 @@ export default async function Form({
                                                 value={author.Id}
                                                 key={author.Name}>
                                                     {author.Name}
+                                            </option>
+                                        );
+                                    }
+                                })}
+                            </select>
+                            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
+                        </div>
+                    </div>
+                    <div className="m-2">
+                        <label htmlFor="author" className="mb-2 block text-base font-medium text-left w-fit outline-2">
+                            Genres:
+                        </label>
+                        <div className="relative mt-2 rounded-md bg-white h-10 border border-gray-200 content-center w-3/4 pl-9 pr-4">
+                            <select
+                                id="genre"
+                                name="genre"
+                                className="w-full"
+                                defaultValue={book.Genre}>
+                                {genres.map((genre) => {
+                                    if (book.Genre == genre.Name) {
+                                        return (
+                                            <option 
+                                                value={genre.Id}
+                                                key={genre.Name}
+                                                selected>
+                                                    {genre.Name}
+                                            </option>
+                                        );
+                                    } else {
+                                        return (
+                                            <option 
+                                                value={genre.Id}
+                                                key={genre.Name}>
+                                                    {genre.Name}
                                             </option>
                                         );
                                     }

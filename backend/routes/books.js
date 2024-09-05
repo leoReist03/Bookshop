@@ -2,12 +2,7 @@ const express = require('express');
 const router = express.Router();
 const constants = require('../constants');
 const { body } = require('express-validator');
-var controller;
-if (constants.DATABASE_SYSTEM == 'mysql') {
-  controller = require('../controllers/mysql/booksController');
-} else {
-  controller = require('../controllers/mongodb/booksController');
-}
+const controller = require(`../controllers/${constants.DATABASE_SYSTEM}/booksController`);
 
 const validateBook = [
   body('id').optional().isString(),
