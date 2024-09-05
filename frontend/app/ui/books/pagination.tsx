@@ -22,8 +22,8 @@ export default function Pagiantion({ totalPages }: { totalPages: number }) {
 
     return (
         <>
-            <div className="w-full mg-h-fit text-cyan grid grid-cols-5 p-2 text-cyan-dark text-lg">
-                <div className="col-start-2 mx-auto">
+            <div className="w-1/2 mx-auto h-fit text-cyan rounded-lg flex text-lg bg-cyan rounded-lg">
+                <div className="">
                     <PaginationArrow
                         direction="left"
                         href={createPageURL(currentPage - 1)}
@@ -31,7 +31,7 @@ export default function Pagiantion({ totalPages }: { totalPages: number }) {
                     />
                 </div>
 
-                <div className="flex -space-x-px col-start-3 mx-auto">
+                <div className="flex -space-x-px mx-auto">
                     {allPages.map((page, index) => {
                         let position: 'first' | 'last' | 'single' | 'middle' | undefined;
 
@@ -52,7 +52,7 @@ export default function Pagiantion({ totalPages }: { totalPages: number }) {
                     })}
                 </div>
 
-                <div className="col-start-4 mx-auto">
+                <div className="col-start-3">
                     <PaginationArrow
                     direction="right"
                     href={createPageURL(currentPage + 1)}
@@ -76,10 +76,8 @@ function PaginationNumber({
     isActive: boolean;
 }) {
     const className = clsx(
-        'flex w-10 items-center justify-center bg-cyan-dark text-white',
+        'flex w-10 items-center justify-center text-gray-100',
         {
-        'rounded-l-md': position === 'first' || position === 'single',
-        'rounded-r-md': position === 'last' || position === 'single',
         'z-10 border-blue-600': isActive,
         'hover:bg-gray-100': !isActive && position !== 'middle',
         'text-gray-300': position === 'middle',
@@ -105,12 +103,12 @@ function PaginationArrow({
     isDisabled?: boolean;
 }) {
     const className = clsx(
-        'flex w-10 items-center justify-center align-middle',
+        'w-fit m-full',
         {
             'pointer-events-none text-gray-300': isDisabled,
             'hover:bg-gray-100': !isDisabled,
-            'mr-2 md:mr-4': direction === 'left',
-            'ml-2 md:ml-4': direction === 'right',
+            'ml-3': direction === 'left',
+            'mr-3': direction === 'right',
         },
     );
 

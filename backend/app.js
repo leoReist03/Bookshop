@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const bp = require('body-parser')
 
 //Root route
 app.get('/', (req, res) => {
@@ -14,6 +15,8 @@ const authorsRoute = require('./routes/authors');
 
 //Use routes
 app.use(cors());
+app.use(bp.json());
+app.use(bp.urlencoded({ extended: true }));
 app.use('/books', booksRoute);
 app.use('/genres', genresRoute);
 app.use('/authors', authorsRoute);

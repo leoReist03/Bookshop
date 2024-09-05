@@ -1,4 +1,4 @@
-import { fetchAuthors } from "@/app/lib/data";
+import { fetchAuthors } from "@/app/lib/data/authors";
 import AuthorCard from "./authorCard";
 import { Author } from "@/app/lib/models";
 
@@ -15,7 +15,7 @@ export default async function AuthorList({
         <div className="divide-y-8 divide-icewhite">
             {
                 authors.map((author: Author) => {
-                return (<AuthorCard key={author.name} author={author} />)
+                return (<AuthorCard key={author.Name} author={author} />)
             })}
         </div>
     )

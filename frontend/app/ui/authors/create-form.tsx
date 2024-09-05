@@ -1,4 +1,4 @@
-import { createAuthor } from "@/app/lib/actions"
+import { createAuthor } from "@/app/lib/actions/authors"
 import { UserIcon, IdentificationIcon, CakeIcon, CloudArrowUpIcon } from "@heroicons/react/24/outline"
 import Link from "next/link";
 import { Button } from "@/app/ui/button";

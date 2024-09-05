@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { deleteBook } from "@/app/lib/actions/books";
 
 export function CreateBook() {
     return (
@@ -16,7 +17,7 @@ export function CreateBook() {
 export function UpdateBook({ id }: { id: string }) {
   return (
       <Link
-          href="/books"
+          href={`/books/${id}/edit`}
           className="rounded-md border p-2 hover:bg-gray-100 h-fit w-fit flex flex-nowrap"
       >
           <span className="sr-only">Update</span>
@@ -26,12 +27,14 @@ export function UpdateBook({ id }: { id: string }) {
 }
 
 export function DeleteBook({ id }: { id: string }) {
+  const deleteBookWithId = deleteBook.bind(null, id);
+  
   return (
-      <>
-          <button className="rounded-md border p-2 hover:bg-gray-100 h-fit">
-              <span className="sr-only">Delete</span>
-              <TrashIcon className="w-5" />
-          </button>
-      </>
+    <form action={deleteBookWithId}>
+      <button className="rounded-md border p-2 hover:bg-gray-100 h-fit">
+        <span className="sr-only">Delete</span>
+        <TrashIcon className="w-5" />
+      </button>
+    </form>
   )
 }
