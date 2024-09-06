@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: { id: string }}) {
                     <br />
                     <p><span className="font-bold">Genre: </span>{genre.Name}</p>
                     <br />
-                    <p><span className="font-bold">Release: </span>{book.ReleaseDate}</p>
+                    <p><span className="font-bold">Release: </span>{book.ReleaseDate.toString()}</p>
                     <br />
                     <p><span className="font-bold">Pages: </span> {book.Pages}</p>
                     <br />

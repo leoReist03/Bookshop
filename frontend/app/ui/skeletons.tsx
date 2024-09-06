@@ -38,3 +38,9 @@ export function AuthorListSkeleton() {
         <div></div>
     )
 }
+
+export function GenreListSkeleton() {
+    return (
+        <div></div>
+    )
+}

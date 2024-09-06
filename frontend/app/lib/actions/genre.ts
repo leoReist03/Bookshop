@@ -12,7 +12,7 @@ const GenreShema = z.object({
 type CreateGenreInput = z.infer<typeof GenreShema>;
 type UpdateGenreInput = z.infer<typeof GenreShema>;
 
-export async function createAuthor(formData: FormData) {
+export async function createGenre(formData: FormData) {
     const rawData = Object.fromEntries(formData.entries());
     const pic = formData.get('picture') as File;
 
@@ -21,7 +21,7 @@ export async function createAuthor(formData: FormData) {
             ...rawData,
         });
 
-        const response = await fetch(`${process.env.BACKEND_URL_GENRES}/create`, {
+        const response = await fetch(`${process.env.BACKEND_URL_GENRES}create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,15 +39,14 @@ export async function createAuthor(formData: FormData) {
         }
         console.error('Database Error', error);
         throw new Error('Failed to create Genre');
-    } finally {
-        revalidatePath('/genres');
-        redirect('/genres');
     }
+
+    revalidatePath('/genres');
+    redirect('/genres');
 }
 
 export async function updateGenre(id: string, formData: FormData) {
     const rawData = Object.fromEntries(formData.entries());
-    const pic = formData.get('picture') as File;
 
     try {
         const validatedData = GenreShema.parse({
@@ -55,7 +54,7 @@ export async function updateGenre(id: string, formData: FormData) {
             id: id,
         });
 
-        const response = await fetch(`${process.env.BACKEND_URL_GENRES}/update`, {
+        const response = await fetch(`${process.env.BACKEND_URL_GENRES}update`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,9 +65,6 @@ export async function updateGenre(id: string, formData: FormData) {
         if (!response.ok) {
             throw new Error('Failed to update Genre');
         }
-
-        revalidatePath('/genres');
-        redirect('/genres');
     } catch (error) {
         if (error instanceof z.ZodError) {
             console.error('Validation Error', error.errors);
@@ -77,11 +73,14 @@ export async function updateGenre(id: string, formData: FormData) {
         console.error('Database Error', error);
         throw new Error('Failed to update Genre');
     }
+
+    revalidatePath('/genres');
+    redirect('/genres');
 }
 
 export async function deleteGenre(id: string) {
     try {
-        const response = await fetch(`${process.env.BACKEND_URL_GENRES}/delete`, {
+        const response = await fetch(`${process.env.BACKEND_URL_GENRES}delete`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

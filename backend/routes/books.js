@@ -47,9 +47,9 @@ router.post('/create', validateBook, (req, res) => {
 });
 
 
-//Edit route
+//Update route
 router.post('/update', validateBook, (req, res) => {
-  controller.edit(req)
+  controller.update(req)
     .then(result => {
       sendResponse(res, result);
   });

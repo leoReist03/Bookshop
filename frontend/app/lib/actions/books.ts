@@ -9,8 +9,8 @@ const BookShema = z.object({
     cover: z.string().default('defaultBookCover.jpg'),
     name: z.string().min(1, "Name is required"),
     description: z.string().min(1, "Description is required"),
-    pages: z.number().min(1, "Pages is required"),
-    release: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Release must be in YYYY-MM-DD format"),
+    pages: z.number().int().positive("Pages must be a positive number").min(1, "Pages is required"),
+    releaseDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Release must be in YYYY-MM-DD format"),
     authorId: z.string().min(1, "Author is required"),
     genreId: z.string().min(1, "Genre is required"),
 });
@@ -26,9 +26,10 @@ export async function createBook(formData: FormData) {
         const validatedData = BookShema.parse({
             ...rawData,
             cover: img.name === 'undefined' ? 'defaultBookCover.jpg' : img.name,
+            pages: parseInt(rawData.pages as string, 10)
         });
 
-        const response = await fetch(`${process.env.BACKEND_URL_BOOKS}/create`, {
+        const response = await fetch(`${process.env.BACKEND_URL_BOOKS}create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,10 +47,10 @@ export async function createBook(formData: FormData) {
         }
         console.error('Database Error', error);
         throw new Error('Failed to create Book');
-    } finally {
-        revalidatePath('/books');
-        redirect('/books');
     }
+    
+    revalidatePath('/books');
+    redirect('/books');
 }
 
 export async function updateBook(id: string, formData: FormData) {
@@ -60,10 +61,11 @@ export async function updateBook(id: string, formData: FormData) {
         const validatedData = BookShema.parse({
             ...rawData,
             cover: img.name === 'undefined' ? 'defaultBookCover.jpg' : img.name,
+            pages: parseInt(rawData.pages as string, 10),
             id: id
         });
 
-        const response = await fetch(`${process.env.BACKEND_URL_BOOKS}/update`, {
+        const response = await fetch(`${process.env.BACKEND_URL_BOOKS}update`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -81,15 +83,15 @@ export async function updateBook(id: string, formData: FormData) {
         }
         console.error('Database Error', error);
         throw new Error('Failed to update Book');
-    } finally {
-        revalidatePath('/books');
-        redirect('/books');
     }
+
+    revalidatePath('/books');
+    redirect('/books');
 }
 
 export async function deleteBook(id: string) {
     try {
-        const response = await fetch(`${process.env.BACKEND_URL_BOOKS}/delete`, {
+        const response = await fetch(`${process.env.BACKEND_URL_BOOKS}delete`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -105,5 +107,6 @@ export async function deleteBook(id: string) {
         throw new Error('Failed to delete Book');
     } finally {
         revalidatePath('/books');
+        redirect('/books');
     }
 }

@@ -10,12 +10,7 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE_NAME
 }).promise();
 
-var uri;
-if (constants.MONGODB_LOCAL) {
-  uri = process.env.MOGNO_DB_LOCAL;
-} else {
-  uri = process.env.MONGO_DB_ATLAS;
-}
+const uri = constants.MONGODB_LOCAL ? process.env.MOGNO_DB_LOCAL : process.env.MONGO_DB_ATLAS;
 
 const client = new MongoClient(uri, {
   serverApi: {

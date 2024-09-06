@@ -1,4 +1,3 @@
-import { fetchAuthorsPages } from '../lib/data/authors';
 import { Suspense } from 'react';
 import { AuthorListSkeleton } from '../ui/skeletons';
 import AuthorList from '../ui/authors/authorList';
@@ -17,11 +16,8 @@ export default async function Page({
     const query = searchParams?.query || ''
     const currentPage = Number(searchParams?.page) || 1;
 
-    const totalPages = await fetchAuthorsPages(query);
-
     return (
         <div className="w-full text-center bg-icewhite p-3 rounded-lg mb-5">
-
             <Pageheader text='Author List' />
             <div className='flex py-5'>
                 <Search placeholder='Search Authors...' />

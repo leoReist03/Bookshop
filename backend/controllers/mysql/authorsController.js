@@ -6,7 +6,18 @@ async function read(query) {
     const [rows] = await pool.query(`
         SELECT * FROM Authors
         WHERE Name LIKE ?`, `%${[query]}%`);
-    return rows;
+
+    result = rows.map(row => {
+        return author = {
+            Id: row.Id,
+            Name: row.Name,
+            DateOfBirth: row.DateOfBirth.toISOString().split('T')[0],
+            About: row.About,
+            Picture: row.Picture,
+        }
+    });
+
+    return result;
 }
 
 async function find(id) {
@@ -14,7 +25,18 @@ async function find(id) {
         SELECT * FROM Authors
         WHERE Id = ?
         `, [id]);
-    return rows[0];
+
+    result = rows.map(row => {
+        return author = {
+            Id: row.Id,
+            Name: row.Name,
+            DateOfBirth: row.DateOfBirth.toISOString().split('T')[0],
+            About: row.About,
+            Picture: row.Picture,
+        }
+    });
+
+    return result[0];
 }
 
 async function pages() {

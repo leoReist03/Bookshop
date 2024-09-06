@@ -42,7 +42,6 @@ export async function fetchAuthorById(id: string) {
 
 export async function fetchAuthorsPages(query: string) {
     try {
-        console.log(`${process.env.BACKEND_URL_AUTHORS}pages`);
         const authorCount = await fetch(`${process.env.BACKEND_URL_AUTHORS}pages`)
             .then((res) => res.json())
             .then((data: number[]) => {

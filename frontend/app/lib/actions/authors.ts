@@ -43,10 +43,10 @@ export async function createAuthor(formData: FormData) {
         }
         console.error('Database Error', error);
         throw new Error('Failed to create Author');
-    } finally {
-        revalidatePath('/authors');
-        redirect('/authors');
     }
+
+    revalidatePath('/authors');
+    redirect('/authors');
 }
 
 export async function updateAuthor(id: string, formData: FormData) {
@@ -60,8 +60,6 @@ export async function updateAuthor(id: string, formData: FormData) {
             id: id,
         });
 
-        console.log(JSON.stringify(validatedData));
-
         const response = await fetch(`${process.env.BACKEND_URL_AUTHORS}/update`, {
             method: 'POST',
             headers: {
@@ -73,9 +71,6 @@ export async function updateAuthor(id: string, formData: FormData) {
         if (!response.ok) {
             throw new Error('Failed to update Author');
         }
-
-        revalidatePath('/authors');
-        redirect('/authors');
     } catch (error) {
         if (error instanceof z.ZodError) {
             console.error('Validation Error', error.errors);
@@ -84,6 +79,9 @@ export async function updateAuthor(id: string, formData: FormData) {
         console.error('Database Error', error);
         throw new Error('Failed to update Author');
     }
+
+    revalidatePath('/authors');
+    redirect('/authors');
 }
 
 export async function deleteAuthor(id: string) {

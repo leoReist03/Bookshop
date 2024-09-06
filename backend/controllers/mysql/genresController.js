@@ -13,7 +13,7 @@ async function find(id) {
     const [rows] = await pool.query(`
         SELECT * FROM Genres
         WHERE Id = ?
-        `, [id]);
+    `, [id]);
     return rows[0];
 }
 
@@ -38,7 +38,7 @@ async function create(req) {
             VALUES (?, ?)
         `, [genreId, name]);
 
-        return { status: 201, message: 'Genre create successfully', genreId: id, affectedRows: result.affectedRows }
+        return { status: 201, message: 'Genre create successfully', genreId: genreId, affectedRows: result.affectedRows }
     } catch (error) {
         console.error('Database error', error);
         return { status: 500, message: 'Failed to create Genre', error: error };
@@ -58,7 +58,7 @@ async function update(req) {
             UPDATE Genres
             SET Name = ?
             WHERE Id = ?
-            `, [name], [id]);
+        `, [name, id]);
 
         return { status: 201, message: 'Genre updated successfully', genreId: id, affectedRows: result.affectedRows };
     } catch (error) {
