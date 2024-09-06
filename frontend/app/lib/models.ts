@@ -4,7 +4,7 @@ export type Book = {
     Name: string;
     Description: string;
     Pages: number;
-    ReleaseDate: string;
+    ReleaseDate: Date;
     Author: string;
     Genre: string;
 }
@@ -12,7 +12,7 @@ export type Book = {
 export type Author = {
     Id: string;
     Name: string;
-    DateOfBirth: string;
+    DateOfBirth: Date;
     About: string;
     Picture: string;
 }

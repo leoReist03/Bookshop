@@ -37,7 +37,7 @@ export default function Form() {
                         <label htmlFor="name" className="mb-2 block text-base font-medium text-left w-fit">
                             Name:
                         </label>
-                        <div className="relative mt-2 rounded-md ">
+                        <div className="relative mt-2 rounded-md">
                             <input
                                 id="name"
                                 name="name"
@@ -85,7 +85,7 @@ export default function Form() {
                 href="/authors"
                 className="flex h-10 items-center rounded-lg px-4 text-base font-medium text-cyan hover:text-cyan-dark transition-colors"
                 >
-                Cancel
+                    Cancel
                 </Link>
                 <Button type="submit">Create Author</Button>
             </div>

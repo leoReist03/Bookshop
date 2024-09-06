@@ -39,7 +39,7 @@ export default async function Form({
                                     <p className="mb-2 text-sm"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                                     <p className="text-xs">PNG or JPG(MAX.800x400px)</p>
                                 </div>
-                                <input id="cover" name="picture" type="file" className="hidden" />
+                                <input id="cover" name="cover" type="file" className="hidden" />
                             </div>
                         </label>
                     </div>
@@ -87,6 +87,8 @@ export default async function Form({
                                 name="pages"
                                 placeholder="Pages..."
                                 type="number"
+                                min="1"
+                                required
                                 defaultValue={book.Pages}
                                 className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-cyan-dark"
                             />
@@ -94,16 +96,16 @@ export default async function Form({
                         </div>
                     </div>
                     <div className="m-2">
-                        <label htmlFor="release" className="mb-2 block text-base font-medium text-left w-fit">
+                        <label htmlFor="releaseData" className="mb-2 block text-base font-medium text-left w-fit">
                             Release:
                         </label>
                         <div className="relative mt-2 rounded-md w-full">
                             <input
-                                id="release"
-                                name="release"
+                                id="releaseDate"
+                                name="releaseDate"
                                 placeholder="Release..."
                                 type="date"
-                                defaultValue={book.ReleaseDate}
+                                defaultValue={book.ReleaseDate.toString()}
                                 className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-2"
                             />
                             <CalendarDaysIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
@@ -115,29 +117,18 @@ export default async function Form({
                         </label>
                         <div className="relative mt-2 rounded-md bg-white h-10 border border-gray-200 content-center w-3/4 pl-9 pr-4">
                             <select
-                                id="author"
-                                name="author"
+                                id="authorId"
+                                name="authorId"
                                 className="w-full"
                                 defaultValue={book.Author}>
                                 {authors.map((author) => {
-                                    if (book.Author == author.Name) {
-                                        return (
-                                            <option 
-                                                value={author.Id}
-                                                key={author.Name}
-                                                selected>
-                                                    {author.Name}
-                                            </option>
-                                        );
-                                    } else {
-                                        return (
-                                            <option 
-                                                value={author.Id}
-                                                key={author.Name}>
-                                                    {author.Name}
-                                            </option>
-                                        );
-                                    }
+                                    return (
+                                        <option 
+                                            value={author.Id}
+                                            key={author.Name}>
+                                                {author.Name}
+                                        </option>
+                                    );
                                 })}
                             </select>
                             <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
@@ -149,8 +140,8 @@ export default async function Form({
                         </label>
                         <div className="relative mt-2 rounded-md bg-white h-10 border border-gray-200 content-center w-3/4 pl-9 pr-4">
                             <select
-                                id="genre"
-                                name="genre"
+                                id="genreId"
+                                name="genreId"
                                 className="w-full"
                                 defaultValue={book.Genre}>
                                 {genres.map((genre) => {

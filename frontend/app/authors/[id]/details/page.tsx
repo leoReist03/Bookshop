@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: { id: string }}) {
                 <div className="text-left w-3/4 my-4">
                     <p><span className="font-bold">About: </span>{author.About}</p>
                     <br />
-                    <p><span className="font-bold">Date of birth: </span>{author.DateOfBirth}</p>
+                    <p><span className="font-bold">Date of birth: </span>{author.DateOfBirth.toString()}</p>
                     <br />
                     <p><span className="font-bold">Books published by {author.Name}: </span></p>
                 </div>

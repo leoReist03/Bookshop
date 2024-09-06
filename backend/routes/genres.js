@@ -42,7 +42,7 @@ router.post('/create', validateGenre, (req, res) => {
 });
 
 //Update route
-router.get('/update', validateGenre, (req, res) => {
+router.post('/update', validateGenre, (req, res) => {
   controller.update(req)
     .then(result => {
       sendResponse(res, result)
@@ -50,7 +50,7 @@ router.get('/update', validateGenre, (req, res) => {
 });
 
 //Delete route
-router.get('/delete', (req, res) => {
+router.post('/delete', (req, res) => {
   controller.deleteObj(req)
     .then(result => {
       sendResponse(res, result);

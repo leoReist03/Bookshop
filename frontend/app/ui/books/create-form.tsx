@@ -22,7 +22,7 @@ export default async function Form() {
                             <div className="relative mt-2 rounded-md">
                                 <Image
                                     src={`/books/defaultBookCover.jpg`}
-                                    alt={`default book picture`}
+                                    alt={`default book cover`}
                                     width={140}
                                     height={120}
                                     className="rounded-md border mx-auto hover:brightness-95"
@@ -32,7 +32,7 @@ export default async function Form() {
                                     <p className="mb-2 text-sm"><span className="font-semibold">Click to upload</span> or drag and drop</p>
                                     <p className="text-xs">PNG or JPG(MAX.800x400px)</p>
                                 </div>
-                                <input id="cover" name="picture" type="file" className="hidden" />
+                                <input id="cover" name="cover" type="file" className="hidden" />
                             </div>
                         </label>
                     </div>
@@ -77,19 +77,21 @@ export default async function Form() {
                                 name="pages"
                                 placeholder="Pages..."
                                 type="number"
+                                min="1"
+                                required
                                 className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-cyan-dark"
                             />
                             <NumberedListIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
                     </div>
                     <div className="m-2">
-                        <label htmlFor="release" className="mb-2 block text-base font-medium text-left w-fit">
+                        <label htmlFor="releaseDate" className="mb-2 block text-base font-medium text-left w-fit">
                             Release:
                         </label>
                         <div className="relative mt-2 rounded-md w-full">
                             <input
-                                id="release"
-                                name="release"
+                                id="releaseDate"
+                                name="releaseDate"
                                 placeholder="Release..."
                                 type="date"
                                 className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-2"
@@ -98,15 +100,16 @@ export default async function Form() {
                         </div>
                     </div>
                     <div className="m-2">
-                        <label htmlFor="author" className="mb-2 block text-base font-medium text-left w-fit outline-2">
+                        <label htmlFor="authorId" className="mb-2 block text-base font-medium text-left w-fit outline-2">
                             Authors:
                         </label>
                         <div className="relative mt-2 rounded-md bg-white h-10 border border-gray-200 content-center w-3/4 pl-9 pr-4">
                             <select
-                                id="author"
-                                name="author"
-                                className="w-full">
-                                <option value="none" selected disabled hidden>Select an Author</option>
+                                id="authorId"
+                                name="authorId"
+                                className="w-full"
+                                defaultValue={'default'}>
+                                <option value="default" disabled>Choose an Author</option>
                                 {authors.map((author) => {
                                     return (
                                         <option 
@@ -121,20 +124,19 @@ export default async function Form() {
                         </div>
                     </div>
                     <div className="m-2">
-                        <label htmlFor="author" className="mb-2 block text-base font-medium text-left w-fit outline-2">
+                        <label htmlFor="genreId" className="mb-2 block text-base font-medium text-left w-fit outline-2">
                             Genres:
                         </label>
                         <div className="relative mt-2 rounded-md bg-white h-10 border border-gray-200 content-center w-3/4 pl-9 pr-4">
                             <select
-                                id="genre"
-                                name="genre"
-                                className="w-full">
-                                <option value="none" selected disabled hidden>Select a Genre</option>
+                                id="genreId"
+                                name="genreId"
+                                className="w-full"
+                                defaultValue="default">
+                                <option value={'default'} disabled>Choose a Genre</option>
                                 {genres.map((genre) => {
                                     return (
-                                        <option 
-                                            value={genre.Id}
-                                            key={genre.Name}>
+                                        <option value={genre.Id} key={genre.Name}>
                                                 {genre.Name}
                                         </option>
                                     );

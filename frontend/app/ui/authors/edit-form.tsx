@@ -82,7 +82,7 @@ export default function Form({
                                 name="dateOfBirth"
                                 type="date"
                                 placeholder="Date of Birth..."
-                                defaultValue={author.DateOfBirth}
+                                defaultValue={author.DateOfBirth.toString()}
                                 className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-2"
                             />
                             <CakeIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2"/>
