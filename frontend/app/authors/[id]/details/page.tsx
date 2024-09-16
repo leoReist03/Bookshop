@@ -9,7 +9,7 @@ export default async function Page({ params }: { params: { id: string }}) {
     const author = await fetchAuthorById(id);
 
     return (
-        <div className="w-full text-center bg-icewhite text-cyan-dark p-3 rounded-lg mb-5">
+        <div className="w-full text-center bg-icewhite dark:bg-zinc-800  text-cyan-dark dark:text-teal-600 p-3 rounded-lg mb-5">
             <Pageheader text={author.Name} />
             <div className="flex flex-wrap">
                 <div className="relative my-2 rounded-md w-full flex flex-nowrap">
@@ -19,7 +19,7 @@ export default async function Page({ params }: { params: { id: string }}) {
                             alt={`picture of ${author.Name}`}
                             width={160}
                             height={120}
-                            className="rounded-md border hover:brightness-95"
+                            className="rounded-md border border-grey-200 dark:border-zinc-600 hover:brightness-95"
                         />
                     </div>
                     <div className="flex justify-end gap-1">
@@ -28,11 +28,9 @@ export default async function Page({ params }: { params: { id: string }}) {
                     </div>
                 </div>
                 <div className="text-left w-3/4 my-4">
-                    <p><span className="font-bold">About: </span>{author.About}</p>
-                    <br />
-                    <p><span className="font-bold">Date of birth: </span>{author.DateOfBirth.toString()}</p>
-                    <br />
-                    <p><span className="font-bold">Books published by {author.Name}: </span></p>
+                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">About: </span>{author.About}</div>
+                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Date of Birth: </span>{author.DateOfBirth.toString()}</div>
+                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Books Published by: </span></div>
                 </div>
             </div>
             <div className=" flex justify-end">

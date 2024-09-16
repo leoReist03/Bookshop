@@ -52,7 +52,7 @@ If you encounter any problems and errors when running the project you can follow
 - [X] Create Book crud pages and their respective functions in the frontend
 - [x] Create Author crud pages and their respective functions in the frontend
 - [ ] Create DevOps for project and plan sprints and features
-- [ ] Create Genre crud pages and their respective functions in the frontend
+- [X] Create Genre crud pages and their respective functions in the frontend
 - [ ] Add database migrations
 - [ ] Handle upload of images with cloudinary
 - [ ] Display validation errors in the forms
@@ -69,7 +69,7 @@ If you encounter any problems and errors when running the project you can follow
 - [ ] Add a Rating sytem
 - [ ] Add a shopping cart
 - [ ] Language picker
-- [ ] (Darkmode toggle)https://medium.com/@--andrewnelson/add-a-dark-mode-toggle-to-your-nextjs-react-app-375b230a4c27#c817
+- [X] Darkmode toggle
 
 ## Thoughts and process
 In this section i talk about a few problems and decisions i encountered and the solutions i used to fix them.

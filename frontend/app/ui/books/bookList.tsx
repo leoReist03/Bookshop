@@ -12,7 +12,7 @@ export default async function BookList({
     const books = await fetchBooks(query, currentPage);
 
     return (
-        <div className="w-full text-base mt-6 flex flex-wrap bg-cyan-light p-2">
+        <div className="w-full text-base mt-6 flex flex-wrap bg-cyan-light dark:bg-zinc-900 rounded-lg p-2">
             {
             books.map((book: Book) => {
                 return (<BookCard key={book.Name} book={book} />)

@@ -17,7 +17,7 @@ export default async function Page({
     const currentPage = Number(searchParams?.page) || 1;
 
     return (
-        <div className="w-full text-center bg-icewhite p-3 rounded-lg mb-5">
+        <div className="w-full text-center bg-icewhite dark:bg-zinc-800 text-cyan dark:text-teal-600 p-3 rounded-lg mb-5">
             <Pageheader text='Author List' />
             <div className='flex py-5'>
                 <Search placeholder='Search Authors...' />

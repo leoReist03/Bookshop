@@ -1,20 +1,21 @@
 import { createBook } from "@/app/lib/actions/books";
-import { CloudArrowUpIcon, UserIcon, NumberedListIcon, CalendarDaysIcon, IdentificationIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { CloudArrowUpIcon, UserIcon, NumberedListIcon, CalendarDaysIcon, IdentificationIcon, PlusCircleIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { fetchAuthors } from "@/app/lib/data/authors";
 import Link from "next/link";
 import { Button } from "@/app/ui/button";
 import { fetchGenres } from "@/app/lib/data/genres";
+import AdvancedSelect from "./advancedSelect";
 
 export default async function Form() {
     const authors = await fetchAuthors('', 0);
     const genres = await fetchGenres('', 0);
 
     return (
-        <form action={createBook} className="mt-6 text-cyan-dark">
+        <form action={createBook} className="mt-6">
             <div className="flex flex-row">
                 <div className="basis-1/4">
-                    <div className="m-2 bg-cyan-light hover:bg-cyan-less rounded-md p-2 hover:cursor-pointer">
+                    <div className="m-2 bg-cyan-light dark:bg-zinc-900 hover:bg-cyan-less rounded-md p-2 hover:cursor-pointer">
                         <label htmlFor="cover">
                             <p className="mb-2 block text-base font-medium text-left w-fit">
                                 Cover:
@@ -48,7 +49,7 @@ export default async function Form() {
                                 name="name"
                                 type="text"
                                 placeholder="Name..."
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-cyan-dark"
+                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
                             />
                             <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
@@ -62,9 +63,9 @@ export default async function Form() {
                                 id="description"
                                 name="description"
                                 placeholder="Description..."
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-cyan-dark"
+                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:cyan focus:ring-cyan disabled:opacity-50 disabled:pointer-events-none dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
                             />
-                            <IdentificationIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
+                            <IdentificationIcon className="pointer-events-none absolute left-3 top-[23px] h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
                     </div>
                     <div className="m-2">
@@ -79,7 +80,7 @@ export default async function Form() {
                                 type="number"
                                 min="1"
                                 required
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-cyan-dark"
+                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
                             />
                             <NumberedListIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
@@ -94,7 +95,7 @@ export default async function Form() {
                                 name="releaseDate"
                                 placeholder="Release..."
                                 type="date"
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-2"
+                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-cyan-less"
                             />
                             <CalendarDaysIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
@@ -103,46 +104,16 @@ export default async function Form() {
                         <label htmlFor="authorId" className="mb-2 block text-base font-medium text-left w-fit outline-2">
                             Authors:
                         </label>
-                        <div className="relative mt-2 rounded-md bg-white h-10 border border-gray-200 content-center w-3/4 pl-9 pr-4">
-                            <select
-                                id="authorId"
-                                name="authorId"
-                                className="w-full"
-                                defaultValue={'default'}>
-                                <option value="default" disabled>Choose an Author</option>
-                                {authors.map((author) => {
-                                    return (
-                                        <option 
-                                            value={author.Id}
-                                            key={author.Name}>
-                                                {author.Name}
-                                        </option>
-                                    );
-                                })}
-                            </select>
-                            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
+                        <div className="w-3/4">
+                            <AdvancedSelect name="authorId" group={authors} groupName="Author" />
                         </div>
                     </div>
                     <div className="m-2">
                         <label htmlFor="genreId" className="mb-2 block text-base font-medium text-left w-fit outline-2">
                             Genres:
                         </label>
-                        <div className="relative mt-2 rounded-md bg-white h-10 border border-gray-200 content-center w-3/4 pl-9 pr-4">
-                            <select
-                                id="genreId"
-                                name="genreId"
-                                className="w-full"
-                                defaultValue="default">
-                                <option value={'default'} disabled>Choose a Genre</option>
-                                {genres.map((genre) => {
-                                    return (
-                                        <option value={genre.Id} key={genre.Name}>
-                                                {genre.Name}
-                                        </option>
-                                    );
-                                })}
-                            </select>
-                            <UserCircleIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
+                        <div className="w-3/4">
+                            <AdvancedSelect name="genreId" group={genres} groupName="Genre" />
                         </div>
                     </div>
                 </div>
@@ -150,7 +121,7 @@ export default async function Form() {
             <div className="mt-12 mr-8 flex justify-end gap-4">
                 <Link
                     href="/books"
-                    className="flex h-10 items-center rounded-lg px-4 text-base font-medium text-cyan hover:text-cyan-dark transition-colors"
+                    className="flex h-10 items-center rounded-lg px-4 text-base font-medium hover:text-cyan-dark dark:hover:text-teal-700 transition-colors"
                 >
                     Cancel
                 </Link>

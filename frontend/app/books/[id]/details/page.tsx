@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: { id: string }}) {
     const genre = await fetchGenreById(book.Genre);
 
     return (
-        <div className="w-full text-center bg-icewhite text-cyan-dark p-3 rounded-lg mb-5">
+        <div className="w-full text-center bg-icewhite dark:bg-zinc-800 text-cyan-dark dark:text-teal-600 p-3 rounded-lg mb-5">
             <Pageheader text={book.Name} />
             <div className="flex flex-wrap">
                 <div className="relative my-2 rounded-md w-full flex flex-nowrap">
@@ -32,21 +32,17 @@ export default async function Page({ params }: { params: { id: string }}) {
                     </div>
                 </div>
                 <div className="text-left w-3/4 my-4">
-                    <p><span className="font-bold">Author: </span>{author.Name}</p>
-                    <br />
-                    <p><span className="font-bold">Genre: </span>{genre.Name}</p>
-                    <br />
-                    <p><span className="font-bold">Release: </span>{book.ReleaseDate.toString()}</p>
-                    <br />
-                    <p><span className="font-bold">Pages: </span> {book.Pages}</p>
-                    <br />
-                    <p><span className="font-bold">Description: </span>{book.Description}</p>
+                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Author: </span>{author.Name}</div>
+                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Genre: </span>{genre.Name}</div>
+                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Release: </span>{book.ReleaseDate.toString()}</div>
+                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Pages: </span> {book.Pages}</div>
+                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Description: </span>{book.Description}</div>
                 </div>
             </div>
             <div className=" flex justify-end">
                 <Link
                     href="/books"
-                    className="flex h-10 items-center rounded-lg px-4 text-base font-medium text-white bg-cyan hover:bg-cyan-dark transition-colors w-fit"
+                    className="flex h-10 items-center rounded-lg px-4 text-base font-medium text-white dark:text-zinc-800 bg-cyan dark:bg-teal-600 hover:bg-cyan-dark dark:hover:bg-teal-700 transition-colors w-fit"
                     >
                         Back
                 </Link>
