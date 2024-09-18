@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { TableSkeleton } from "../ui/skeletons";
+import { BookListSkeleton } from "../ui/skeletons";
 import Search from "../ui/search";
 import { CreateBook } from "../ui/books/buttons";
 import Pagination from "../ui/books/pagination";
@@ -21,21 +21,21 @@ export default async function Page({
     const totalPages = await fetchBooksPages(query);
     return (
         <main>
-            <Suspense key={query + currentPage} fallback={<TableSkeleton />}>
-                <div className="w-full text-center bg-icewhite px-4 py-5 rounded-lg mb-5">
-                    <Pageheader text="Book List" />
-                    <div className="flex items-center justify-between gap-2 my-4">
-                        <Search placeholder="Search Books..." />
-                        <CreateBook />
-                    </div>
-                    <div className="w-full text-center bg-icewhite-less rounded-lg mb-5">
-                        <BookList query={query} currentPage={currentPage} />
-                    </div>
-                    <div>
-                        <Pagination totalPages={totalPages} />
-                    </div>
+            <div className="w-full text-center bg-icewhite dark:bg-zinc-800 text-cyan dark:text-teal-600 px-4 py-5 rounded-lg mb-5">
+                <Pageheader text="Book List" />
+                <div className="flex items-center justify-between gap-2 my-4">
+                    <Search placeholder="Search Books..." />
+                    <CreateBook />
                 </div>
-            </Suspense>
+                <div className="w-full text-center bg-icewhite-less rounded-lg mb-5">
+                    <Suspense key={query + currentPage} fallback={<BookListSkeleton />}>
+                        <BookList query={query} currentPage={currentPage} />
+                    </Suspense>
+                </div>
+                <div>
+                    <Pagination totalPages={totalPages} />
+                </div>
+            </div>
         </main>
     );
 }

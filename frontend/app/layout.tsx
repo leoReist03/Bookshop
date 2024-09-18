@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from '@/app/ui/navbar/navbar';
+import PrelineScript from "./ui/prelineScript";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-white`}>
+      <body className={`${inter.className} bg-white dark:bg-zinc-700`}>
         <Navbar />
         <div className="grid grid-cols-9">
           <div className="col-start-2 col-span-7">
@@ -25,6 +26,7 @@ export default function RootLayout({
           </div>
         </div>
       </body>
+      <PrelineScript />
     </html>
   );
 }

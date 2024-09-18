@@ -6,10 +6,10 @@ import Image from "next/image";
 
 export default function Form() {
     return (
-        <form action={createAuthor} className="mt-6 text-cyan-dark">
+        <form action={createAuthor} className="mt-6">
             <div className="flex flex-row">
                 <div className="basis-1/4">
-                    <div className="m-2 bg-cyan-light hover:bg-cyan-less rounded-md p-2">
+                    <div className="m-2 bg-cyan-light dark:bg-zinc-900 hover:bg-cyan-less rounded-md p-2">
                         <label htmlFor="picture">
                             <p className="mb-2 block text-base font-medium text-left w-fit">
                                 Picture:
@@ -43,7 +43,7 @@ export default function Form() {
                                 name="name"
                                 type="text"
                                 placeholder="Name..."
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-cyan-dark"
+                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
                             />
                             <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
@@ -58,9 +58,9 @@ export default function Form() {
                                 name="about"
                                 placeholder="About..."
                                 rows={5}
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 h-fit text-left align-middle placeholder:text-cyan-dark"
+                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:cyan focus:ring-cyan disabled:opacity-50 disabled:pointer-events-none dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
                             />
-                            <IdentificationIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
+                            <IdentificationIcon className="pointer-events-none absolute left-3 top-[23px] h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
                     </div>
                     <div className="m-2">
@@ -73,7 +73,7 @@ export default function Form() {
                                 name="dateOfBirth"
                                 type="date"
                                 placeholder="Date of Birth..."
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-2"
+                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-cyan-less"
                             />
                             <CakeIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2"/>
                         </div>
@@ -83,7 +83,7 @@ export default function Form() {
             <div className="mt-12 mr-8 flex justify-end gap-4">
                 <Link
                 href="/authors"
-                className="flex h-10 items-center rounded-lg px-4 text-base font-medium text-cyan hover:text-cyan-dark transition-colors"
+                className="flex h-10 items-center rounded-lg px-4 text-base font-medium hover:text-cyan-dark transition-colors"
                 >
                     Cancel
                 </Link>

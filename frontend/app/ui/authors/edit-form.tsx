@@ -13,10 +13,10 @@ export default function Form({
     const updateAuthorWithId = updateAuthor.bind(null, author.Id);
     
     return (
-        <form action={updateAuthorWithId} className="mt-6 text-cyan-dark">
+        <form action={updateAuthorWithId} className="mt-6">
             <div className="flex flex-row">
                 <div className="basis-1/4">
-                    <div className="m-2 bg-cyan-light hover:bg-cyan-less rounded-md p-2">
+                    <div className="m-2 bg-cyan-light dark:bg-zinc-900 hover:bg-cyan-less dark:hover:bg-zinc-950 rounded-md p-2">
                         <label htmlFor="picture">
                             <p className="mb-2 block text-base font-medium text-left w-fit">
                                 Picture:
@@ -51,7 +51,7 @@ export default function Form({
                                 type="text"
                                 placeholder="Name..."
                                 defaultValue={author.Name}
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2"
+                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:cyan focus:ring-cyan disabled:opacity-50 disabled:pointer-events-none dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
                             />
                             <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
@@ -67,9 +67,9 @@ export default function Form({
                                 placeholder="About..."
                                 rows={5}
                                 defaultValue={author.About}
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 h-fit align-middle"
+                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:cyan focus:ring-cyan disabled:opacity-50 disabled:pointer-events-none dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
                             />
-                            <IdentificationIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
+                            <IdentificationIcon className="pointer-events-none absolute left-3 top-[23px] h-[18px] w-[18px] -translate-y-1/2" />
                         </div>
                     </div>
                     <div className="m-2">
@@ -83,7 +83,7 @@ export default function Form({
                                 type="date"
                                 placeholder="Date of Birth..."
                                 defaultValue={author.DateOfBirth.toString()}
-                                className="peer block w-3/4 rounded-md border border-gray-200 py-2 pl-10 pr-4 text-sm outline-2"
+                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-cyan-less"
                             />
                             <CakeIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2"/>
                         </div>
