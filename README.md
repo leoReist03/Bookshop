@@ -51,9 +51,10 @@ If you encounter any problems and errors when running the project you can follow
 - [x] Change database system to Sql
 - [X] Create Book crud pages and their respective functions in the frontend
 - [x] Create Author crud pages and their respective functions in the frontend
-- [ ] Create DevOps for project and plan sprints and features
 - [X] Create Genre crud pages and their respective functions in the frontend
-- [ ] Add database migrations
+- [X] Darkmode toggle
+- [X] Add database migrations
+- [ ] Create DevOps for project to help plan sprints and features
 - [ ] Handle upload of images with cloudinary
 - [ ] Display validation errors in the forms
 - [ ] Make book-author and book-genre many-to-many
@@ -64,12 +65,11 @@ If you encounter any problems and errors when running the project you can follow
 - [ ] Create an appealing Landing page
 - [ ] Logging
 - [ ] Login
-- [ ] Add e series property to Books
+- [ ] Add a series property to Books
 - [ ] Add a Bookmarking system
 - [ ] Add a Rating sytem
 - [ ] Add a shopping cart
 - [ ] Language picker
-- [X] Darkmode toggle
 
 ## Thoughts and process
 In this section i talk about a few problems and decisions i encountered and the solutions i used to fix them.
@@ -146,6 +146,10 @@ In this section i list the packages i used in the backend and explain why i did 
 This is a framework i use to create the server and handle the api requests from the frontend.  
 https://www.npmjs.com/package/express
 
+### express-validator
+This package contains express middleware that validates express requests.
+https://www.npmjs.com/package/express-validator
+
 ### cors
 This package enables cors for http requests. Whithout it all the calls would get blocked by cors.  
 https://www.npmjs.com/package/cors
@@ -158,6 +162,64 @@ https://www.npmjs.com/package/dotenv
 This package generates the uuids for the database entries.  
 https://www.npmjs.com/package/uuid
 
+### mongodb
+This package handles the connection to the mongodb database.  
+https://www.npmjs.com/package/mongodb
+
 ### mysql2
 This package handles the connection to the mysql database. I use this over the standard mysql-package beacause it is a more advanced version.  
 https://www.npmjs.com/package/mysql2
+
+### sequelize
+This package is an ORM(object-relational mapping) tool. It allows the creation of models, migrations and seeders.  
+This way i can create a picture of the database in my project code and handle changes.  
+https://www.npmjs.com/package/sequelize
+
+### sequelize-cli
+This package allows me to create models, migrations and seeders from the command line.  
+I can also run them this way.  
+https://www.npmjs.com/package/sequelize-cli
+
+#### models
+creating a model:  
+```bash
+npx sequelize-cli model:generate --name < Model Name > --attributes < List of Attributes(firstName:string,...) >
+```  
+
+#### migrations
+generating a migration:
+```bash
+npx sequelize-cli migration:generate --name < Migration Name >
+```  
+
+running a migration:
+```bash
+npx sequelize-cli db:migrate
+```  
+
+undoing a migration:
+```bash
+npx sequelize-cli db:migrate:undo
+
+npx sequelize-cli db:migrate:undo:all
+```  
+
+#### seeds
+generating seeds:
+```bash
+npx sequelize-cli seed:generate --name < Seed Name >
+```  
+
+running seeds:
+```bash
+npx sequelize-cli db:seed:all
+```  
+
+undoing seeds:
+```bash
+npx sequelize-cli db:seed:undo
+
+npx sequelize-cli db:seed:undo --seed < Seed Name >
+
+npx sequelize-cli db:seed:undo:all
+```  

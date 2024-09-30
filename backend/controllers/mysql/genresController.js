@@ -34,9 +34,9 @@ async function create(req) {
     try {
         const genreId = uuidv4();
         const result = await pool.query(`
-            INSERT INTO Genres (Id, Name)
-            VALUES (?, ?)
-        `, [genreId, name]);
+            INSERT INTO Genres (Id, Name, CreatedAt, UpdatedAt)
+            VALUES (?, ?, ?, ?)
+        `, [genreId, name, new Date(), new Date()]);
 
         return { status: 201, message: 'Genre create successfully', genreId: genreId, affectedRows: result.affectedRows }
     } catch (error) {
@@ -56,9 +56,9 @@ async function update(req) {
     try {
         const result = await pool.query(`
             UPDATE Genres
-            SET Name = ?
+            SET Name = ?, UpdatedAt = ?
             WHERE Id = ?
-        `, [name, id]);
+        `, [name, new Date(), id]);
 
         return { status: 201, message: 'Genre updated successfully', genreId: id, affectedRows: result.affectedRows };
     } catch (error) {

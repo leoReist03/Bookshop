@@ -7,17 +7,17 @@ async function read(query) {
         SELECT * FROM Authors
         WHERE Name LIKE ?`, `%${[query]}%`);
 
-    result = rows.map(row => {
+    const mappedAuthors = rows.map(row => {
         return author = {
             Id: row.Id,
             Name: row.Name,
-            DateOfBirth: row.DateOfBirth.toISOString().split('T')[0],
+            DateOfBirth: row.DateOfBirth ? new Date(row.DateOfBirth).toISOString().split('T')[0] : null,
             About: row.About,
             Picture: row.Picture,
         }
     });
 
-    return result;
+    return mappedAuthors;
 }
 
 async function find(id) {
@@ -26,17 +26,17 @@ async function find(id) {
         WHERE Id = ?
         `, [id]);
 
-    result = rows.map(row => {
+    const mappedAuthor = rows.map(row => {
         return author = {
             Id: row.Id,
             Name: row.Name,
-            DateOfBirth: row.DateOfBirth.toISOString().split('T')[0],
+            DateOfBirth: row.DateOfBirth ? new Date(row.DateOfBirth).toISOString().split('T')[0] : null,
             About: row.About,
             Picture: row.Picture,
         }
     });
 
-    return result[0];
+    return mappedAuthor[0];
 }
 
 async function pages() {
@@ -56,9 +56,9 @@ async function create(req) {
     try {
         const authorId = uuidv4();
         const result = await pool.query(`
-            INSERT INTO Authors (Id, Name, DateOfBirth, Picture, About)
-            VALUES (?, ?, ?, ?, ?)
-        `, [authorId, name, dateOfBirth, picture, about]);
+            INSERT INTO Authors (Id, Name, DateOfBirth, Picture, About, CreatedAt, UpdatedAt)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        `, [authorId, name, dateOfBirth, picture, about, new Date(), new Date()]);
 
         return { status: 201, message: 'Author created successfully', authorId: authorId, affectedRows: result.affectedRows };
     } catch (error) {
@@ -78,9 +78,9 @@ async function update(req) {
     try {
         const result = await pool.query(`
             UPDATE Authors
-            SET Name = ?, DateOfBirth = ?, Picture = ?, About = ?
+            SET Name = ?, DateOfBirth = ?, Picture = ?, About = ?, UpdatedAt = ?
             WHERE Id = ?
-        `, [name, dateOfBirth, picture, about, id]);
+        `, [name, dateOfBirth, picture, about, new Date(), id]);
 
         return { status: 201, message: 'Author updated successfully', authorId: id, affectedRows: result.affectedRows }
     } catch (error) {
