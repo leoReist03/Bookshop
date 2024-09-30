@@ -9,12 +9,20 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Genre.init({
-    id: {
+    Id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    name: DataTypes.STRING
+    Name: DataTypes.STRING,
+    CreatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.DATE,
+    },
+    UpdatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.DATE,
+    },
   }, {
     sequelize,
     modelName: 'Genre',

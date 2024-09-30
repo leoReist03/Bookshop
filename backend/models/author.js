@@ -9,15 +9,23 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Author.init({
-    id: {
+    Id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    name: DataTypes.STRING,
-    dateOfBirth: DataTypes.DATE,
-    about: DataTypes.STRING,
-    picture: DataTypes.STRING
+    Name: DataTypes.STRING,
+    DateOfBirth: DataTypes.DATE,
+    About: DataTypes.TEXT,
+    Picture: DataTypes.STRING,
+    CreatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.DATE,
+    },
+    UpdatedAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.DATE,
+    },
   }, {
     sequelize,
     modelName: 'Author',

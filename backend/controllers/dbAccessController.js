@@ -2,7 +2,6 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const mysql = require('mysql2');
 require('dotenv').config();
 const constants = require('../constants');
-const Sequelize = require('sequelize');
 
 const pool = mysql.createPool({
   host: process.env.MYSQL_HOST,

@@ -10,20 +10,20 @@ async function read(query) {
         WHERE b.Name LIKE ?
         `, `%${[query]}%`);
 
-    result = rows.map(row => {
+    const mappedBooks = rows.map(row => {
         return author = {
             Id: row.Id,
             Cover: row.Cover,
             Name: row.Name,
             Description: row.Description,
             Pages: row.Pages,
-            ReleaseDate: row.ReleaseDate.toISOString().split('T')[0],
+            ReleaseDate: row.ReleaseDate ? new Date(row.ReleaseDate).toISOString().split('T')[0] : null,
             AuthorId: row.AuthorId,
             GenreId: row.GenreId
         }
     });
 
-    return result;
+    return mappedBooks;
 }
 
 async function find(id) {
@@ -32,20 +32,20 @@ async function find(id) {
         WHERE Id = ?
         `, [id]);
 
-    result = rows.map(row => {
+    const mappedBook = rows.map(row => {
         return author = {
             Id: row.Id,
             Cover: row.Cover,
             Name: row.Name,
             Description: row.Description,
             Pages: row.Pages,
-            ReleaseDate: row.ReleaseDate.toISOString().split('T')[0],
+            ReleaseDate: new Date(row.ReleaseDate).toISOString().split('T')[0],
             Author: row.Author,
             Genre: row.Genre
         }
     });
 
-    return result[0];
+    return mappedBook[0];
 }
 
 async function pages() {
@@ -65,9 +65,9 @@ async function create(req) {
     try {
         const bookId = uuidv4();
         const result = await pool.query(`
-            INSERT INTO Books (Id, Cover, Name, Description, Pages, ReleaseDate, AuthorId, GenreId)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        `, [bookId, cover, name, description, pages, releaseDate, authorId, genreId]);
+            INSERT INTO Books (Id, Cover, Name, Description, Pages, ReleaseDate, AuthorId, GenreId, CreatedAt, UpdatedAt)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `, [bookId, cover, name, description, pages, releaseDate, authorId, genreId, new Date(), new Date()]);
 
         return { status: 201, message: 'Book created successfully', bookId: bookId, affectedRows: result.affectedRows }
     } catch (error) {
@@ -82,15 +82,15 @@ async function update(req) {
         return { status: 400, message: 'Failed to update Book because of validation errors:', error: errors.array()}
     }
 
-    const { id, cover, name, description, pages, releaseDate, authorId, genreId} = req.body;
+    const { id, cover, name, description, pages, releaseDate, authorId, genreId } = req.body;
 
     try {
         const bookId = uuidv4();
         const result = await pool.query(`
             UPDATE Books
-            SET Cover = ?, Name = ?, Description = ?, Pages = ?, ReleaseDate = ?, AuthorId = ?, GenreId = ?
+            SET Cover = ?, Name = ?, Description = ?, Pages = ?, ReleaseDate = ?, AuthorId = ?, GenreId = ?, UpdatedAt = ?
             WHERE Id = ?
-        `, [cover, name, description, pages, releaseDate, authorId, genreId, id]);
+        `, [cover, name, description, pages, releaseDate, authorId, genreId, new Date(), id]);
 
         return { status: 201, message: 'Book updated successfully', bookId: bookId, affectedRows: result.affectedRows };
     } catch (error) {

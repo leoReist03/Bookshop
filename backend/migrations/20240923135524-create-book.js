@@ -3,40 +3,42 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Books', {
-      id: {
+      Id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
       },
-      cover: {
+      Cover: {
         type: Sequelize.STRING
       },
-      name: {
+      Name: {
         type: Sequelize.STRING
       },
-      description: {
+      Description: {
         type: Sequelize.TEXT
       },
-      pages: {
+      Pages: {
         type: Sequelize.INTEGER
       },
-      releaseDate: {
+      ReleaseDate: {
         type: Sequelize.DATE
       },
-      authorId: {
+      AuthorId: {
         type: Sequelize.UUID
       },
-      genreId: {
+      GenreId: {
         type: Sequelize.UUID
       },
-      createdAt: {
+      CreatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE
       },
-      updatedAt: {
+      UpdatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE
       }
     });
   },

@@ -3,22 +3,24 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Genres', {
-      id: {
+      Id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4
       },
-      name: {
+      Name: {
         type: Sequelize.STRING
       },
-      createdAt: {
+      CreatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE
       },
-      updatedAt: {
+      UpdatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.DATE,
       }
     });
   },
