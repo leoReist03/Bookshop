@@ -55,8 +55,9 @@ If you encounter any problems and errors when running the project you can follow
 - [X] Darkmode toggle
 - [X] Add database migrations
 - [ ] Create DevOps for project to help plan sprints and features
-- [ ] Handle upload of images with cloudinary
 - [ ] Display validation errors in the forms
+- [ ] Handle upload of images with cloudinary
+- [ ] Responsive design
 - [ ] Make book-author and book-genre many-to-many
 - [ ] List of 10 books by genre
 - [ ] Toggle list or grid
