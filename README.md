@@ -94,10 +94,8 @@ I would like to keep track of changes to my database in my project. A good way t
 With the help of these i could create the changes in code and then run the migration and update the database.
 This solution would also allow me to make rollbacks to a previous version easily.
 
-#### Possible tools to use for this
-TypeOrm - https://typeorm.io/migrations  
-Knex - https://knexjs.org/guide/migrations.html#knexfile-in-other-languages  
-PrismaORM - https://www.prisma.io/docs/orm/prisma-migrate/getting-started  
+#### Solution
+The solution in this case is sequelize and sequelize-cli. Sequelize allows me to create an image of my database in code. This way i can make changes in the code and upload them to the database. I can also create seeder-files. These store base data to upload to the database. Sequelize-cli is the commandline tool for sequelize. With this i can modify my database from the command line. See [sequelize documentation](#sequelize-cli)
 
 
 ## Data samples
