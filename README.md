@@ -181,6 +181,12 @@ This package allows me to create models, migrations and seeders from the command
 I can also run them this way.  
 https://www.npmjs.com/package/sequelize-cli
 
+#### reseed
+This is a custom script that undoes all migrations then runs them again and finally runs the seeders.
+```bash
+npm run reseed
+```
+
 #### models
 creating a model:  
 ```bash
