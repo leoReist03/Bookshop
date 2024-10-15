@@ -1,6 +1,7 @@
 import RecommendationOfTheDay from "./ui/recommendationOfTheDay";
 import { RecommendationSkeleton } from "./ui/skeletons";
 import { Suspense } from "react";
+import Pictures from '@/app/ui/pictures/pictures';
 
 export default function Home() {
   return (
@@ -8,6 +9,8 @@ export default function Home() {
       <Suspense fallback={<RecommendationSkeleton />}>
         <RecommendationOfTheDay />
       </Suspense>
+
+      <Pictures />
     </main>
   );
 }
