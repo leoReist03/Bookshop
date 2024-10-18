@@ -21,3 +21,11 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
         totalPages,
     ];
 };
+
+export const readAsDataURL = (file: File) => {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.onload = () => resolve(fileReader.result);
+        fileReader.readAsDataURL(file);
+    });
+}

@@ -11,7 +11,7 @@ interface OptionInterface {
 interface DynamicRadioButtonsProps {
     options: OptionInterface[],
     onSelect: (value: string) => void,
-    defaultValue?: string
+    defaultValue?: string,
 }
 
 export default function DynamicRadioButtons({ options, onSelect, defaultValue }: DynamicRadioButtonsProps) {
@@ -33,12 +33,14 @@ export default function DynamicRadioButtons({ options, onSelect, defaultValue }:
     };
 
     return (
-        <div className='flex gap-x-2 pl-2 mb-3'>
+        <div className='flex gap-x-2'>
             {options.map((option) => (
                 <label htmlFor={option.value} key={option.value} className={clsx(
-                    'rounded-full p-2 text-icewhite dark:text-zinc-800 font-semibold',
+                    'rounded-full p-2 text-icewhite dark:text-zinc-800 font-semibold md:',
                     {
+                        //Styling for active button
                         'bg-cyan-less hover:bg-cyan dark:bg-teal-400': selectedOption === option.value,
+                        //Styling for inactive buttons
                         'bg-cyan hover:bg-cyan-dark dark:bg-teal-600 dark:hover:bg-teal-700 cursor-pointer': selectedOption !== option.value
                     }
                 )}>

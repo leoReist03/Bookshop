@@ -11,7 +11,7 @@ const recommendedBook = {
 export default function RecommendationOfTheDay() {
     return (
         <div className="w-full text-center bg-icewhite dark:bg-zinc-800 p-3 rounded-lg mb-5 h-min">
-            <div className="text-cyan-dark dark:text-teal-600">
+            <div className="text-cyan-dark dark:text-teal-400">
                 <div className="w-full">
                     <p className="font-bold">Todays Recommended Book</p>
                 </div>

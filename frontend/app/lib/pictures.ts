@@ -1,19 +1,19 @@
 'use server';
 
 import { v2 as cloudinary } from 'cloudinary';
+import { UploadApiOptions } from 'cloudinary';
+import { revalidatePath } from 'next/cache';
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
-})
+});
 
 export async function getPictures(selectedOption: string, searchParam: string, currentPage: number, nextCursor: string, limit: number) {
-    console.log(`Query: ${selectedOption}, Public ID: ${searchParam}, Next Cursor: ${nextCursor}, Limit: ${nextCursor}`);
-
     try {
         //Create expression for the search
-        var expression =`tags:${selectedOption}`;
+        var expression =`folder:${selectedOption}`;
 
         //If a search param exists escape special characters and add it to the expression
         if (searchParam) {
@@ -40,6 +40,18 @@ export async function getPictures(selectedOption: string, searchParam: string, c
     }
 }
 
-export async function getPicture(public_id: string) {
-    return await cloudinary.search.expression().execute();
-}
+export async function uploadPicture(file: string, filename: string, type: string) {
+    try {
+        const options: UploadApiOptions = {
+            resource_type: 'auto',
+            public_id: filename,
+            folder: type === 'book' ? 'books' : 'authors',
+        }
+    
+        cloudinary.uploader.upload(file, options);
+    } catch (error) {
+        console.error('Error uploading picture to Cloudinary:', error);
+        throw error;
+    }
+    revalidatePath('/')
+  }

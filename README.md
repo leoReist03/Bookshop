@@ -56,6 +56,7 @@ If you encounter any problems and errors when running the project you can follow
 - [X] Add database migrations
 - [ ] Create DevOps for project to help plan sprints and features
 - [ ] Display validation errors in the forms
+- [ ] Handle the fetching of images with cloudinary
 - [ ] Handle upload of images with cloudinary
 - [ ] Responsive design
 - [ ] Make book-author and book-genre many-to-many

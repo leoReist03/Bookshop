@@ -10,12 +10,12 @@ export default function Search({ onSearch, placeholder }: { onSearch: (value: st
     }, 300);
 
     return (
-        <div className="relative w-2/5 mb-3">
+        <div className="relative w-2/5 mb-2">
             <label htmlFor="search" className="sr-only">
                 Search
             </label>
             <input
-                className="peer block pl-9 w-full rounded-md border bg-white dark:bg-zinc-900 border-gray-200 dark:border-zinc-700 text-base py-2 outline-0.5 placeholder:text-cyan dark:placeholder:text-teal-600 focus:ring-0"
+                className="peer block pl-9 w-full rounded-md border bg-white dark:bg-zinc-800 border-gray-200 dark:border-zinc-700 text-base py-2 outline-0.5 placeholder:text-cyan dark:placeholder:text-teal-600 focus:ring-0"
                 placeholder={placeholder}
                 onChange={(e) => {
                     handleSearch(e.target.value);
