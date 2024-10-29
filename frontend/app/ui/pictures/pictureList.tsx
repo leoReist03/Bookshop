@@ -1,10 +1,13 @@
 import PictureCard from "./pictureCard";
-
 import React, { useState, useEffect } from 'react';
-import { getPictures } from '@/app/lib/pictures';
+import { getPictures, deletePicture } from '@/app/lib/pictures';
 import DynamicRadioButtons from '../dynamicRadioButtons';
 import Search from './search';
 import Pagination from './pagination';
+import useSelection from "../../lib/utils";
+import { CloudinaryResource } from "@/app/lib/utils";
+import { Button } from "../button";
+import { Bounce, toast } from "react-toastify";
 
 const radioButtonOptions = [
     { label: 'All', value: 'books + authors'},
@@ -14,17 +17,13 @@ const radioButtonOptions = [
 
 const ITEMS_PER_PAGE = 8;
 
-interface CloudinaryResource {
-    public_id: string;
-    secure_url: string;
-}
-
 export default function PictureList() {
     const [selectedOption, setSelectedOption] = useState(radioButtonOptions[0].value);
     const [pictureData, setPictureData] = useState({ total_count: 0, resources: []})
     const [searchParam, setSearchParam] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [nextCursor, setNextCursor] = useState('');
+    const selection = useSelection();
 
     //Function to handle changes in the radio buttons
     const handleOptionSelect = (value: string) => {
@@ -39,6 +38,23 @@ export default function PictureList() {
     //Function to handle changes in the pagination
     const handleCurrentPage = (value: number) => {
         setCurrentPage(value);
+    }
+
+    const deleteSelected =() => {
+        if (selection.selectedId) {
+            deletePicture(selection.selectedId);
+            notify('Successfully deleted picture');
+        }
+    }
+
+    const returnSelected = () => {
+        if (selection.selectedId) {
+
+        }
+    }
+
+    function notify(text: string) {
+        toast.success(text, {transition: Bounce});
     }
 
     //If any of the listed values change, run the fetchPictures function
@@ -73,9 +89,13 @@ export default function PictureList() {
                     <div className="flex justify-center">
                         {pictureData.resources.map((resource: CloudinaryResource) => {
                             return (
-                                <PictureCard resource={resource} key={resource.public_id}/>
+                                <PictureCard resource={resource} key={resource.public_id} selection={selection}/>
                             );
                         })}
+                    </div>
+                    <div className="flex gap-x-2 justify-end m-2">
+                        <Button onClick={deleteSelected} disabled={selection.selectedId === null}>Delete</Button>
+                        <Button onClick={returnSelected} disabled={selection.selectedId === null}>Select</Button>
                     </div>
                 </div>
             </div>

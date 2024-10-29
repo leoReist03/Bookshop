@@ -28,7 +28,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
 
     return (
         <>
-            <div className="w-1/2 mx-auto h-fit rounded-lg flex text-lg bg-cyan dark:bg-teal-600 rounded-lg">
+            <div className="w-1/2 mx-auto h-fit rounded-lg flex text-lg bg-cyan dark:bg-teal-400 rounded-lg">
                 <div className="basis-2/12 flex">
                     <PaginationArrow
                         direction="left"
@@ -125,7 +125,7 @@ function PaginationArrow({
         'w-full h-full dark:text-zinc-800 flex justify-center p-1',
         {
             'pointer-events-none text-gray-300 dark:text-zinc-600': isDisabled,
-            'hover:bg-gray-100 dark:hover:bg-teal-700': !isDisabled,
+            'hover:bg-gray-100 dark:hover:bg-teal-500': !isDisabled,
             'rounded-l-lg': direction === 'left',
             'rounded-r-lg': direction === 'right',
         },

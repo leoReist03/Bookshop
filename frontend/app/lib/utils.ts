@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 export const generatePagination = (currentPage: number, totalPages: number) => {
     if (totalPages <= 5) {
         return Array.from({ length: totalPages}, (_, i) => i + 1);
@@ -28,4 +30,27 @@ export const readAsDataURL = (file: File) => {
         fileReader.onload = () => resolve(fileReader.result);
         fileReader.readAsDataURL(file);
     });
+}
+
+export interface CloudinaryResource {
+    public_id: string;
+    secure_url: string;
+}
+
+export interface UseSelectionReturnType {
+    selectedId: string | null;
+    handleSelect: (id: string) => void;
+}
+
+export default function useSelection(initialSelection: string | null = null): UseSelectionReturnType {
+    const [selectedId, setSelectedId] = useState<null|string>(initialSelection);
+
+    const handleSelect = (id: string) => {
+        setSelectedId(id === selectedId ? null : id);
+    }
+
+    return {
+        selectedId,
+        handleSelect,
+    };
 }

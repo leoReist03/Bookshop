@@ -39,9 +39,9 @@ export default function DynamicRadioButtons({ options, onSelect, defaultValue }:
                     'rounded-full p-2 text-icewhite dark:text-zinc-800 font-semibold md:',
                     {
                         //Styling for active button
-                        'bg-cyan-less hover:bg-cyan dark:bg-teal-400': selectedOption === option.value,
+                        'bg-cyan-less hover:bg-cyan dark:bg-teal-200': selectedOption === option.value,
                         //Styling for inactive buttons
-                        'bg-cyan hover:bg-cyan-dark dark:bg-teal-600 dark:hover:bg-teal-700 cursor-pointer': selectedOption !== option.value
+                        'bg-cyan hover:bg-cyan-dark dark:bg-teal-400 dark:hover:bg-teal-500 cursor-pointer': selectedOption !== option.value
                     }
                 )}>
                     <input

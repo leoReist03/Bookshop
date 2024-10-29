@@ -22,7 +22,7 @@ export default function Pagiantion({ totalPages }: { totalPages: number }) {
 
     return (
         <>
-            <div className="w-1/2 mx-auto h-fit rounded-lg flex text-lg bg-cyan dark:bg-teal-600 rounded-lg">
+            <div className="w-1/2 mx-auto h-fit rounded-lg flex text-lg bg-cyan dark:bg-teal-400 rounded-lg">
                 <div className="basis-2/12 flex">
                     <PaginationArrow
                         direction="left"
@@ -79,7 +79,7 @@ function PaginationNumber({
         'flex w-10 items-center justify-center text-gray-100 dark:text-zinc-800',
         {
         'z-10 border-blue-600': isActive,
-        'hover:bg-gray-100 dark:hover:bg-teal-700': !isActive && position !== 'middle',
+        'hover:bg-gray-100 dark:hover:bg-teal-500': !isActive && position !== 'middle',
         'text-gray-300': position === 'middle',
         },
     );
@@ -106,7 +106,7 @@ function PaginationArrow({
         'w-full h-full dark:text-zinc-800 flex justify-center p-1',
         {
             'pointer-events-none text-gray-300 dark:text-zinc-600': isDisabled,
-            'hover:bg-gray-100 dark:hover:bg-teal-700': !isDisabled,
+            'hover:bg-gray-100 dark:hover:bg-teal-500': !isDisabled,
             'rounded-l-lg': direction === 'left',
             'rounded-r-lg': direction === 'right',
         },

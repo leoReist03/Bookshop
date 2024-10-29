@@ -35,7 +35,7 @@ export async function getPictures(selectedOption: string, searchParam: string, c
         //Run the query and return results
         return await searchQuery.execute();
     } catch (error) {
-        console.error('Error fetching pictures from cloudinary:', error);
+        console.error('Error fetching pictures from Cloudinary:', error);
         throw error;
     }
 }
@@ -53,5 +53,15 @@ export async function uploadPicture(file: string, filename: string, type: string
         console.error('Error uploading picture to Cloudinary:', error);
         throw error;
     }
-    revalidatePath('/')
-  }
+    revalidatePath('/');
+}
+
+export async function deletePicture(public_id: string) {
+    try {
+        cloudinary.uploader.destroy(public_id);
+    } catch (error) {
+        console.error('Error deleting picture from Cloudinary', error)
+        throw error;
+    }
+    revalidatePath('/', 'page');
+}

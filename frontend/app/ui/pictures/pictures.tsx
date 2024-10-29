@@ -19,7 +19,7 @@ export default function Pictures() {
 
     return (
         <div className="w-full text-center bg-icewhite dark:bg-zinc-800 p-3 rounded-lg mb-5 h-min">
-            <div className="text-cyan-dark dark:text-teal-600 flex-nowrap">
+            <div className="text-cyan-dark dark:text-teal-400 flex-nowrap">
                 <div className="w-full">
                     <p className="font-bold">Pictures</p>
                 </div>

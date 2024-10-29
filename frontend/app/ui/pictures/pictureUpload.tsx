@@ -5,6 +5,7 @@ import DynamicRadioButtons from "../dynamicRadioButtons";
 import React, { useState } from 'react';
 import { uploadPicture } from "@/app/lib/pictures";
 import { readAsDataURL } from "@/app/lib/utils";
+import { Bounce, toast } from 'react-toastify';
 
 const radioButtonOptions = [
     { label: 'Book cover', value: 'book'},
@@ -31,8 +32,13 @@ export default function UploadPicture() {
             const fileName = selectedImage.name.split('.')[0];
             readAsDataURL(selectedImage).then(result => uploadPicture(String(result), fileName, selectedType));
             setSelectedImage(null);
+            notify();
         }
     }
+    
+    const notify = () => toast.success('Successfully uploaded Picture', {
+        transition: Bounce,
+    });
 
     return (
         <div className="bg-cyan-light dark:bg-zinc-900 rounded-lg p-1 flex-nowrap w-full justify-center mx-auto mb-2">
