@@ -24,7 +24,7 @@ export default function Form({
                         type="text"
                         placeholder="Name..."
                         defaultValue={genre.Name}
-                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
+                        className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan bg-panel-two dark:bg-panel-two-dark dark:border-zinc-700 dark:focus:ring-zinc-600 placeholder-color dark:placeholder-color-dark"
                     />
                     <IdentificationIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
                 </div>
@@ -32,7 +32,7 @@ export default function Form({
             <div className="mt-12 mr-8 flex justify-end gap-4">
                 <Link
                 href="/genres"
-                className="flex h-10 items-center rounded-lg px-4 text-base font-medium hover:text-cyan-dark dark:hover:text-teal-700 transition-colors"
+                className="flex h-10 items-center rounded-lg px-4 text-base font-medium hover:text-color-hover dark:hover:text-color-hover-dark transition-colors"
                 >
                     Cancel
                 </Link>

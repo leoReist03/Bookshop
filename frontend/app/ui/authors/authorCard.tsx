@@ -10,12 +10,12 @@ export default function AuthorCard({
     author: Author;
 }) {
     return (
-        <div className="bg-cyan-light dark:bg-zinc-900 p-4 border-solid flex mb-2">
+        <div className="bg-panel-two dark:bg-panel-two-dark p-4 border-solid flex mb-2">
             <Link
                 href={`/authors/${author.Id}/details`}
             >
                 <Image 
-                    src={`/authors/${author.Picture}`}
+                    src={author.Picture}
                     alt={`picture of ${author.Name}`}
                     width={100}
                     height={100}
@@ -27,7 +27,7 @@ export default function AuthorCard({
                     href={`/authors/${author.Id}/details`}
                     className="w-fit"
                 >
-                <span className="float-left mt-4 font-bold hover:cursor-pointer hover:text-cyan dark:hover:text-teal-700 w-fit">{author.Name}</span>
+                    <span className="float-left mt-4 font-bold hover:cursor-pointer hover:text-color-hover dark:hover:text-color-hover-dark w-fit">{author.Name}</span>
                 </Link>
                 <span className="float-left mt-4 left">{author.DateOfBirth.toString()}</span>
             </div>

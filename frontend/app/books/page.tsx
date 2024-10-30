@@ -21,13 +21,13 @@ export default async function Page({
     const totalPages = await fetchBooksPages(query);
     return (
         <main>
-            <div className="w-full text-center bg-icewhite dark:bg-zinc-800 text-cyan dark:text-teal-400 px-4 py-5 rounded-lg mb-5">
+            <div className="w-full text-center bg-panel dark:bg-panel-dark text-color dark:text-color-dark px-4 py-5 rounded-lg mb-5">
                 <Pageheader text="Book List" />
                 <div className="flex items-center justify-between gap-2 my-4">
                     <Search placeholder="Search Books..." />
                     <CreateBook />
                 </div>
-                <div className="w-full text-center bg-icewhite-less rounded-lg mb-5">
+                <div className="w-full text-center bg-panel-two rounded-lg mb-5">
                     <Suspense key={query + currentPage} fallback={<BookListSkeleton />}>
                         <BookList query={query} currentPage={currentPage} />
                     </Suspense>

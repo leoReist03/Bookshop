@@ -28,7 +28,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
 
     return (
         <>
-            <div className="w-1/2 mx-auto h-fit rounded-lg flex text-lg bg-cyan dark:bg-teal-400 rounded-lg">
+            <div className="w-1/2 mx-auto h-fit rounded-lg flex text-lg bg-button dark:bg-button-dark rounded-lg">
                 <div className="basis-2/12 flex">
                     <PaginationArrow
                         direction="left"
@@ -89,11 +89,11 @@ function PaginationNumber({
 
     //Prepare Styling for component
     const className = clsx(
-        'flex w-10 items-center justify-center text-gray-100 dark:text-zinc-800',
+        'flex w-10 items-center justify-center text-color-contrast dark:text-color-contrast-dark',
         {
         'z-10 border-blue-600': isActive,
-        'hover:bg-gray-100 dark:hover:bg-teal-700': !isActive && position !== 'middle',
-        'text-gray-300': position === 'middle',
+        'hover:bg-button-hover dark:hover:bg-button-hover-dark': !isActive && position !== 'middle',
+        'text-color': position === 'middle',
         },
     );
 
@@ -122,7 +122,7 @@ function PaginationArrow({
 
     //Prepare styling for the component
     const className = clsx(
-        'w-full h-full dark:text-zinc-800 flex justify-center p-1',
+        'w-full h-full dark:text-color-contrast-dark flex justify-center p-1',
         {
             'pointer-events-none text-gray-300 dark:text-zinc-600': isDisabled,
             'hover:bg-gray-100 dark:hover:bg-teal-500': !isDisabled,

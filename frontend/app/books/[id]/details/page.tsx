@@ -13,13 +13,13 @@ export default async function Page({ params }: { params: { id: string }}) {
     const genre = await fetchGenreById(book.Genre);
 
     return (
-        <div className="w-full text-center bg-icewhite dark:bg-zinc-800 text-cyan-dark dark:text-teal-600 p-3 rounded-lg mb-5">
+        <div className="w-full text-center bg-panel dark:bg-panel-dark text-color dark:text-color-dark p-3 rounded-lg mb-5">
             <Pageheader text={book.Name} />
             <div className="flex flex-wrap">
                 <div className="relative my-2 rounded-md w-full flex flex-nowrap">
                     <div className="grow">
                         <Image 
-                            src={`/books/${book.Cover}`}
+                            src={book.Cover}
                             alt={`picture of ${book.Name}`}
                             width={160}
                             height={120}
@@ -32,17 +32,17 @@ export default async function Page({ params }: { params: { id: string }}) {
                     </div>
                 </div>
                 <div className="text-left w-3/4 my-4">
-                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Author: </span>{author.Name}</div>
-                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Genre: </span>{genre.Name}</div>
-                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Release: </span>{book.ReleaseDate.toString()}</div>
-                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Pages: </span> {book.Pages}</div>
-                    <div className="pt-2"><span className="font-bold text-cyan dark:text-teal-500">Description: </span>{book.Description}</div>
+                    <div className="pt-2"><span className="font-bold opacity-50">Author: </span>{author.Name}</div>
+                    <div className="pt-2"><span className="font-bold opacity-50">Genre: </span>{genre.Name}</div>
+                    <div className="pt-2"><span className="font-bold opacity-50">Release: </span>{book.ReleaseDate.toString()}</div>
+                    <div className="pt-2"><span className="font-bold opacity-50">Pages: </span> {book.Pages}</div>
+                    <div className="pt-2"><span className="font-bold opacity-50">Description: </span>{book.Description}</div>
                 </div>
             </div>
             <div className=" flex justify-end">
                 <Link
                     href="/books"
-                    className="flex h-10 items-center rounded-lg px-4 text-base font-medium text-white dark:text-zinc-800 bg-cyan dark:bg-teal-600 hover:bg-cyan-dark dark:hover:bg-teal-700 transition-colors w-fit"
+                    className="flex h-10 items-center rounded-lg px-4 text-base font-medium text-color-contrast dark:text-color-contrast-dark bg-button dark:bg-button-dark hover:bg-button-hover dark:hover:bg-button-hover-dark transition-colors w-fit"
                     >
                         Back
                 </Link>

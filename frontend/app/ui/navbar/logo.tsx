@@ -5,7 +5,7 @@ export default function Logo() {
     return (
         <Link
             href={"/"}
-            className="bg-cyan dark:bg-teal-400 hover:bg-emerald-700 dark:hover:bg-teal-500 flex w-max p-2 rounded-full cursor-pointer ml-2 mr-6 transition-colors"
+            className="bg-button dark:bg-button-dark hover:bg-button-hover dark:hover:bg-button-hover-dark flex w-max p-2 rounded-full cursor-pointer ml-2 mr-6 transition-colors"
             >
             <Image 
                 src='/howlericon.svg'
@@ -23,7 +23,7 @@ export default function Logo() {
                 className="hidden dark:block"
             />
 
-            <div className="text-left font-bold text-icewhite dark:text-zinc-800">
+            <div className="text-left font-bold text-color-contrast dark:text-color-contrast-dark">
                 <p>Howler</p> 
                 <p>Books</p>
             </div>

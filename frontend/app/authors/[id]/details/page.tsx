@@ -9,13 +9,13 @@ export default async function Page({ params }: { params: { id: string }}) {
     const author = await fetchAuthorById(id);
 
     return (
-        <div className="w-full text-center bg-icewhite dark:bg-zinc-800  text-cyan-dark dark:text-teal-600 p-3 rounded-lg mb-5">
+        <div className="w-full text-center bg-panel dark:bg-panel-dark text-color dark:text-color-dark p-3 rounded-lg mb-5">
             <Pageheader text={author.Name} />
             <div className="flex flex-wrap">
                 <div className="relative my-2 rounded-md w-full flex flex-nowrap">
                     <div className="grow">
                         <Image 
-                            src={`/authors/${author.Picture}`}
+                            src={author.Picture}
                             alt={`picture of ${author.Name}`}
                             width={160}
                             height={120}
@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: { id: string }}) {
             <div className=" flex justify-end">
                 <Link
                     href="/authors"
-                    className="flex h-10 items-center rounded-lg px-4 text-base font-medium text-white bg-cyan hover:bg-cyan-dark transition-colors w-fit"
+                    className="flex h-10 items-center rounded-lg px-4 text-base font-medium text-color-contrast dark:text-color-contrast-dark bg-button dark:bg-button-dark hover:bg-button-hover dark:hover:bg-button-hover-dark transition-colors w-fit"
                     >
                         Back
                 </Link>

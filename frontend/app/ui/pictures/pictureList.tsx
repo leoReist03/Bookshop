@@ -70,7 +70,7 @@ export default function PictureList() {
     
 
     return (
-        <div className="bg-cyan-light dark:bg-zinc-900 rounded-lg p-1 flex-nowrap w-full justify-center mx-auto mb-2">
+        <div className="bg-panel-two dark:bg-panel-two-dark rounded-lg p-1 flex-nowrap w-full justify-center mx-auto mb-2">
             {/* Container for the Search and Radio-buttons */}
             <div className='flex-nowrap mx-2 my-4 gap-y-2'>
                 <Search
@@ -84,7 +84,7 @@ export default function PictureList() {
                 />
             </div>
             {/* The list itself */}
-            <div className="mt-2 flex flex-norwap rounded-md dark:bg-zinc-800 mx-auto">
+            <div className="mt-2 flex flex-norwap rounded-md bg-panel dark:bg-panel-dark mx-auto">
                 <div className='h-min pr-2 w-full my-2'>
                     <div className="flex justify-center">
                         {pictureData.resources.map((resource: CloudinaryResource) => {

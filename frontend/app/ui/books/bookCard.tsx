@@ -7,12 +7,12 @@ export default async function BookCard({ book }: { book: Book }) {
     return (
         <Link
             href={`/books/${book.Id}/details`}
-            className={`${styles.cardContainer} w-fit h-fit m-2 text-white hover:cursor-pointer`}
+            className={`${styles.cardContainer} w-fit h-fit m-2 text-color-contrast dark:text-color-contrast-dark hover:cursor-pointer`}
         >
             <div className={styles.card}>
-                <div className={`${styles.frontContent} bg-gradient-to-r from-cyan to-cyan-dark`}>
+                <div className={styles.frontContent}>
                     <Image
-                        src={`/books/${book.Cover}`}
+                        src={book.Cover}
                         width={200}
                         height={75}
                         alt={`cover for ${book.Name}`}

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/app/ui/button";
 import { fetchGenres } from "@/app/lib/data/genres";
 import AdvancedSelect from "./advancedSelect";
+import FormInput from "../form-input";
 
 export default async function Form() {
     const authors = await fetchAuthors('', 0);
@@ -15,7 +16,7 @@ export default async function Form() {
         <form action={createBook} className="mt-6">
             <div className="flex flex-row">
                 <div className="basis-1/4">
-                    <div className="m-2 bg-cyan-light dark:bg-zinc-900 hover:bg-cyan-less rounded-md p-2 hover:cursor-pointer">
+                    <div className="m-2 bg-panel-two dark:bg-panel-two-dark rounded-md p-2">
                         <label htmlFor="cover">
                             <p className="mb-2 block text-base font-medium text-left w-fit">
                                 Cover:
@@ -40,81 +41,40 @@ export default async function Form() {
                 </div>
                 <div className="basis-3/4">
                     <div className="m-2">
-                        <label htmlFor="name" className="mb-2 block text-base font-medium text-left w-fit">
-                            Name:
-                        </label>
-                        <div className="relative mt-2 rounded-md">
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                placeholder="Name..."
-                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
-                            />
-                            <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
-                        </div>
+                        <FormInput
+                            label="name"
+                            Icon={UserIcon}
+                            type="text"
+                        />
                     </div>
                     <div className="m-2">
-                        <label htmlFor="description" className="mb-2 block text-base font-medium text-left w-fit">
-                            Description:
-                        </label>
-                        <div className="relative mt-2 rounded-md">
-                            <textarea
-                                id="description"
-                                name="description"
-                                placeholder="Description..."
-                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:cyan focus:ring-cyan disabled:opacity-50 disabled:pointer-events-none dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
-                            />
-                            <IdentificationIcon className="pointer-events-none absolute left-3 top-[23px] h-[18px] w-[18px] -translate-y-1/2" />
-                        </div>
+                        <FormInput
+                            label="description"
+                            Icon={IdentificationIcon}
+                            as="textarea"
+                        />
                     </div>
                     <div className="m-2">
-                        <label htmlFor="pages" className="mb-2 block text-base font-medium text-left w-fit">
-                            Pages:
-                        </label>
-                        <div className="relative mt-2 rounded-md">
-                            <input
-                                id="pages"
-                                name="pages"
-                                placeholder="Pages..."
-                                type="number"
-                                min="1"
-                                required
-                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
-                            />
-                            <NumberedListIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
-                        </div>
+                        <FormInput
+                            label="pages"
+                            Icon={NumberedListIcon}
+                            type="number"
+                            min="1"
+                            required
+                        />
                     </div>
                     <div className="m-2">
-                        <label htmlFor="releaseDate" className="mb-2 block text-base font-medium text-left w-fit">
-                            Release:
-                        </label>
-                        <div className="relative mt-2 rounded-md w-full">
-                            <input
-                                id="releaseDate"
-                                name="releaseDate"
-                                placeholder="Release..."
-                                type="date"
-                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-cyan-less"
-                            />
-                            <CalendarDaysIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
-                        </div>
+                        <FormInput
+                            label="release"
+                            Icon={CalendarDaysIcon}
+                            type="date"
+                        />
                     </div>
                     <div className="m-2">
-                        <label htmlFor="authorId" className="mb-2 block text-base font-medium text-left w-fit outline-2">
-                            Authors:
-                        </label>
-                        <div className="w-3/4">
-                            <AdvancedSelect name="authorId" group={authors} groupName="Author" />
-                        </div>
+                        <AdvancedSelect label="authorId" group={authors} groupName="Author" />
                     </div>
                     <div className="m-2">
-                        <label htmlFor="genreId" className="mb-2 block text-base font-medium text-left w-fit outline-2">
-                            Genres:
-                        </label>
-                        <div className="w-3/4">
-                            <AdvancedSelect name="genreId" group={genres} groupName="Genre" />
-                        </div>
+                        <AdvancedSelect label="genreId" group={genres} groupName="Genre" />
                     </div>
                 </div>
             </div>

@@ -41,8 +41,8 @@ export default function UploadPicture() {
     });
 
     return (
-        <div className="bg-cyan-light dark:bg-zinc-900 rounded-lg p-1 flex-nowrap w-full justify-center mx-auto mb-2">
-            <div className="m-2 bg-cyan-light dark:bg-zinc-900 hover:bg-cyan-less rounded-md p-2 hover:cursor-pointer">
+        <div className="bg-panel-two dark:bg-panel-two-dark rounded-lg p-1 flex-nowrap w-full justify-center mx-auto mb-2">
+            <div className="m-2 rounded-md p-2">
                 <label htmlFor="cover">
                     <p className="mb-2 block text-base font-medium text-left w-fit">
                     </p>

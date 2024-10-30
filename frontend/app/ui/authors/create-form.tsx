@@ -3,13 +3,14 @@ import { UserIcon, IdentificationIcon, CakeIcon, CloudArrowUpIcon } from "@heroi
 import Link from "next/link";
 import { Button } from "@/app/ui/button";
 import Image from "next/image";
+import FormInput from "../form-input";
 
 export default function Form() {
     return (
         <form action={createAuthor} className="mt-6">
             <div className="flex flex-row">
                 <div className="basis-1/4">
-                    <div className="m-2 bg-cyan-light dark:bg-zinc-900 hover:bg-cyan-less rounded-md p-2">
+                    <div className="m-2 bg-panel-two dark:bg-panel-two-dark rounded-md p-2">
                         <label htmlFor="picture">
                             <p className="mb-2 block text-base font-medium text-left w-fit">
                                 Picture:
@@ -34,56 +35,32 @@ export default function Form() {
                 </div>
                 <div className="basis-3/4">
                     <div className="m-2">
-                        <label htmlFor="name" className="mb-2 block text-base font-medium text-left w-fit">
-                            Name:
-                        </label>
-                        <div className="relative mt-2 rounded-md">
-                            <input
-                                id="name"
-                                name="name"
-                                type="text"
-                                placeholder="Name..."
-                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
-                            />
-                            <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2" />
-                        </div>
+                        <FormInput
+                            label="name"
+                            Icon={UserIcon}
+                            type="text"
+                        />
                     </div>
                     <div className="m-2">
-                        <label htmlFor="about" className="mb-2 block text-base font-medium text-left w-fit">
-                            About:
-                        </label>
-                        <div className="relative mt-2 rounded-md">
-                            <textarea
-                                id="about"
-                                name="about"
-                                placeholder="About..."
-                                rows={5}
-                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:cyan focus:ring-cyan disabled:opacity-50 disabled:pointer-events-none dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-teal-600"
-                            />
-                            <IdentificationIcon className="pointer-events-none absolute left-3 top-[23px] h-[18px] w-[18px] -translate-y-1/2" />
-                        </div>
+                        <FormInput
+                            label="about"
+                            as="textarea"
+                            Icon={IdentificationIcon}
+                        />
                     </div>
                     <div className="m-2">
-                        <label htmlFor="dateOfBirth" className="mb-2 block text-base font-medium text-left w-fit">
-                            Date of Birth:
-                        </label>
-                        <div className="relative mt-2 rounded-md">
-                            <input
-                                id="dateOfBirth"
-                                name="dateOfBirth"
-                                type="date"
-                                placeholder="Date of Birth..."
-                                className="py-3 px-4 pl-10 block w-3/4 border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:bg-zinc-900 dark:border-zinc-700 dark:focus:ring-zinc-600 dark:placeholder-cyan-less"
-                            />
-                            <CakeIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2"/>
-                        </div>
+                        <FormInput
+                            label="birthday"
+                            Icon={CakeIcon}
+                            type="date"
+                        />
                     </div>
                 </div>
             </div>
             <div className="mt-12 mr-8 flex justify-end gap-4">
                 <Link
-                href="/authors"
-                className="flex h-10 items-center rounded-lg px-4 text-base font-medium hover:text-cyan-dark transition-colors"
+                    href="/authors"
+                    className="flex h-10 items-center rounded-lg px-4 text-base font-medium hover:text-color-hover dark:hover:text-color-hover-dark transition-colors"
                 >
                     Cancel
                 </Link>

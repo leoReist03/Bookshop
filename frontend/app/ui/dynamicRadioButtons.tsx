@@ -36,12 +36,12 @@ export default function DynamicRadioButtons({ options, onSelect, defaultValue }:
         <div className='flex gap-x-2'>
             {options.map((option) => (
                 <label htmlFor={option.value} key={option.value} className={clsx(
-                    'rounded-full p-2 text-icewhite dark:text-zinc-800 font-semibold md:',
+                    'rounded-full p-2 text-color-contrast dark:text-color-contrast-dark font-semibold md:',
                     {
                         //Styling for active button
-                        'bg-cyan-less hover:bg-cyan dark:bg-teal-200': selectedOption === option.value,
+                        'bg-button-active dark:bg-button-active-dark': selectedOption === option.value,
                         //Styling for inactive buttons
-                        'bg-cyan hover:bg-cyan-dark dark:bg-teal-400 dark:hover:bg-teal-500 cursor-pointer': selectedOption !== option.value
+                        'bg-button hover:bg-button-hover dark:bg-button-dark dark:hover:bg-button-hover-dark cursor-pointer': selectedOption !== option.value
                     }
                 )}>
                     <input
