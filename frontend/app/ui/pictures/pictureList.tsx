@@ -4,10 +4,10 @@ import { getPictures, deletePicture } from '@/app/lib/pictures';
 import DynamicRadioButtons from '../dynamicRadioButtons';
 import Search from './search';
 import Pagination from './pagination';
-import useSelection from "../../lib/utils";
-import { CloudinaryResource } from "@/app/lib/utils";
+import { CloudinaryResource, PictureListProps } from "@/app/lib/interfaces";
 import { Button } from "../button";
 import { Bounce, toast } from "react-toastify";
+import UseSelection from "@/app/lib/useSelection";
 
 const radioButtonOptions = [
     { label: 'All', value: 'books + authors'},
@@ -17,13 +17,15 @@ const radioButtonOptions = [
 
 const ITEMS_PER_PAGE = 8;
 
-export default function PictureList() {
-    const [selectedOption, setSelectedOption] = useState(radioButtonOptions[0].value);
+export default function PictureList({ handleSelect, defaultType } : PictureListProps) {
+    const defaultSelection = defaultType !== null ? defaultType === 'books' ? radioButtonOptions[1].value : radioButtonOptions[2].value : radioButtonOptions[0].value
+
+    const [selectedOption, setSelectedOption] = useState(defaultSelection);
     const [pictureData, setPictureData] = useState({ total_count: 0, resources: []})
     const [searchParam, setSearchParam] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(0);
     const [nextCursor, setNextCursor] = useState('');
-    const selection = useSelection();
+    const selection = UseSelection();
 
     //Function to handle changes in the radio buttons
     const handleOptionSelect = (value: string) => {
@@ -49,7 +51,7 @@ export default function PictureList() {
 
     const returnSelected = () => {
         if (selection.selectedId) {
-
+            handleSelect(selection.selectedId);
         }
     }
 
@@ -67,7 +69,6 @@ export default function PictureList() {
 
         fetchPictures();
     }, [selectedOption, searchParam, currentPage]);
-    
 
     return (
         <div className="bg-panel-two dark:bg-panel-two-dark rounded-lg p-1 flex-nowrap w-full justify-center mx-auto mb-2">
@@ -80,13 +81,13 @@ export default function PictureList() {
                 <DynamicRadioButtons 
                     options={radioButtonOptions}
                     onSelect={handleOptionSelect}
-                    defaultValue={radioButtonOptions[0].value}
+                    defaultValue={defaultSelection}
                 />
             </div>
             {/* The list itself */}
             <div className="mt-2 flex flex-norwap rounded-md bg-panel dark:bg-panel-dark mx-auto">
-                <div className='h-min pr-2 w-full my-2'>
-                    <div className="flex justify-center">
+                <div className='pr-2 w-full my-2'>
+                    <div className="flex flex-row flex-wrap justify-center">
                         {pictureData.resources.map((resource: CloudinaryResource) => {
                             return (
                                 <PictureCard resource={resource} key={resource.public_id} selection={selection}/>
@@ -101,11 +102,11 @@ export default function PictureList() {
             </div>
             {/* Pagination */}
             <div className='my-3'>
-                <Pagination
-                    totalPages={Math.ceil(pictureData.total_count / ITEMS_PER_PAGE)}
-                    currentPage={currentPage}
-                    onPageChange={handleCurrentPage}
-                />
+                    <Pagination
+                        totalPages={Math.ceil(pictureData.total_count / ITEMS_PER_PAGE)}
+                        currentPage={currentPage}
+                        onPageChange={handleCurrentPage}
+                    />
             </div>
         </div>
     );

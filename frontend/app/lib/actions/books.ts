@@ -20,12 +20,10 @@ type UpdateBookInput = z.infer<typeof BookShema>;
 
 export async function createBook(formData: FormData) {
     const rawData = Object.fromEntries(formData.entries());
-    const img = formData.get('cover') as File;
 
     try {
         const validatedData = BookShema.parse({
             ...rawData,
-            cover: img.name === 'undefined' ? 'defaultBookCover.jpg' : img.name,
             pages: parseInt(rawData.pages as string, 10)
         });
 
@@ -55,12 +53,10 @@ export async function createBook(formData: FormData) {
 
 export async function updateBook(id: string, formData: FormData) {
     const rawData = Object.fromEntries(formData.entries());
-    const img = formData.get('cover') as File;
 
     try {
         const validatedData = BookShema.parse({
             ...rawData,
-            cover: img.name === 'undefined' ? 'defaultBookCover.jpg' : img.name,
             pages: parseInt(rawData.pages as string, 10),
             id: id
         });

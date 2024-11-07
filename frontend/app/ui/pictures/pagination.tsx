@@ -2,12 +2,8 @@ import clsx from "clsx";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import { generatePagination } from "@/app/lib/utils";
 import React, { useEffect, useState } from "react";
+import { PaginationProps } from '@/app/lib/interfaces';
 
-interface PaginationProps {
-    currentPage: number,
-    totalPages: number,
-    onPageChange: (value: number) => void,
-}
 
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
     const [current_page, setCurrentPage] = useState(currentPage);

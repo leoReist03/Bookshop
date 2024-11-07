@@ -55,6 +55,10 @@ const config: Config = {
         'content': {
           DEFAULT: '#bdd7db',
           dark: colors.zinc[600]
+        },
+        'border': {
+          DEFAULT: '',
+          dark: colors.zinc[600]
         }
       },
     },

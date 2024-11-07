@@ -8,13 +8,14 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     label: string;
+    name: string;
     as?: 'input' | 'textarea';
     Icon: React.ComponentType<{ className?: string }>;
 }
 
 type FormInputProps = InputProps | TextareaProps
 
-export default function FormInput ({ label, as: Component = 'input', Icon, ...props }: FormInputProps) {
+export default function FormInput ({ label, name, as: Component = 'input', Icon, ...props }: FormInputProps) {
     const labelUppercase = label[0].toUpperCase() + label.slice(1);
     const className = 'py-3 px-4 pl-10 block w-3/4 bg-panel-two dark:bg-panel-two-dark placeholder-color dark:placeholder-color-dark border-gray-200 rounded-lg text-sm focus:border-cyan focus:ring-cyan dark:border-zinc-700 dark:focus:ring-zinc-600'
     
@@ -27,16 +28,16 @@ export default function FormInput ({ label, as: Component = 'input', Icon, ...pr
                 {Component === 'textarea' ? (
                     <textarea 
                         className={className}
-                        id={label}
-                        name={label}
+                        id={name}
+                        name={name}
                         placeholder={labelUppercase + '...'}
                         {...props as React.TextareaHTMLAttributes<HTMLTextAreaElement>}
                     />
                 ): (
                     <input
                         className={className}
-                        id={label}
-                        name={label}
+                        id={name}
+                        name={name}
                         placeholder={labelUppercase + '...'}
                         {...props as React.InputHTMLAttributes<HTMLInputElement>}
                     />

@@ -2,7 +2,7 @@
 
 import { v2 as cloudinary } from 'cloudinary';
 import { UploadApiOptions } from 'cloudinary';
-import { revalidatePath } from 'next/cache';
+import { getPublicIdFromSecureUrl } from './utils';
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -53,11 +53,11 @@ export async function uploadPicture(file: string, filename: string, type: string
         console.error('Error uploading picture to Cloudinary:', error);
         throw error;
     }
-    revalidatePath('/');
 }
 
-export async function deletePicture(public_id: string) {
+export async function deletePicture(secure_url: string) {
     try {
+        const public_id = getPublicIdFromSecureUrl(secure_url);
         cloudinary.uploader.destroy(public_id);
     } catch (error) {
         console.error('Error deleting picture from Cloudinary', error)
