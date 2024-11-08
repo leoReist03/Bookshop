@@ -17,12 +17,10 @@ type UpdateAuthorInput = z.infer<typeof AuthorSchema>;
 
 export async function createAuthor(formData: FormData) {
     const rawData = Object.fromEntries(formData.entries());
-    const pic = formData.get('picture') as File;
 
     try {
         const validatedData = AuthorSchema.parse({
-            ...rawData,
-            picture: pic.name === 'undefined' ? 'defaultAuthorPicture.jpg' : pic.name,
+            ...rawData
         });
 
         const response = await fetch(`${process.env.BACKEND_URL_AUTHORS}/create`, {
@@ -51,12 +49,10 @@ export async function createAuthor(formData: FormData) {
 
 export async function updateAuthor(id: string, formData: FormData) {
     const rawData = Object.fromEntries(formData.entries());
-    const pic = formData.get('picture') as File;
 
     try {
         const validatedData = AuthorSchema.parse({
             ...rawData,
-            picture: pic.name === 'undefined' ? 'defaultAuthorPicture.jpg' : `/${pic.name}`,
             id: id,
         });
 

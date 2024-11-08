@@ -10,12 +10,12 @@ const recommendedBook = {
 
 export default function RecommendationOfTheDay() {
     return (
-        <div className="w-full text-center bg-icewhite dark:bg-zinc-800 p-3 rounded-lg mb-5 h-min">
-            <div className="text-cyan-dark dark:text-teal-600">
+        <div className="w-full text-center bg-panel dark:bg-panel-dark p-3 rounded-lg mb-5 h-min">
+            <div className="text-color dark:text-color-dark">
                 <div className="w-full">
                     <p className="font-bold">Todays Recommended Book</p>
                 </div>
-                <div className="flex p-3 bg-cyan-light rounded-lg mt-2 dark:bg-zinc-900">
+                <div className="flex p-3 bg-panel-two rounded-lg mt-2 dark:bg-panel-two-dark">
                     <div className={`h-min pr-2`}>
                         <Image 
                             src={recommendedBook.cover}

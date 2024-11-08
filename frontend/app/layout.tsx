@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-white dark:bg-zinc-700`}>
+      <body className={`${inter.className} bg-background dark:bg-background-dark`}>
         <Navbar />
         <div className="grid grid-cols-9">
           <div className="col-start-2 col-span-7">

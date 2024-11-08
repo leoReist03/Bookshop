@@ -12,7 +12,7 @@ export default async function AuthorList({
     const authors = await fetchAuthors(query, currentPage);
 
     return (
-        <div className="divide-icewhite dark:divide-zinc-800">
+        <div className="divide-panel dark:divide-panel-dark">
             {
                 authors.map((author: Author) => {
                 return (<AuthorCard key={author.Name} author={author} />)

@@ -6,7 +6,7 @@ export function CreateGenre() {
     return (
         <Link
             href="/genres/create"
-          className="flex p-2 items-center rounded-lg bg-cyan  px-4 text-base font-medium text-white transition-colors hover:bg-cyan-dark dark:bg-teal-600 dark:hover:bg-teal-700 dark:text-zinc-800"
+          className="flex p-2 items-center rounded-lg bg-button hover:bg-button-hover dark:bg-button-dark dark:hover:bg-button-hover-dark text-color-contrast dark:text-color-contrast-dark px-4 text-base font-medium transition-colors"
         >
             <span className="hidden md:block">Create Genre</span>
             <PlusIcon className="h-5 md:ml-4" />
@@ -18,7 +18,7 @@ export function UpdateGenre({ id }: { id: string }) {
     return (
         <Link
             href={`/genres/${id}/edit`}
-          className="rounded-md bg-cyan dark:bg-teal-600 border-grey-200 dark:border-neutral-700 text-icewhite dark:text-neutral-800 hover:bg-cyan-dark dark:hover:bg-teal-700 p-2 h-fit w-fit flex flex-nowrap"
+          className="rounded-md bg-button dark:bg-button-dark text-color-contrast dark:text-color-contrast-dark hover:bg-button-hover dark:hover:bg-button-hover-dark p-2 h-fit w-fit flex flex-nowrap transition-colors"
         >
             <span className="sr-only">Update</span>
             <PencilIcon className="w-5" />
@@ -31,7 +31,7 @@ export function DeleteGenre({ id }: { id: string }) {
 
     return (
         <form action={deleteGenreWithId}>
-      <button className="rounded-md bg-cyan dark:bg-teal-600 border-grey-200 dark:border-neutral-700 text-icewhite dark:text-neutral-800 hover:bg-cyan-dark dark:hover:bg-teal-700 p-2 h-fit">
+      <button className="rounded-md bg-button dark:bg-button-dark text-color-contrast dark:text-color-contrast-dark hover:bg-button-hover dark:hover:bg-button-hover-dark p-2 h-fit transition-colors">
                 <span className="sr-only">Delete</span>
                 <TrashIcon className="w-5" />
             </button>

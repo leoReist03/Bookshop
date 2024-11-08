@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import colors from 'tailwindcss/colors';
 
 const config: Config = {
   content: [
@@ -15,19 +16,53 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        'lightgray': {
-          light: '#999999',
-          DEFAULT: '#bfbfbf',
+        'background': {
+          DEFAULT: colors.white,
+          dark: colors.zinc[700]
         },
-        'creme': '#f7f5ee',
-        'icewhite': '#edf4f5',
-        'cyan': {
-          light: '#cee1e4',
-          less: '#bdd7db',
+        'panel': {
+          DEFAULT: '#edf4f5',
+          dark: colors.zinc[800]
+        },
+        'panel-two': {
+          DEFAULT: '#cee1e4',
+          dark: colors.zinc[900]
+        },
+        'color': {
           DEFAULT: '#6ba6ae',
-          dark: '#3f6d73',
+          dark: colors.teal[400],
+          contrast: {
+            DEFAULT: '#edf4f5',
+            dark: colors.zinc[800]
+          },
+          hover: {
+            DEFAULT: '#3f6d73',
+            dark: colors.teal[500]
+          },
+          error: {
+            DEFAULT: colors.red[600]
+          },
         },
-        'lightblue': '#C7ECFE',
+        'button': {
+          DEFAULT: '#6ba6ae',
+          dark: colors.teal[400],
+          hover: {
+            DEFAULT: '#3f6d73',
+            dark: colors.teal[500]
+          },
+          active: {
+            DEFAULT: '#bdd7db',
+            dark: colors.teal[200]
+          }
+        },
+        'content': {
+          DEFAULT: '#bdd7db',
+          dark: colors.zinc[600]
+        },
+        'border': {
+          DEFAULT: '',
+          dark: colors.zinc[600]
+        }
       },
     },
   },

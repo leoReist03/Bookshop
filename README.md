@@ -56,6 +56,7 @@ If you encounter any problems and errors when running the project you can follow
 - [X] Add database migrations
 - [ ] Create DevOps for project to help plan sprints and features
 - [ ] Display validation errors in the forms
+- [ ] Handle the fetching of images with cloudinary
 - [ ] Handle upload of images with cloudinary
 - [ ] Responsive design
 - [ ] Make book-author and book-genre many-to-many
@@ -82,6 +83,10 @@ Except i use a filepath but then i still need a way of saving them in the projec
 #### Possible solution
 Cloudinary - the plan is to upload the picture to cloudinary and then saving the cloudinary public_id in the database this way i could access them via url. I would make a picture component with a list of every picture filtered by either author or book cover. The upload of a new picture would be handled in this component. To select a picture in order to create a new Author or Book instance you would just select the previously uploaded picture from the component.  
 Also if you dont use a picture when creating an object it will resort to using a standard one instead.
+
+### Problem with image search
+At the moment it is not possible to use contains in search because the cloudinary search api does not support it.  
+It works with using starts with search. To use contains i would need to always fetch every image and then to it client-side which is very resource expensive.
 
 ### Mongodb or Sql
 The project originally was created with mongodb in mind. But as farther into development i got, i found it more difficult to work with it. I am more used to, and fell more comfortable, with relational database-systems. Especially many-to-many relations are easier to picture and create. Also i like, and know, the syntax of sql better and i feel like mongo db is not reliable enough. There are constant errors like topic closed errors and such. These make it really hard to relliably work with it.

@@ -16,7 +16,7 @@ export default async function GenrePage({
             {genres.map((genre: Genre) => {
                 count++;
                 return (
-                    <div key={genre.Name} className="bg-cyan-light dark:bg-zinc-900 p-4 border-solid flex flex-row w-full mb-2 text-lg align-text-middle">
+                    <div key={genre.Name} className="bg-panel-two dark:bg-panel-two-dark p-4 border-solid flex flex-row w-full mb-2 text-lg align-text-middle">
                         <span className="w-10 font-bold">{count}</span>
                         <span className="grow text-left">{genre.Name}</span>
                         <div className="flex pr-4 gap-x-2">

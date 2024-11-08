@@ -2,11 +2,11 @@ import { Author, Genre } from "@/app/lib/models";
 
 export default function AdvancedSelect({
     group,
-    name,
+    label,
     groupName,
 } : {
     group: Author[] | Genre[],
-    name: string,
+    label: string,
     groupName: 'Author' | 'Genre'
 }) {
     const config = {
@@ -23,20 +23,27 @@ export default function AdvancedSelect({
         "extraMarkup": "<div class=\"absolute top-1/2 end-3 -translate-y-1/2\"><svg class=\"shrink-0 size-3.5 \" xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/></svg></div>"
     };
     return (
-        <select 
-            id={name}
-            name={name}
-            className="hidden"
-            data-hs-select={JSON.stringify(config)}
-            >
-            <option value="">Choose a {groupName}</option>
-            {group.map((obj: {Id: string, Name: string}) => {
-                return (
-                    <option value={obj.Id} key={obj.Name}>
-                            {obj.Name}
-                    </option>
-                );
-            })}
-        </select>
+        <>
+            <label htmlFor={label} className="mb-2 block text-base font-medium text-left w-fit outline-2">
+                {groupName + ':'}
+            </label>
+            <div className="w-3/4">
+                <select 
+                    id={label}
+                    name={label}
+                    className="hidden"
+                    data-hs-select={JSON.stringify(config)}
+                    >
+                    <option value="">Choose a {groupName}</option>
+                    {group.map((obj: {Id: string, Name: string}) => {
+                        return (
+                            <option value={obj.Id} key={obj.Name}>
+                                    {obj.Name}
+                            </option>
+                        );
+                    })}
+                </select>
+            </div>
+        </>
     );
 }
