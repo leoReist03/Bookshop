@@ -38,7 +38,10 @@ const config: Config = {
           hover: {
             DEFAULT: '#3f6d73',
             dark: colors.teal[500]
-          }
+          },
+          error: {
+            DEFAULT: colors.red[600]
+          },
         },
         'button': {
           DEFAULT: '#6ba6ae',

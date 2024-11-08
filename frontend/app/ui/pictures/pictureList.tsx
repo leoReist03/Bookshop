@@ -6,8 +6,8 @@ import Search from './search';
 import Pagination from './pagination';
 import { CloudinaryResource, PictureListProps } from "@/app/lib/interfaces";
 import { Button } from "../button";
-import { Bounce, toast } from "react-toastify";
 import UseSelection from "@/app/lib/useSelection";
+import { notify } from '@/app/lib/utils';
 
 const radioButtonOptions = [
     { label: 'All', value: 'books + authors'},
@@ -44,8 +44,13 @@ export default function PictureList({ handleSelect, defaultType } : PictureListP
 
     const deleteSelected =() => {
         if (selection.selectedId) {
-            deletePicture(selection.selectedId);
-            notify('Successfully deleted picture');
+            deletePicture(selection.selectedId).then((result) => {
+                if (result) {
+                    notify('Picture successfully deleted', 'success');
+                } else {
+                    notify('Cannot delete a picture that is being used', 'error');
+                } 
+            });
         }
     }
 
@@ -53,10 +58,6 @@ export default function PictureList({ handleSelect, defaultType } : PictureListP
         if (selection.selectedId) {
             handleSelect(selection.selectedId);
         }
-    }
-
-    function notify(text: string) {
-        toast.success(text, {transition: Bounce});
     }
 
     //If any of the listed values change, run the fetchPictures function

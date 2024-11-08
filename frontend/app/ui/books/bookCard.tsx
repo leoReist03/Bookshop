@@ -14,7 +14,11 @@ export default async function BookCard({ book }: { book: Book }) {
                     <Image
                         src={book.Cover}
                         width={200}
-                        height={75}
+                        height={200}
+                        style={{
+                            width: 180,
+                            height: 'auto'
+                        }}
                         alt={`cover for ${book.Name}`}
                     />
                 </div>

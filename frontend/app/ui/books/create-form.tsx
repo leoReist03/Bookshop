@@ -25,8 +25,6 @@ export default function Form({ genres, authors }: CreateBookFormProps) {
                     Cover
                 </label>
 
-                <Pictures onPictureSelect={onPictureSelect} defaultType={'books'}/>
-                
                 {bookCover && 
                 <>
                     <Image
@@ -37,7 +35,13 @@ export default function Form({ genres, authors }: CreateBookFormProps) {
                         className="rounded-md border-2 border-border border-border-dark my-3"
                     />
                     <input id='cover' name='cover' type='text' value={bookCover} hidden/>
+                    <Button onClick={() => setBookCover(null)}>Remove Picture</Button>
                 </>}
+
+                {!bookCover && 
+                    <Pictures onPictureSelect={onPictureSelect} defaultType={'books'}/>
+                }
+                
             </div>
             <div className="m-2">
                 <FormInput

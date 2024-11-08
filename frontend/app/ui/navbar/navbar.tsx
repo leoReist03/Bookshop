@@ -4,7 +4,7 @@ import ThemeSwitch from './themeSwitch';
 
 export default function navbar() {
     return (
-        <div className='m-0 overflow-hidden bg-panel dark:bg-panel-dark static top-0 left-0 right-0 shadow-lg mb-10'>
+        <div className='m-0 overflow-hidden bg-panel dark:bg-panel-dark static top-0 left-0 right-0 shadow-lg mb-10 sticky'>
             <div className='text-color dark:text-color-dark m-2 flex'>
                 <div className='basis-1/12'>
                     <Logo />
